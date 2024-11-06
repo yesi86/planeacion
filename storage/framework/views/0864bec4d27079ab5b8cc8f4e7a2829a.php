@@ -1,1 +1,0 @@
-<?php /**PATH /var/www/html/resources/views/actividades/modals/viewActiModal.blade.php ENDPATH**/ ?>

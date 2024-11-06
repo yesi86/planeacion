@@ -1,1 +1,0 @@
-<?php /**PATH /var/www/html/resources/views/actividades/modals/deleteActiModal.blade.php ENDPATH**/ ?>
