@@ -1,58 +1,154 @@
 <x-app-layout>
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen bg-[#e5e5e5]">
         <!-- Sidebar -->
-        <aside class="w-64 h-full bg-gray-800 text-white fixed">
-            <div class="p-4 flex items-center space-x-4">
-                <!-- Imagen de perfil -->
-                <div>
-                    <h2 class="text-lg font-semibold">Nombre del Usuario</h2>
-                    <p class="text-sm text-gray-400">Rol o título</p>
-                </div>
-            </div>
-            <nav class="mt-4">
+        <aside class="w-64 h-screen bg-[#3e3d45] text-white fixed">
+            
+            <nav class="mt-28 flex flex-col items-center h-full">
                 <!-- Enlaces de navegación -->
                 <ul>
-                    <li>
+                    <li class="mb-4">
                         <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
                             Objetivos
                         </a>
                     </li>
-                    <li>
+                    <li class="mb-4">
                         <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
                             Acciones
                         </a>
                     </li>
-                    <li>
-                        <a href="Ve" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
-                            Indicadores 
+                    <li class="mb-4">
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
+                            Acciones
                         </a>
                     </li>
-                    <li>
-                        <a href="Ve" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
-                            Modulo de modificacion 
+                    <li class="mb-4">
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
+                            Indicadores
                         </a>
                     </li>
-                    <li>
-                        <a href="Ve" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
-                            Requisiciones 
+                    <li class="mb-4">
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
+                            Modulo de modificación
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('logout') }}" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white justify-end"
+                    <li class="mb-4">
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
+                            Requisiciones
+                        </a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white">
+                            Notificaciones
+                        </a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="{{ route('logout') }}" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <!-- Icono de Heroicons -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-8a1 1 0 011-1h3a1 1 0 010 2h-3a1 1 0 01-1-1zm-2.707-2.293a1 1 0 00-1.414 1.414L7.586 11l-1.707 1.707a1 1 0 001.414 1.414l2-2a1 1 0 000-1.414l-2-2z" clip-rule="evenodd" />
+                            </svg>
                             Cerrar Sesión
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                             @csrf
                         </form>
                     </li>
+                    
                 </ul>
             </nav>
         </aside>
 
-        
-        <!-- Contenido principal desplazado -->
-        <div class="flex-1 ml-64 p-6">
+        <!-- Main Content -->
+        <div class="flex-1 ml-64">
+            <!-- Navbar -->
+            <nav x-data="{ open: false }" class="bg-white bg-[#e5e5e5] ">
+                <!-- Primary Navigation Menu -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end ">
+                    
+                        <!-- Settings Dropdown -->
+                        <div class="hidden sm:flex sm:items-center sm:ml-auto sm:ms-6 ">
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-white bg-[#3e3d45] hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                        <div>{{ Auth::user()->name }}</div>
+                        
+                                        <div class="ms-1">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </x-slot>
+                        
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('profile.edit')">
+                                        {{ __('Profile') }}
+                                    </x-dropdown-link>
+                        
+                                    <!-- Authentication -->
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                        
+                                        <x-dropdown-link :href="route('logout')"
+                                                onclick="event.preventDefault();
+                                                            this.closest('form').submit();">
+                                            {{ __('Log Out') }}
+                                        </x-dropdown-link>
+                                    </form>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
+                        
+            
+                        <!-- Hamburger -->
+                        <div class="-me-2 flex items-center sm:hidden">
+                            <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
+                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                    <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                    <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    
+                </div>
+            
+                <!-- Responsive Navigation Menu -->
+                <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+                    <div class="pt-2 pb-3 space-y-1">
+                        <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-responsive-nav-link>
+                    </div>
+            
+                    <!-- Responsive Settings Options -->
+                    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                        <div class="px-4">
+                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
+                            <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                        </div>
+            
+                        <div class="mt-3 space-y-1">
+                            <x-responsive-nav-link :href="route('profile.edit')">
+                                {{ __('Profile') }}
+                            </x-responsive-nav-link>
+            
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+            
+                                <x-responsive-nav-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-responsive-nav-link>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Contenido Principal -->
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
