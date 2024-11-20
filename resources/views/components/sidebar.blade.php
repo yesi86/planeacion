@@ -1,12 +1,19 @@
 <aside class="sticky top-0 h-screen w-64 p-4">
     <div class="flex flex-col bg-gradient-to-b dark:from-sidebar-a-d dark:to-sidebar-b-d from-sidebar-a-l to-sidebar-b-l h-full rounded-lg shadow-xl">
-        {{-- <!-- Logo de la Aplicación -->
-        <div class="mb-6 px-3">
-            <x-logo_aplicacion />
-        </div> --}}
+  
 
         <!-- Botones de la Sidebar -->
-        <div class="flex flex-col gap-4">
+        
+        <div class="flex flex-col p-3 h-full overflow-y-auto gap-y-2">
+            <!-- boton creacion usuario-->
+            <x-buttom_sidebar
+            etiqueta="Usuarios"
+            path="{{ route('users.index') }}"
+            :ruta="request()->routeIs('users.*')"
+            :disable="false"
+        />
+        
+
             <!-- Botón Objetivos -->
             <x-buttom_sidebar 
                 etiqueta="Objetivos"

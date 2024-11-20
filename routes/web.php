@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,4 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::prefix('usuarios')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index'); // Lista de usuarios
+    Route::get('/crear', [UserController::class, 'create'])->name('users.create'); // Formulario de creación
+    Route::get('/roles-permisos', [UserController::class, 'roles'])->name('users.roles'); // Roles y permisos
+    Route::post('/', [UserController::class, 'store'])->name('users.store'); // Guardar usuario
+});
+require __DIR__ . '/auth.php';
