@@ -21,29 +21,32 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar los datos del formulario
-        $validated = $request->validate([
+        // Validación
+        $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'photo' => 'nullable|image|max:2048', // Foto opcional, debe ser una imagen de hasta 2MB
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed', // Si tienes confirmación de password
+            'role' => 'required|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // si hay, se sube.
+        // Guardar la foto si existe
         $photoPath = null;
         if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('photos', 'public'); // Guardar en storage/public/photos
+            $photoPath = $request->file('photo')->store('photos', 'public');
         }
 
-        //creamos nuestro usuario en base de datos
-        User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']), // Hash de la contraseña
+        // Crear el usuario
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'role' => $request->input('role'),
             'photo' => $photoPath,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
+        // Redirigir o enviar respuesta
+        return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente');
     }
 
     /**

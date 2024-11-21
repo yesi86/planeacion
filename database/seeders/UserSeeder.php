@@ -15,10 +15,11 @@ class UserSeeder extends Seeder
     {
         // Crear el usuario Superadmin solo si no existe
         User::firstOrCreate(
-            ['email' => 'superadmin@example.com'],
+            ['email' => 'Testing@example.com'],
             [
-                'name' => 'Superadmin',
-                'password' => Hash::make('ITSX13_05'),
+                'name' => 'GestionTesting',
+                'password' => Hash::make('ITSX1305'),
+                'role' => 'superadmin', // Asignar el rol de superadministrador
             ]
         );
     }

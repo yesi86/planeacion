@@ -2,15 +2,19 @@
 
 @section('content')
 <div class="max-w-6xl mx-auto bg-white shadow-md rounded p-6">
+    <!-- Mensaje de éxito -->
+    @if(session('success'))
+        <div class="bg-green-500 text-white p-4 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <h2 class="text-2xl font-semibold mb-4">Lista de Usuarios</h2>
 
     <div class="flex justify-end mb-4 space-x-4">
-        <a href="{{ route('users.create') }}" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
+        <button data-modal-toggle="createUserModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
             Crear Usuario
-        </a>
-        <a href="{{ route('users.roles') }}" class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700">
-            Roles y Permisos
-        </a>
+        </button>
     </div>
 
     <table class="w-full border-collapse border border-gray-200">
@@ -20,10 +24,11 @@
                 <th class="border border-gray-300 px-4 py-2">Nombre</th>
                 <th class="border border-gray-300 px-4 py-2">Correo</th>
                 <th class="border border-gray-300 px-4 py-2">Foto</th>
+                <th class="border border-gray-300 px-4 py-2">Rol</th> <!-- Columna para mostrar el rol -->
             </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @forelse ($users as $user)
                 <tr>
                     <td class="border border-gray-300 px-4 py-2">{{ $user->id }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $user->name }}</td>
@@ -35,8 +40,13 @@
                             No disponible
                         @endif
                     </td>
+                    <td class="border border-gray-300 px-4 py-2">{{ $user->role }}</td> <!-- Mostrar el rol -->
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center py-4">No hay usuarios registrados.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 
@@ -44,4 +54,8 @@
         {{ $users->links() }}
     </div>
 </div>
+
+<!-- Incluir el modal desde la carpeta components/modals -->
+@include('components.modals.modaluser')
+
 @endsection
