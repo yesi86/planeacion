@@ -5,14 +5,30 @@
         <!-- Botones de la Sidebar -->
         
         <div class="flex flex-col p-3 h-full overflow-y-auto gap-y-2">
+            
+            <!-- boton creacion usuario--> 
+            <x-buttom_sidebar
+                etiqueta="HOME"
+                path="{{ route('dashboard') }}"
+                :ruta="null"
+                :disable="false"
+             />
+
             <!-- boton creacion usuario-->
             <x-buttom_sidebar
-            etiqueta="Usuarios"
-            path="{{ route('users.index') }}"
-            :ruta="request()->routeIs('users.*')"
-            :disable="false"
-        />
+                etiqueta="Usuarios"
+                path="{{ route('users.index') }}"
+                :ruta="request()->routeIs('users.*')"
+                :disable="false"
+            />
         
+            <!-- boton area y responsables-->
+            <x-buttom_sidebar
+                etiqueta="Areas"
+                path="null"
+                :ruta="null"
+                :disable="false"
+            />
 
             <!-- Botón Objetivos -->
             <x-buttom_sidebar 
