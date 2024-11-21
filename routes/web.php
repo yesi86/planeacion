@@ -25,6 +25,9 @@ Route::prefix('usuarios')->group(function () {
     Route::post('/', [UserController::class, 'store'])->name('users.store'); // Guardar usuario
 });
 
+Route::get('/objetivo', function () {
+    return view('Objetivos.Objetivo'); // Carga la vista en resources/views/objetivos/objetivos.blade.php
+});
 
 Route::get('/accion', function () {
     return view('moduloAcciones.accion');
