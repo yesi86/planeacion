@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const modalToggle = document.querySelector("[data-modal-toggle='createUserModal']");
-    const modal = document.getElementById("createUserModal");
+    const modalToggles = document.querySelectorAll("[data-modal-toggle]");
 
+    modalToggles.forEach(modalToggle => {
+        // Obtiene el ID del modal correspondiente desde el atributo 'data-modal-toggle'
+        const modalId = modalToggle.getAttribute('data-modal-toggle');
+        const modal = document.getElementById(modalId);
     // Mostrar modal
     if (modalToggle) {
         modalToggle.addEventListener("click", () => {
@@ -15,4 +18,5 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.classList.add("hidden");
         };
     }
+});
 });

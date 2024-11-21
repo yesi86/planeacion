@@ -24,4 +24,9 @@ Route::prefix('usuarios')->group(function () {
     Route::get('/roles-permisos', [UserController::class, 'roles'])->name('users.roles'); // Roles y permisos
     Route::post('/', [UserController::class, 'store'])->name('users.store'); // Guardar usuario
 });
+
+
+Route::get('/accion', function () {
+    return view('moduloAcciones.accion');
+});
 require __DIR__ . '/auth.php';

@@ -1,0 +1,19 @@
+<div id="AgregarAccionModal" tabindex="-1" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+        <h2 class="text-lg font-bold mb-4">Acciones</h2>
+        <div class="flex space-x-4">
+            <div class="flex-grow">
+                <input type="text" id="campo1" name="campo1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="accion">
+            </div>
+            <div class="w-1/3">
+                <button id="botonAñadir" class="px-6 py-3 bg-blue-500 text-blue font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <i class="fas fa-plus"></i>
+                    <span>Añadir</span>
+                </button>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700" onclick="closeModal()">Guardar</button>
+        </div>
+    </div>
+</div>
