@@ -1,5 +1,6 @@
 import './bootstrap';
 import './modal';  // Esto importa tu archivo modal.js
+import './successmessage';
 
 import Alpine from 'alpinejs';
 

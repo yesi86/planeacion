@@ -3,11 +3,13 @@
 @section('content')
 <div class="max-w-6xl mx-auto bg-white shadow-md rounded p-6">
     <!-- Mensaje de éxito -->
-    @if(session('success'))
-        <div class="bg-green-500 text-white p-4 rounded mb-4">
-            {{ session('success') }}
-        </div>
+    @if(session('success')) 
+    {{-- modificas dentro de js --}}
+    <div class="success-message bg-green-500 text-white p-4 rounded mb-4">
+        {{ session('success') }}
+    </div>
     @endif
+
 
     <h2 class="text-2xl font-semibold mb-4">Lista de Usuarios</h2>
 

@@ -9,14 +9,6 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Muestra el formulario para crear un nuevo usuario.
-     */
-    public function create()
-    {
-        return view('usuarios.create'); // La vista del formulario de creación
-    }
-
-    /**
      * Almacena un nuevo usuario en la base de datos.
      */
     public function store(Request $request)
@@ -25,11 +17,13 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed', // Si tienes confirmación de password
+            'password' => 'required|string|min:8|confirmed',
             'role' => 'required|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        // Verificar los datos enviados
+        //dd($request->all()); // Para depuración, muestra los datos recibidos
         // Guardar la foto si existe
         $photoPath = null;
         if ($request->hasFile('photo')) {
@@ -45,9 +39,10 @@ class UserController extends Controller
             'photo' => $photoPath,
         ]);
 
-        // Redirigir o enviar respuesta
+        // Redirigir con el mensaje de éxito dentro de la misma vista pasas el parametro success
         return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente');
     }
+
 
     /**
      * Lista los usuarios (futuro)
