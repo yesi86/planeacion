@@ -33,14 +33,14 @@
             <!-- Botón Objetivos -->
             <x-buttom_sidebar 
                 etiqueta="Objetivos"
-                path=""
+                path="objetivo"
                 :ruta="null" 
                 :disabled="false" />
 
             <!-- Botón Acciones -->
             <x-buttom_sidebar 
                 etiqueta="Acciones"
-                path=""
+                path="accion"
                 :ruta="null" 
                 :disabled="false" />
 

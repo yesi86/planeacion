@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="max-w-6xl mx-auto bg-white shadow-md rounded p-6">
+    
     <!-- Mensaje de éxito -->
     @if(session('success')) 
     {{-- modificas dentro de js --}}
