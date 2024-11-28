@@ -47,7 +47,7 @@
                         <option value="{{ $role->id }}">{{ $role->name }}</option>
                     @endforeach
                 </select>
-        </div>
+            </div>
 
 
             <!-- Campo de foto -->

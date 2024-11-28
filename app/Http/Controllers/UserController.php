@@ -25,7 +25,7 @@ class UserController extends Controller
 
         // Verificar los datos enviados
         //dd($request->all()); // Para depuración, muestra los datos recibidos
-        // Guardar la foto si existe
+        // Guardar la foto si existe aun no sirve, falta checar
         $photoPath = null;
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('photos', 'public');
@@ -51,7 +51,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10); // Paginación de 10 usuarios por página
-        $rol = Role::all();
+        // $rol = Role::all(); esto solo en caso de querer todos los roles
+        // con eloquent podemos seccionar en los datos que queremos mandar en el compact
+        $rol = Role::whereIn('name', ['administrador', 'superadministrador'])->get();
         return view('usuarios.index', compact('users', 'rol'));
     }
 }
