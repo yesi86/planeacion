@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ResponsableController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+// ruta usuarios
 Route::prefix('usuarios')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index'); // Lista de usuarios
     Route::get('/crear', [UserController::class, 'create'])->name('users.create'); // Formulario de creación
@@ -32,4 +34,8 @@ Route::get('/objetivo', function () {
 Route::get('/accion', function () {
     return view('moduloAcciones.accion');
 });
+
+// rutas responsables:
+Route::resource('responsable', ResponsableController::class);
+
 require __DIR__ . '/auth.php';

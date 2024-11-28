@@ -22,11 +22,11 @@
                 :disable="false"
             />
 
-            <!-- boton creacion usuario-->
+            <!-- boton creacion responsable-->
             <x-buttom_sidebar
                 etiqueta="Responsables"
-                path="null"
-                :ruta="null"
+                path="{{ route('responsable.index') }}"
+                :ruta="request()->routeIs('responsable.*')"
                 :disable="false"
             />
         
