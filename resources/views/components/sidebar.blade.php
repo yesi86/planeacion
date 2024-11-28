@@ -21,6 +21,14 @@
                 :ruta="request()->routeIs('users.*')"
                 :disable="false"
             />
+
+            <!-- boton creacion usuario-->
+            <x-buttom_sidebar
+                etiqueta="Responsables"
+                path="null"
+                :ruta="null"
+                :disable="false"
+            />
         
             <!-- boton area y responsables-->
             <x-buttom_sidebar

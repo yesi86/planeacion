@@ -39,14 +39,16 @@
                 <input type="password" name="password_confirmation" id="password_confirmation" class="w-full px-4 py-2 border border-gray-300 rounded" required>
             </div>
 
-            <!-- Campo de rol -->
+         <!-- Campo de rol -->
             <div class="mb-4">
-                <label for="role" class="block text-gray-700">Rol</label>
-                <select name="role" id="role" class="w-full px-4 py-2 border border-gray-300 rounded">
-                    <option value="admin">Administrador</option>
-                    <option value="superadmin">Superadministrador</option>
+                <label for="role_id" class="block text-gray-700">Rol</label>
+                <select name="role_id" id="role_id" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                    @foreach($rol as $role)
+                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                    @endforeach
                 </select>
-            </div>
+        </div>
+
 
             <!-- Campo de foto -->
             <div class="mb-4">

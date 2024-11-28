@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role');
+            $table->bigInteger('role_id');
             $table->string('photo')->nullable(); // Agregar la columna photo como nullable
             $table->rememberToken();
             $table->timestamps();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,7 +19,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string',
+            'role_id' => 'required|exists:rol,id',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -35,7 +36,7 @@ class UserController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
-            'role' => $request->input('role'),
+            'role_id' => $request->input('role_id'),
             'photo' => $photoPath,
         ]);
 
@@ -50,6 +51,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10); // Paginación de 10 usuarios por página
-        return view('usuarios.index', compact('users'));
+        $rol = Role::all();
+        return view('usuarios.index', compact('users', 'rol'));
     }
 }

@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Obtiene el ID del modal correspondiente desde el atributo 'data-modal-toggle'
         const modalId = modalToggle.getAttribute('data-modal-toggle');
         const modal = document.getElementById(modalId);
-    // Mostrar modal
+   
+        // Mostrar modal
     if (modalToggle) {
         modalToggle.addEventListener("click", () => {
             modal.classList.remove("hidden");

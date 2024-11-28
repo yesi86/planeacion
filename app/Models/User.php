@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'role_id',
         'photo',
     ];
 
@@ -46,5 +46,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    // definimos nuestra relacion uno a muchos con la tabla rol
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

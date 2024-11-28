@@ -43,7 +43,9 @@
                             No disponible
                         @endif
                     </td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $user->role }}</td> <!-- Mostrar el rol -->
+                    <td class="border border-gray-300 px-4 py-2">
+                        {{ $user->role->name ?? 'Sin asignar' }}
+                    </td>
                 </tr>
             @empty
                 <tr>
