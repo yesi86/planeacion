@@ -12,11 +12,15 @@ class CreateResponsableTable extends Migration
     public function up(): void
     {
         Schema::create('responsable', function (Blueprint $table) {
-            $table->id(); // ID principal
-            $table->string('name'); // Nombre del responsable
-            $table->foreignId('area_id')->nullable(); // Relación con área (null por ahora) acuerdate de agregar el constrained cuando se creean
-            $table->foreignId('delegado_id')->nullable(); // Relación con delegado (null por ahora)
-            $table->foreignId('planeacion_id')->nullable(); // Relación con planeación (null por ahora)
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->foreignId('role_id')->default(2);
+            $table->string('photo')->nullable();
+            $table->foreignId('area_id')->nullable();
+            $table->foreignId('delegado_id')->nullable();
+            $table->foreignId('planeacion_id')->nullable();
             $table->timestamps();
         });
     }

@@ -36,6 +36,8 @@ Route::get('/accion', function () {
 });
 
 // rutas responsables:
-Route::resource('responsable', ResponsableController::class);
-
+Route::prefix('responsable')->group(function () {
+    Route::get('/', [ResponsableController::class, 'index'])->name('responsable.index'); // Lista de responsables
+    Route::post('/guardar', [ResponsableController::class, 'store'])->name('responsables.store'); // Guardar responsable
+});
 require __DIR__ . '/auth.php';
