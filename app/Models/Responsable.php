@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as AuthenticatableModel;
+use Illuminate\Notifications\Notifiable;
 
-class Responsable extends Authenticatable
+class Responsable extends AuthenticatableModel
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'responsable';
 
@@ -30,14 +32,30 @@ class Responsable extends Authenticatable
         'remember_token',
     ];
 
-    //   relacion con el modelo role
+    /**
+     * Cast the "email_verified_at" attribute to a timestamp.
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    // Relación con el modelo Role
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
-    // check de que si tenga el rol asignado en este caso 3
+
+    // Verifica si el responsable tiene un rol específico (en este caso, rol 3)
     public function getIsResponsableAttribute()
     {
         return $this->role_id === 3;
+    }
+
+    /**
+     * Obtiene la contraseña para la autenticación.
+     */
+    public function getAuthPassword()
+    {
+        return $this->password;
     }
 }

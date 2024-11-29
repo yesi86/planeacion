@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Responsable;
+use Illuminate\Support\Facades\Hash;
+
 
 class ResponsableController extends Controller
 {
@@ -39,7 +41,7 @@ class ResponsableController extends Controller
         $responsable = Responsable::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->input('password')),
             'role_id' => 3, //le puse 3 porque es la id de responsable
             'photo' => $photoPath,
         ]);

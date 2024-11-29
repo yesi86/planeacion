@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        // agregamos un guard para poder utilizar responsable en la sesion
+        'responsable' => [
+            'driver' => 'session',
+            'provider' => 'responsables',  // Aquí se utiliza el provider responsable.
+        ],
     ],
 
     /*
@@ -65,10 +70,10 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'responsables' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Responsable::class),  // Este es el modelo
+        ],
     ],
 
     /*
@@ -93,6 +98,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'responsable' => [
+            'provider' => 'responsable',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

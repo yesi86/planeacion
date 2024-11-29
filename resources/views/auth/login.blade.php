@@ -8,9 +8,8 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}" class="space-y-4">
+    <form method="POST" action="{{ route('login.auth') }}" class="space-y-4">
         @csrf
-
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Correo:')" class="text-sm font-bold text-gray-600 dark:text-gray-600"/>
@@ -19,12 +18,12 @@
                 class="block mt-1 w-full text-black dark:text-red" 
                 style="background-color: #024A86; color: white; border-radius: 1rem;"  
                 type="email" 
-                name="email" 
-                :value="old('email')" 
+                name="usuario" 
+                :value="old('usuario')" 
                 required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-red-600" />
         </div>
-
+        
         <!-- Password -->
         <div>
             <x-input-label for="password" :value="__('Contraseña:')" class="text-sm font-bold text-gray-600 dark:text-gray-600"/>
@@ -37,25 +36,30 @@
                 required autocomplete="current-password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-red-600" />
         </div>
-
+        
+        <!-- Error General -->
+        @if ($errors->has('login'))
+            <div class="text-red-600 text-sm font-bold">
+                {{ $errors->first('login') }}
+            </div>
+        @endif
+    
         <!-- Submit Button -->
         <div class="flex items-center justify-between mt-4">
             <div class="flex items-center">
-                <!-- Recuerdame -->
                 <div class="flex items-center mr-4">
                     <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
                     <label for="remember_me" class="ml-2 text-sm font-bold text-gray-600 dark:text-gray-400">{{ __('Recuérdame') }}</label>
                 </div>
             </div>
-
-            <!-- Botón "Iniciar" con hover y estilo Tailwind -->
+    
             <div class="flex items-center">
                 <x-primary-button 
                     class="bg-[#b7b1af] text-white rounded-xl w-[230px] py-1.5 px-12 transition-colors duration-300 hover:bg-[#58585b]">
-                    {{ __('Iniciar') }}
+                    {{ __('Iniciar sesión') }}
                 </x-primary-button>
             </div>
-            
         </div>
     </form>
+    
 </x-guest-layout>

@@ -16,7 +16,7 @@ class CreateResponsableTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->foreignId('role_id')->default(2);
+            $table->foreignId('role_id')->constrained('rol');
             $table->string('photo')->nullable();
             $table->foreignId('area_id')->nullable();
             $table->foreignId('delegado_id')->nullable();

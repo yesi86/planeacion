@@ -49,7 +49,7 @@
 
         <!-- Botón de inicio de sesión en la parte superior derecha -->
         <div class="absolute top-5 right-5 z-10">
-            <a href="{{ route('login') }}" class="px-6 py-3 font-semibold text-white bg-green-600 rounded hover:bg-green-700">
+            <a href="{{ route('inicio') }}" class="px-6 py-3 font-semibold text-white bg-green-600 rounded hover:bg-green-700">
                 Iniciar sesión
             </a>
         </div>
