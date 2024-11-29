@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -23,9 +24,7 @@ class UserController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Verificar los datos enviados
-        //dd($request->all()); // Para depuración, muestra los datos recibidos
-        // Guardar la foto si existe aun no sirve, falta checar
+        // Guardar la foto si existe
         $photoPath = null;
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('photos', 'public');
@@ -40,10 +39,16 @@ class UserController extends Controller
             'photo' => $photoPath,
         ]);
 
-        // Redirigir con el mensaje de éxito dentro de la misma vista pasas el parametro success
+        // Asignar el rol al usuario
+        $roleId = $request->input('role_id');
+        $role = Role::find($roleId);
+
+        // Asignar el rol de forma correcta en la tabla 'model_has_roles'
+        $user->roles()->attach($roleId, ['model_type' => get_class($user)]);
+
+        // Redirigir con el mensaje de éxito
         return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente');
     }
-
 
     /**
      * Lista los usuarios (futuro)
@@ -51,9 +56,10 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10); // Paginación de 10 usuarios por página
-        // $rol = Role::all(); esto solo en caso de querer todos los roles
-        // con eloquent podemos seccionar en los datos que queremos mandar en el compact
+
+        // Obtengo los roles disponibles
         $rol = Role::whereIn('name', ['administrador', 'superadministrador'])->get();
+
         return view('usuarios.index', compact('users', 'rol'));
     }
 }

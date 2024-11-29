@@ -18,16 +18,13 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 // // Ruta protegida para el dashboard (accesible por todos los usuarios autenticados)
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('dashboard');
-//     })->name('dashboard');
-// });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
 
-// agregar middleware para empezar autenticacion de los usuarios y así poder iniciar de forma segura en cada campo
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// // agregar middleware para empezar autenticacion de los usuarios y así poder iniciar de forma segura en cada campo
 
 // ruta usuarios
 Route::prefix('usuarios')->group(function () {

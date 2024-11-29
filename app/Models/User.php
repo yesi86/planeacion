@@ -9,14 +9,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -25,31 +19,29 @@ class User extends Authenticatable
         'photo',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Relación polimórfica con roles.
      */
-    protected function casts(): array
+    public function roles()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id')->withTimestamps();
     }
-    // definimos nuestra relacion uno a muchos con la tabla rol
-    public function role()
+
+    /**
+     * Verificar si el usuario tiene un rol específico.
+     */
+    public function hasRole(string $roleName): bool
     {
-        return $this->belongsTo(Role::class);
+        return $this->roles->contains('name', $roleName);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as AuthenticatableModel;
 use Illuminate\Notifications\Notifiable;
@@ -10,8 +9,6 @@ use Illuminate\Notifications\Notifiable;
 class Responsable extends AuthenticatableModel
 {
     use HasFactory, Notifiable;
-
-    protected $table = 'responsable';
 
     protected $fillable = [
         'name',
@@ -24,38 +21,28 @@ class Responsable extends AuthenticatableModel
         'planeacion_id',
     ];
 
-    /**
-     * Ocultar atributos del modelo al serializar.
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Cast the "email_verified_at" attribute to a timestamp.
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    // Relación con el modelo Role
-    public function role()
+    /**
+     * Relación polimórfica con roles.
+     */
+    public function roles()
     {
-        return $this->belongsTo(Role::class);
-    }
-
-    // Verifica si el responsable tiene un rol específico (en este caso, rol 3)
-    public function getIsResponsableAttribute()
-    {
-        return $this->role_id === 3;
+        return $this->morphToMany(Role::class, 'model', 'model_has_roles')->withTimestamps();
     }
 
     /**
-     * Obtiene la contraseña para la autenticación.
+     * Verificar si el responsable tiene un rol específico.
      */
-    public function getAuthPassword()
+    public function hasRole(string $roleName): bool
     {
-        return $this->password;
+        return $this->roles->contains('name', $roleName);
     }
 }

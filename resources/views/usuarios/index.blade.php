@@ -44,7 +44,11 @@
                         @endif
                     </td>
                     <td class="border border-gray-300 px-4 py-2">
-                        {{ $user->role->name ?? 'Sin asignar' }}
+                        @if ($user->roles->isNotEmpty()) 
+                            {{ $user->roles->first()->name }}
+                        @else
+                            Sin asignar
+                        @endif
                     </td>
                 </tr>
             @empty

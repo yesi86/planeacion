@@ -12,8 +12,15 @@ class Role extends Model
     protected $table = 'rol';
     protected $fillable = ['name'];
 
+
+    public function models()
+    {
+        return $this->morphedByMany(User::class, 'model', 'model_has_roles')
+            ->withTimestamps()
+            ->union($this->morphedByMany(Responsable::class, 'model', 'model_has_roles'));
+    }
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'model_has_roles', 'role_id', 'model_id')->withTimestamps();
     }
 }
