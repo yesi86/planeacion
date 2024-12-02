@@ -14,25 +14,21 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Buscar o crear el rol "superadministrador"
         $role = Role::firstOrCreate(
-            ['name' => 'SuperAdministrador'], // Asegúrate de usar el nombre correcto
+            ['name' => 'SuperAdministrador'],
             ['guard_name' => 'web']
         );
 
         // Crear o buscar el usuario
         $user = User::firstOrCreate(
-            ['email' => 'testing@example.com'], // Normalizar el correo
+            ['email' => 'testing@example.com'],
             [
                 'name' => 'GestionTesting',
                 'password' => Hash::make('ITSX1305'),
             ]
         );
 
-        // Asignar el rol al usuario
-        if (!$user->hasRole('SuperAdministrador')) {
-            $user->assignRole('SuperAdministrador');
-        }
+        $user->assignRole($role);
 
         $this->command->info("Usuario Superadmin creado o actualizado con éxito.");
     }
