@@ -28,6 +28,8 @@ class UserSeeder extends Seeder
             ]
         );
 
+
+
         $user->assignRole($role);
 
         $this->command->info("Usuario Superadmin creado o actualizado con éxito.");
