@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ResponsableController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,5 +19,26 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+// ruta usuarios
+Route::prefix('usuarios')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index'); // Lista de usuarios
+    Route::get('/crear', [UserController::class, 'create'])->name('users.create'); // Formulario de creación
+    Route::get('/roles-permisos', [UserController::class, 'roles'])->name('users.roles'); // Roles y permisos
+    Route::post('/', [UserController::class, 'store'])->name('users.store'); // Guardar usuario
+});
 
-require __DIR__.'/auth.php';
+Route::get('/objetivo', function () {
+    return view('Objetivos.Objetivo'); // Carga la vista en resources/views/objetivos/objetivos.blade.php
+});
+
+Route::get('/accion', function () {
+    return view('moduloAcciones.accion');
+});
+
+// rutas responsables:
+Route::prefix('responsable')->group(function () {
+    Route::get('/', [ResponsableController::class, 'index'])->name('responsable.index'); // Lista de responsables
+    Route::post('/guardar', [ResponsableController::class, 'store'])->name('responsables.store'); // Guardar responsable
+});
+
+require __DIR__ . '/auth.php';
