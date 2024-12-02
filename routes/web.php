@@ -20,10 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 // ruta usuarios
-Route::prefix('usuarios')->group(function () {
+Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index'); // Lista de usuarios
-    Route::get('/crear', [UserController::class, 'create'])->name('users.create'); // Formulario de creación
-    Route::get('/roles-permisos', [UserController::class, 'roles'])->name('users.roles'); // Roles y permisos
     Route::post('/', [UserController::class, 'store'])->name('users.store'); // Guardar usuario
 });
 

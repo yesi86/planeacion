@@ -1,7 +1,10 @@
 <aside class="sticky top-0 h-screen w-64 p-4">
     <div class="flex flex-col bg-gradient-to-b dark:from-sidebar-a-d dark:to-sidebar-b-d from-sidebar-a-l to-sidebar-b-l h-full rounded-lg shadow-xl">
-  
-
+{{--   
+        <div class="items-center text-cyan-50">
+            {{ Auth::user()->name }}
+        </div>  --}}
+        
         <!-- Botones de la Sidebar -->
         
         <div class="flex flex-col p-3 h-full overflow-y-auto gap-y-2">
@@ -14,13 +17,16 @@
                 :disable="false"
              />
 
-            <!-- boton creacion usuario-->
-            <x-buttom_sidebar
-                etiqueta="Usuarios"
-                path="{{ route('users.index') }}"
-                :ruta="request()->routeIs('users.*')"
-                :disable="false"
-            />
+            <!-- Botón Usuarios -->
+             @if (!request()->get('isAdmin')) <!-- Solo si NO es administrador -->
+            
+                <x-buttom_sidebar
+                 etiqueta="Usuarios"
+                 path="{{ route('users.index') }}"
+                 :ruta="request()->routeIs('users.*')"
+                 :disable="false"
+                />
+            @endif
 
             <!-- boton creacion responsable-->
             <x-buttom_sidebar
