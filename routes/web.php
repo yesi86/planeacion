@@ -26,11 +26,11 @@ Route::prefix('users')->group(function () {
 });
 
 Route::get('/objetivo', function () {
-    return view('Objetivos.Objetivo'); // Carga la vista en resources/views/objetivos/objetivos.blade.php
+    return view('objetivos.objetivo'); // Carga la vista en resources/views/objetivos/objetivos.blade.php
 });
 
 Route::get('/accion', function () {
-    return view('moduloAcciones.accion');
+    return view('acciones.accion');
 });
 
 // rutas responsables:
