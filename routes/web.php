@@ -20,10 +20,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 // ruta usuarios
-Route::prefix('users')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('users.index'); // Lista de usuarios
-    Route::post('/', [UserController::class, 'store'])->name('users.store'); // Guardar usuario
-});
+
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+        Route::post('/', [UserController::class, 'store'])->name('users.store');
+    });
+
+Route::get('/middleware-test', function () {
+    return 'Middleware funcionando';
+})->middleware('checkRole:SuperAdministrador');
 
 Route::get('/objetivo', function () {
     return view('objetivos.objetivo'); // Carga la vista en resources/views/objetivos/objetivos.blade.php

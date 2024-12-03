@@ -18,15 +18,15 @@
              />
 
             <!-- Botón Usuarios -->
-             @if (!request()->get('isAdmin')) <!-- Solo si NO es administrador -->
-            
-                <x-buttom_sidebar
-                 etiqueta="Usuarios"
-                 path="{{ route('users.index') }}"
-                 :ruta="request()->routeIs('users.*')"
-                 :disable="false"
+              @if(auth()->check() && auth()->user()->hasRole('SuperAdministrador'))
+                 <x-buttom_sidebar
+                     etiqueta="Usuarios"
+                     path="{{ route('users.index') }}"
+                     :ruta="request()->routeIs('users.*')"
+                     :disable="false"
                 />
-            @endif
+              @endif
+
 
             <!-- boton creacion responsable-->
             <x-buttom_sidebar
