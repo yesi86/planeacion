@@ -10,18 +10,20 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::paginate(10); // Paginación de 10 usuarios por página
+    public function index(){
+        if (!auth()->user()->hasRole('SuperAdministrador')) {
+            return redirect()->route('dashboard')
+                ->with('alert', 'No tienes permisos para acceder a esta página');
+        }
 
-        // Obtengo los roles disponibles
-        $rol = Role::whereIn('name', ['administrador', 'superadministrador'])->get();
+    $users = User::paginate(10); // Paginación de usuarios
+    $rol = Role::whereIn('name', ['administrador', 'superadministrador'])->get();
 
-        return view('users.index', compact('users', 'rol'));
+    return view('users.index', compact('users', 'rol'));
     }
 
-    public function store(Request $request)
-    {
+
+    public function store(Request $request){
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

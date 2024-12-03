@@ -6,6 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Desaparece después de 3 segundos
         setTimeout(function() {
             successMessage.style.display = 'none';
-        }, 3000); // 3000 milisegundos = 3 segundos
+        }, 2000); // 3000 milisegundos = 3 segundos
     }
 });
