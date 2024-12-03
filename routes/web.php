@@ -27,10 +27,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [UserController::class, 'store'])->name('users.store');
     })->middleware('role:SuperAdministrador');
 
-    // Route::get('/admin', function () {
-    //     return 'Área Administrativa';
-    // })->middleware('role:SuperAdministrador');
-    
 
 Route::get('/objetivo', function () {
     return view('objetivos.objetivo'); // Carga la vista en resources/views/objetivos/objetivos.blade.php
@@ -41,9 +37,9 @@ Route::get('/accion', function () {
 });
 
 // rutas responsables:
-Route::prefix('responsable')->group(function () {
-    Route::get('/', [ResponsableController::class, 'index'])->name('responsable.index'); // Lista de responsables
-    Route::post('/guardar', [ResponsableController::class, 'store'])->name('responsables.store'); // Guardar responsable
+Route::prefix('responsables')->group(function () {
+    Route::get('/', [ResponsableController::class, 'index'])->name('responsables.index'); 
+    Route::post('/guardar', [ResponsableController::class, 'store'])->name('responsables.store'); 
 });
 
 require __DIR__ . '/auth.php';

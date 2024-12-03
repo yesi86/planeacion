@@ -31,7 +31,7 @@
             <!-- boton creacion responsable-->
             <x-buttom_sidebar
                 etiqueta="Responsables"
-                path="{{ route('responsable.index') }}"
+                path="{{ route('responsables.index') }}"
                 :ruta="request()->routeIs('responsable.*')"
                 :disable="false"
             />

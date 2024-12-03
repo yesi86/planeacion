@@ -8,14 +8,20 @@ use App\Models\Role;
 class RoleSeeder extends Seeder
 {
     public function run()
-    {
-        $roles = ['SuperAdministrador', 'Administrador', 'Responsable', 'Delegado'];
+{
+    $roles = [
+        ['name' => 'SuperAdministrador', 'guard_name' => 'web'],
+        ['name' => 'Administrador', 'guard_name' => 'web'],
+        ['name' => 'Responsable', 'guard_name' => 'responsable'],
+        ['name' => 'Delegado', 'guard_name' => 'web']
+    ];
 
-        foreach ($roles as $role) {
-            Role::create([
-                'name' => $role,
-                'guard_name' => 'web',
-            ]);
-        }
+    foreach ($roles as $role) {
+        Role::create([
+            'name' => $role['name'],
+            'guard_name' => $role['guard_name'],  // Asegúrate de asignar el guard correcto
+        ]);
     }
+}
+
 }
