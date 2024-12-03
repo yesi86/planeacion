@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
             ['guard_name' => 'web']
         );
 
-        // Crear o buscar el usuario
         $user = User::firstOrCreate(
             ['email' => 'testing@example.com'],
             [

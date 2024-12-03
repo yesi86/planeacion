@@ -13,30 +13,27 @@ class ResponsableController extends Controller
         // Paginación de responsables
         $responsables = Responsable::paginate(10);
 
-        // Obtener roles disponibles
-        $roles = Role::where('guard_name', 'web')->get();
-
-        return view('responsable.index', compact('responsables', 'roles'));
+        return view('responsable.index', compact('responsables'));
     }
 
     public function store(Request $request)
 {
-    // Validación de los datos
+ 
     $validated = $request->validate([
         'name' => 'required|string',
         'email' => 'required|email|unique:users,email',
-        'password' => 'required|string|min:8|confirmed',  // Validación de la contraseña
+        'password' => 'required|string|min:8|confirmed',  
     ]);
 
-    // Crear el responsable
+//  checar lo de la asignacion de fotografia, area, delegado, planeacion
     $responsable = Responsable::create([
         'name' => $validated['name'],
         'email' => $validated['email'],
         'password' => bcrypt($validated['password']),
     ]);
 
-    // Asignar el rol 'responsable'
-    $responsable->assignRole('responsable', 'responsable');  // Asignar el rol
+   
+    $responsable->assignRole('responsable', 'responsable');  
 
     return redirect()->route('responsables.index')->with('success', 'Responsable creado correctamente');;
 }

@@ -19,7 +19,7 @@ class RoleSeeder extends Seeder
     foreach ($roles as $role) {
         Role::create([
             'name' => $role['name'],
-            'guard_name' => $role['guard_name'],  // Asegúrate de asignar el guard correcto
+            'guard_name' => $role['guard_name'],  // debes de crear un guard por cada rol
         ]);
     }
 }
