@@ -1,7 +1,8 @@
 @extends('layouts.app') <!-- Extiende el layout principal -->
 
 @section('content') <!-- Inicia la sección de contenido que se inyectará en el layout -->
-
+{{-- manejamos un hover para mandar el modal alert en cuestion a rutas --}}
+{{-- hay que considerar un dashboard por cada usuario --}}
 <x-modals.modalAlert /> 
 
 <div class="min-h-screen bg-[#e5e5e5]">
