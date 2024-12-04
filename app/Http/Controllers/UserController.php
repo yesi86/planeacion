@@ -48,4 +48,23 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }
+    public function storeResponsable(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $responsable = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+        ]);
+
+        // Asignar el rol de Responsable
+        $responsable->assignRole('Responsable');
+
+        return redirect()->route('responsables.index')->with('success', 'Responsable creado correctamente.');
+    }
 }

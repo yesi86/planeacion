@@ -29,10 +29,10 @@ Route::middleware('auth')->group(function () {
 });
 // ruta usuarios
 
-    Route::prefix('users')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('users.index');
-        Route::post('/', [UserController::class, 'store'])->name('users.store');
-    })->middleware('role:SuperAdministrador');
+Route::prefix('users')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index');
+    Route::post('/', [UserController::class, 'store'])->name('users.store');
+})->middleware('role:SuperAdministrador');
 
 
 Route::get('/objetivo', function () {
@@ -45,8 +45,8 @@ Route::get('/accion', function () {
 
 // rutas responsables:
 Route::prefix('responsables')->group(function () {
-    Route::get('/', [ResponsableController::class, 'index'])->name('responsables.index'); 
-    Route::post('/guardar', [ResponsableController::class, 'store'])->name('responsables.store'); 
+    Route::get('/', [ResponsableController::class, 'index'])->name('responsables.index');
+    Route::post('/guardar', [UserController::class, 'storeResponsable'])->name('responsables.store');
 });
 
 require __DIR__ . '/auth.php';

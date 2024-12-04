@@ -21,7 +21,6 @@
     <table class="w-full border-collapse border border-gray-200">
         <thead>
             <tr class="bg-gray-100">
-                <th class="border border-gray-300 px-4 py-2">ID</th>
                 <th class="border border-gray-300 px-4 py-2">Nombre</th>
                 <th class="border border-gray-300 px-4 py-2">Área</th>
                 <th class="border border-gray-300 px-4 py-2">Delegado</th>
@@ -31,8 +30,7 @@
         <tbody>
             @forelse ($responsables as $responsable)
                 <tr>
-                    <td class="border border-gray-300 px-4 py-2">{{ $responsable->id }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $responsable->name }}</td>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $responsable->name }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $responsable->area->name ?? 'Sin asignar' }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $responsable->delegado_id ?? 'N/A' }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $responsable->planeacion_id ?? 'N/A' }}</td>
