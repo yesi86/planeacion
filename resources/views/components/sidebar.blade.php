@@ -27,22 +27,27 @@
                 />
               @endif
 
+              @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador') || auth()->user()->hasRole('Administrador')))
+              <!-- boton creacion responsable-->
+                  <x-buttom_sidebar
+                    etiqueta="Responsables"
+                    path="{{ route('responsables.index') }}"
+                    :ruta="request()->routeIs('responsable.*')"
+                    :disable="false"
+                   />
 
-            <!-- boton creacion responsable-->
-            <x-buttom_sidebar
-                etiqueta="Responsables"
-                path="{{ route('responsables.index') }}"
-                :ruta="request()->routeIs('responsable.*')"
-                :disable="false"
-            />
+                    <!-- boton area y responsables-->
+                 <x-buttom_sidebar
+                    etiqueta="Areas"
+                    path="null"
+                    :ruta="null"
+                    :disable="false"
+                   />
+              @endif
+          
+           
         
-            <!-- boton area y responsables-->
-            <x-buttom_sidebar
-                etiqueta="Areas"
-                path="null"
-                :ruta="null"
-                :disable="false"
-            />
+           
 
             <!-- Botón Objetivos -->
             <x-buttom_sidebar 

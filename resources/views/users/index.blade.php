@@ -23,7 +23,7 @@
     <table class="w-full border-collapse border border-gray-200">
         <thead>
             <tr class="bg-gray-100">
-                <th class="border border-gray-300 px-4 py-2">ID</th>
+                <th class="border border-gray-300 px-4 py-2">Acciones</th>
                 <th class="border border-gray-300 px-4 py-2">Nombre</th>
                 <th class="border border-gray-300 px-4 py-2">Correo</th>
                 <th class="border border-gray-300 px-4 py-2">Rol</th> <!-- Columna para mostrar el rol -->
@@ -32,7 +32,7 @@
         <tbody>
             @forelse ($users as $user)
                 <tr>
-                    <td class="border border-gray-300 px-4 py-2">{{ $user->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2"></a></td>
                     <td class="border border-gray-300 px-4 py-2">{{ $user->name }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $user->email }}</td>
                     <td class="border border-gray-300 px-4 py-2">
