@@ -21,8 +21,6 @@
 
             <!-- Sidebar -->
             <x-sidebar />
-         
-
             <!-- Content -->
             <div class="flex-1 p-6">
                 <!-- Page Heading -->
@@ -33,6 +31,7 @@
                         </div>
                     </header>
                 @endisset
+
                 <!--navbar-->
                 <x-navbar/>
                 <!-- Page Content -->

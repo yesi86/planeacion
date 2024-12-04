@@ -5,25 +5,31 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function index(){
-        if (!auth()->user()->hasRole('SuperAdministrador')) {
+    public function index()
+    {
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+
+        if (!$user->hasRole('SuperAdministrador')) {
             return redirect()->route('dashboard')
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
 
-    $users = User::paginate(10); // Paginación de usuarios
-    $rol = Role::whereIn('name', ['administrador', 'superadministrador'])->get();
+        $users = User::paginate(10); // Paginación de usuarios
+        $rol = Role::whereIn('name', ['administrador', 'superadministrador'])->get();
 
-    return view('users.index', compact('users', 'rol'));
+        return view('users.index', compact('users', 'rol'));
     }
 
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
