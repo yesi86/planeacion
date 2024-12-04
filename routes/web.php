@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ResponsableController;
@@ -42,7 +43,7 @@ Route::get('/objetivo', function () {
 Route::get('/accion', function () {
     return view('acciones.accion');
 });
-
+Route::post('/acciones/store', [AccionController::class, 'store'])->name('accion.store');
 // rutas responsables:
 Route::prefix('responsables')->group(function () {
     Route::get('/', [ResponsableController::class, 'index'])->name('responsables.index');

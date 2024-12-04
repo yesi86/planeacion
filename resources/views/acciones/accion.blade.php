@@ -9,9 +9,13 @@
         <div>
             <h2 style="font-size: 18px;" class="font-semibold">Seleccionar objetivo</h2>
             <section >
-                <input type="text" value="Aumentar el porcentaje de ventas en un mercado determinado en un lapso de tiempo." name="campo2" class="mt-1 block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" readonly>
-                <input type="text" value="Lograr más conversiones en los canales digitales en un lapso de tiempo." name="campo2" class="mt-1 block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" readonly>
-                <input type="text" value="Convertirse en un referente del rubro en una región determinada en un lapso de tiempo." name="campo2" class="mt-1 block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" readonly>
+                <select name="objetivo" id="objetivo" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                    <option value="" disabled selected>Seleccione un objetivo</option>
+                    <option value="op1">Aumentar el porcentaje de ventas en un mercado determinado en un lapso de tiempo.</option>
+                    <option value="op2">Lograr más conversiones en los canales digitales en un lapso de tiempo.</option>
+                    <option value="op3">Convertirse en un referente del rubro en una región determinada en un lapso de tiempo.</option>
+                </select>
+                              
             </section>     
         </div>
         <div>
@@ -36,7 +40,7 @@
             <div class="p-2">
                 <h2 style="font-size: 18px;" class="font-semibold">Insumos</h2>
                 <div class="mt-2 flex ">
-                    <button type="button" class="px-6 py-3 bg-blue-500 text-blue font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button data-modal-toggle="AgregarInsumoModal" class="px-6 py-3 bg-blue-500 text-blue font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
                         <i class="fas fa-plus"></i>
                         <span>Agregar Insumos</span>
                     </button>
@@ -74,3 +78,4 @@
 
 @include('components.modals.modalaccion')
 @include('components.modals.modalactividad')
+@include('components.modals.modalinsumos')
