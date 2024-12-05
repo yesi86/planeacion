@@ -21,11 +21,9 @@ class UserController extends Controller
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
 
-        $users = User::whereHas('roles', function ($query) {
-            $query->whereIn('name', ['Administrador', 'SuperAdministrador']);
-        })->paginate(10);
+        $users = User::whereHas('roles')->paginate(10);
 
-        $rol = Role::whereIn('name', ['Administrador', 'SuperAdministrador'])->get();
+        $rol = Role::all();
 
         return view('users.index', compact('users', 'rol'));
     }

@@ -12,7 +12,7 @@
     @endif
 
 
-    <h2 class="text-2xl font-semibold mb-4">Lista de Usuarios</h2>
+    <h2 class="text-2xl font-semibold mb-4">Usuarios de sistema</h2>
 
     <div class="flex justify-end mb-4 space-x-4">
         <button data-modal-toggle="createUserModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
