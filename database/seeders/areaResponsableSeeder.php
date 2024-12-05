@@ -15,7 +15,7 @@ class areaResponsableSeeder extends Seeder
     public function run(): void
     {
         $areasResponsables = [
-            ['nombre' => 'Subdireccion De Estudios Superiores', 'area_superior_id' => 2],
+            ['nombre' => 'Subdireccion Academica', 'area_superior_id' => 2],
             ['nombre' => 'Subireccion De Posgrado E Investigacion', 'area_superior_id' => 2],
             ['nombre' => 'Subdireccion De Planeacion', 'area_superior_id' => 3],
             ['nombre' => 'Subdireccion De Vinculacion', 'area_superior_id' => 3],
