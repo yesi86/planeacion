@@ -9,5 +9,6 @@ class puesto extends Model
 {
     use HasFactory;
 
+    protected $table = 'puesto';
     protected $fillable = ['name'];
 }
