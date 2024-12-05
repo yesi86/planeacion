@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 255);
             $table->foreignId('area_responsable_id')
-                ->nullable() //lo puse null porque puede no tener departamento
+                ->nullable() //lo puse null porque puede no tener areaResponsable
                 ->constrained('area_responsable')
-                ->onDelete('set null'); //elimina un area responsable, deja el valor como null
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
