@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('area', function (Blueprint $table) {
+        Schema::create('divisiones_carrera', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 255);
+            $table->foreignId('departamento_id')
+                ->constrained('departamento')
+                ->onDelete('cascade'); // Si se elimina el departamento, eliminar las divisiones de carrera
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('area');
+        Schema::dropIfExists('divisiones_carrera');
     }
 };
