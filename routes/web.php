@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ObjetivoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ResponsableController;
 use App\Http\Controllers\ProfileController;
@@ -35,10 +36,11 @@ Route::prefix('users')->group(function () {
     Route::post('/', [UserController::class, 'store'])->name('users.store');
 })->middleware('role:SuperAdministrador');
 
+Route::get('/objetivo', [ObjetivoController::class, 'index'])->name('objetivos.index');
+Route::post('/objetivo/add', [ObjetivoController::class, 'addToQueue'])->name('objetivos.add');
+Route::post('/objetivo/store', [ObjetivoController::class, 'store'])->name('objetivos.store');
+Route::get('/objetivo/queue', [ObjetivoController::class, 'getQueue'])->name('objetivos.queue');
 
-Route::get('/objetivo', function () {
-    return view('objetivos.objetivo'); // Carga la vista en resources/views/objetivos/objetivos.blade.php
-});
 
 Route::get('/accion', function () {
     return view('acciones.accion');
