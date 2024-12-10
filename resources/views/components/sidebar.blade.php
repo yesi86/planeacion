@@ -1,13 +1,14 @@
 <aside id="sidebar" 
        class="sticky top-0 h-screen w-64 transition-all duration-300 overflow-hidden bg-gradient-to-b dark:from-sidebar-a-d dark:to-sidebar-b-d from-sidebar-a-l to-sidebar-b-l h-full rounded-lg shadow-xl">
     <div class="relative flex flex-col h-full">
+        
         <!-- Botón de Toggling Sidebar -->
         <button id="toggleSidebar" 
                 class="absolute top-4 right-4 z-10 p-2 rounded-full text-white bg-gray-700 hover:bg-gray-800 focus:outline-none">
             <i id="toggleIcon" class="fas fa-bars"></i>
         </button>
-    {{--   
-        <div class="items-center text-cyan-50">
+      
+        {{-- <div class="items-center text-cyan-50">
             {{ Auth::user()->name }}
         </div>  --}}
 
