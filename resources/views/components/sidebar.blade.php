@@ -57,11 +57,6 @@
                      
                    />
               @endif
-          
-           
-        
-           
-
             <!-- Botón Objetivos -->
             <x-buttom_sidebar 
                 etiqueta="Objetivos"
@@ -121,4 +116,7 @@
 </aside>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-@vite(['resources/css/app.css', 'resources/js/sidebar.js'])
+{{-- @vite(['resources/css/app.css', 'resources/js/sidebar.js'])  funciona con solo importarlo en el app.js
+ya que el app.js se importa con vite desde el layout principal
+--}}
+{{-- checar el script de la vista de la sidebar --}}

@@ -2,5 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './dropdown.js';
-
+/* @import './dropdown.js'; */
