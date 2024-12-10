@@ -8,6 +8,20 @@
         </div>
         <div>
             <h2 style="font-size: 18px;" class="font-semibold">Seleccionar objetivo</h2>
+            <section>
+                <select name="objetivo" id="objetivo" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                    <option value="" disabled selected>Seleccione un objetivo</option>
+                    @forelse ($objetivos as $obj)
+                        <option value="{{ $obj->id }}">{{ $obj->objetivo }} - ${{ number_format($obj->monto_asignado, 2) }}</option>
+                    @empty
+                        <option value="" disabled>No hay objetivos disponibles</option>
+                    @endforelse
+                </select>
+            </section>
+        </div>
+        
+        <!-- <div>
+            <h2 style="font-size: 18px;" class="font-semibold">Seleccionar objetivo</h2>
             <section >
                 <select name="objetivo" id="objetivo" class="w-full px-4 py-2 border border-gray-300 rounded" required>
                     <option value="" disabled selected>Seleccione un objetivo</option>
@@ -17,15 +31,30 @@
                 </select>
                               
             </section>     
-        </div>
+        </div> -->
         <div>
             <div class="p-2">
                 <h2 style="font-size: 18px;" class="font-semibold">Acciones</h2>
-                <div class="mt-2 flex ">
-                    <button data-modal-toggle="AgregarAccionModal" class="px-6 py-3 bg-blue-500 text-blue font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        <i class="fas fa-plus"></i>
-                        <span>Agregar Acción</span>
-                    </button>
+                <div class="mt-2 flex flex-col space-y-4">
+                    <!-- Menú desplegable -->
+                    <div>
+                        <select name="acciones" id="acciones" class="w-full px-4 py-2 border border-gray-300 rounded">
+                            <option value="" disabled selected>Seleccione una acción</option>
+                            @forelse ($acciones as $acc)
+                                <option value="{{ $acc->id }}">{{ $acc->accion }}</option>
+                            @empty
+                                <option value="" disabled>No hay acciones disponibles</option>
+                            @endforelse
+                        </select>
+                    </div>
+            
+                    <!-- Botón para abrir el modal -->
+                    <div>
+                        <button data-modal-toggle="AgregarAccionModal" class="px-6 py-3 bg-blue-500 text-blue font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            <i class="fas fa-plus"></i>
+                            <span>Agregar Acción</span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="p-2">

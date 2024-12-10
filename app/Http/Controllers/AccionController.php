@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Acciones; // Modelo relacionado
+use App\Models\Objetivo;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,51 @@ class AccionController extends Controller
 {
 
     public function index(){
-        /** @var \App\Models\User|null $user */
+        $acciones=Acciones::all();
+        $agregar = session('acciones', []);
+        $objetivos = Objetivo::all();
+
+        return view('acciones.accion', compact('acciones', 'agregar','objetivos'));
+    }
+
+    public function addaccion(Request $request){
+        $accion = $request->input('campo1');
+
+        if (!$accion ) {
+            return response()->json(['error' => 'porfavor, ingresa una accion'], 400);
+        }
+
+        $agregar = session('acciones', []);
+        $agregar[] = ['accion' => $accion];
+
+        session(['acciones' => $agregar]);
+
+        return response()->json(['agregar' => $agregar]);
+
+
+    }
+    public function store(Request $request)
+    {
+        $agregar = session('acciones', []);
+
+        foreach ($agregar as $item) {
+            Acciones::create([
+                'accion' => $item['accion']  
+            ]);
+        }
+
+        session()->forget('acciones'); // Limpiar la cola después de guardar
+
+        return redirect()->route('acciones.index')->with('success', 'acciones guardadas correctamente.');
+    }
+    public function getagregar()
+    {
+        $agregar = session('acciones', []);
+        return response()->json(['agregar' => $agregar]);
+    }
+/*
+    public function index(){
+        /** @var \App\Models\User|null $user 
         $user=Auth::user();
         if (!$user->hasRole('SuperAdministrador')) {
             return redirect()->route('dashboard')
@@ -41,7 +86,7 @@ class AccionController extends Controller
     
         return redirect()->back()->with('success', 'Acciones guardadas correctamente.');
     }
-   /* public function store(Request $request)
+   public function store(Request $request)
     {
        // Validar los datos 
     $validated = $request->validate([

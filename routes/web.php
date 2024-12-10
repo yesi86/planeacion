@@ -42,10 +42,12 @@ Route::post('/objetivo/store', [ObjetivoController::class, 'store'])->name('obje
 Route::get('/objetivo/queue', [ObjetivoController::class, 'getQueue'])->name('objetivos.queue');
 
 
-Route::get('/accion', function () {
-    return view('acciones.accion');
-});
-Route::post('/acciones/store', [AccionController::class, 'store'])->name('accion.store');
+//rutas acciones
+Route::get('/accion', [AccionController::class, 'index'])->name('acciones.index');
+Route::post('/accion/add', [AccionController::class, 'addaccion'])->name('acciones.add');
+Route::post('/accion/store', [AccionController::class, 'store'])->name('acciones.store');
+Route::get('/accion/agregar', [AccionController::class, 'getagregar'])->name('acciones.agregar');
+
 // rutas responsables:
 Route::prefix('responsables')->group(function () {
     Route::get('/', [ResponsableController::class, 'index'])->name('responsables.index');
