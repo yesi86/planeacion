@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccionController;
+use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ObjetivoController;
 use App\Http\Controllers\UserController;
@@ -47,6 +48,12 @@ Route::get('/accion', [AccionController::class, 'index'])->name('acciones.index'
 Route::post('/accion/add', [AccionController::class, 'addaccion'])->name('acciones.add');
 Route::post('/accion/store', [AccionController::class, 'store'])->name('acciones.store');
 Route::get('/accion/agregar', [AccionController::class, 'getagregar'])->name('acciones.agregar');
+Route::post('/acciones/actualizarcola', [AccionController::class, 'actualizarCola'])->name('acciones.actualizarcola');
+Route::get('/acciones/obtenercola', [AccionController::class, 'obtenerCola'])->name('acciones.obtenercola');
+
+Route::get('/actividadlist', [ActividadController::class, 'obtenerAcciones']);
+
+
 
 // rutas responsables:
 Route::prefix('responsables')->group(function () {

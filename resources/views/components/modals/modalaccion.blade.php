@@ -29,7 +29,80 @@
     </div> 
 </div>
 
+<script>
+    // Añadir nueva acción a la cola
+    document.getElementById('botonAñadir').addEventListener('click', function () {
+        const campo1 = document.getElementById('campo1').value;
 
+        fetch("{{ route('acciones.add') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ campo1 })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.agregar) {
+                updateagregar(data.agregar); // Actualiza la cola visualmente
+                document.getElementById('campo1').value = ''; // Limpia el input
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    // Actualiza la lista de la cola en la vista
+    function updateagregar(agregar) {
+        const colaAcciones = document.getElementById('colaAcciones');
+        colaAcciones.innerHTML = '';
+
+        agregar.forEach((item, index) => {
+            const accionText = typeof item === 'string' ? item : item.accion;
+            const accionItem = document.createElement('div');
+            accionItem.className = 'flex justify-between items-center p-2 border rounded-md bg-gray-100';
+
+            accionItem.innerHTML = `
+                <span>${accionText}</span>
+                <button class="text-red-500 hover:text-red-700" onclick="eliminarAccion(${index})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+
+            colaAcciones.appendChild(accionItem);
+        });
+    }
+
+    // Elimina una acción de la cola
+    function eliminarAccion(index) {
+        fetch("{{ route('acciones.obtenercola') }}")
+            .then(response => response.json())
+            .then(data => {
+                let agregar = data.agregar;
+
+                if (index > -1) {
+                    agregar.splice(index, 1); // Elimina el elemento en el índice
+                }
+
+                // Actualiza la cola en el servidor
+                fetch("{{ route('acciones.actualizarcola') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ agregar })
+                })
+                .then(() => updateagregar(agregar)) // Actualiza la vista con la nueva cola
+                .catch(error => console.error('Error al actualizar la cola:', error));
+            })
+            .catch(error => console.error('Error al obtener la cola:', error));
+    }
+</script>
+
+
+
+<!--
 <script>
     document.getElementById('botonAñadir').addEventListener('click', function () {
         const campo1 = document.getElementById('campo1').value;
@@ -64,4 +137,4 @@
             colaAcciones.innerHTML += accionItem;
         });
     }
-</script>
+</script>-->

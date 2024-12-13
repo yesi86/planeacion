@@ -55,6 +55,26 @@ class AccionController extends Controller
         $agregar = session('acciones', []);
         return response()->json(['agregar' => $agregar]);
     }
+    public function obtenerCola()
+    {
+        $agregar = session('acciones', []);
+        return response()->json(['agregar' => $agregar]);
+    }
+    public function actualizarCola(Request $request)
+    {
+        $agregar = $request->input('agregar', []);
+    
+        // Verifica que sea un array válido
+        if (!is_array($agregar)) {
+            return response()->json(['success' => false, 'message' => 'Formato inválido']);
+        }
+    
+        // Actualiza la cola en la sesión
+        session(['acciones' => $agregar]);
+    
+        return response()->json(['success' => true]);
+    }
+        
 /*
     public function index(){
         /** @var \App\Models\User|null $user 
