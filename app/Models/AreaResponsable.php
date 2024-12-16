@@ -17,4 +17,10 @@ class AreaResponsable extends Model
     {
         return $this->hasMany(Departamento::class);
     }
+
+    // relacion inversa con usuarios, para manejar relaciones
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_area_position');
+    }
 }

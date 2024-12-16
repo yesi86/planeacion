@@ -17,4 +17,9 @@ class Departamento extends Model
     {
         return $this->hasMany(DivisionCarrera::class);
     }
+    // relacion inversa con usuarios, para manejar relaciones
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_area_position');
+    }
 }

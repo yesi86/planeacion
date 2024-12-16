@@ -14,4 +14,9 @@ class DivisionCarrera extends Model
     {
         return $this->belongsTo(Departamento::class);
     }
+    // relacion inversa con usuarios, para manejar relaciones
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_area_position');
+    }
 }
