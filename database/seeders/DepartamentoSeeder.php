@@ -26,10 +26,15 @@ class DepartamentoSeeder extends Seeder
 
         foreach ($departamentos as $nombre => $areaResponsableNombre) {
             $areaResponsable = AreaResponsable::where('nombre', $areaResponsableNombre)->first();
-            Departamento::create([
-                'nombre' => $nombre,
-                'area_responsable_id' => $areaResponsable->id,
-            ]);
+
+            if ($areaResponsable) {
+                Departamento::create([
+                    'nombre' => $nombre,
+                    'area_responsable_id' => $areaResponsable->id,
+                ]);
+            } else {
+                $this->command->info("No se encontró el AreaResponsable para el departamento $nombre");
+            }
         }
     }
 }

@@ -25,6 +25,10 @@ class DivisionesCarreraSeeder extends Seeder
 
         $departamento = Departamento::where('nombre', 'Divisiones de Carrera')->first();
 
+        if (!$departamento) {
+            $this->command->info("No se encontró el departamento 'Divisiones de Carrera'");
+            return;
+        }
         foreach ($divisiones as $nombre) {
             DivisionCarrera::create([
                 'nombre' => "División de Carrera de $nombre",
