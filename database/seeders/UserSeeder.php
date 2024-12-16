@@ -46,58 +46,43 @@ class UserSeeder extends Seeder
     }
     private function createHierarchicalUsers()
     {
-        $jefeCarreraRole = Role::firstOrCreate(
-            ['name' => 'Jefe de Carrera'],
-            ['guard_name' => 'web']
-        );
+        $division = DivisionCarrera::find(10);
 
-        $userJefeCarrera = User::firstOrCreate(
-            ['email' => 'jefe.carrera@example.com'],
-            [
-                'name' => 'Jefe de Carrera',
-                'password' => Hash::make('password'),
-            ]
-        );
+        if ($division) {
+            $departamento = $division->departamento()->first();
 
-        $userJefeCarrera->assignRole($jefeCarreraRole);
+            if ($departamento) {
+                $areaResponsable = $departamento->areaResponsable;
 
-        $puestoJefeCarrera = puesto::firstOrCreate(['name' => 'Jefa de la División de la Carrera de Ingeniería Industrial']);
-        $division = DivisionCarrera::firstOrCreate(['nombre' => ' División de Carrera de Ingeniería Industrial']);
+                if ($areaResponsable) {
+                    $areaSuperior = $areaResponsable->areaSuperior;
+                    $puestoJefeCarrera = puesto::firstOrCreate(['name' => 'Jefe de Carrera']);
+                    $role = Role::firstOrCreate(
+                        ['name' => 'Jefe de Carrera'],
+                        ['guard_name' => 'web']
+                    );
+                    $userJefeCarrera = User::firstOrCreate(
+                        ['email' => 'jefe.carrera@example.com'],
+                        [
+                            'name' => 'Jefe de Carrera',
+                            'password' => Hash::make('password'),
+                        ]
+                    );
+                    $userJefeCarrera->assignRole($role);
 
-        UserAreaPosition::firstOrCreate([
-            'user_id' => $userJefeCarrera->id,
-            'division_id' => $division->id,
-            'puesto_id' => $puestoJefeCarrera->id,
-            'role' => $jefeCarreraRole->name,
-        ]);
+                    UserAreaPosition::firstOrCreate([
+                        'user_id' => $userJefeCarrera->id,
+                        'departamento_id' => $departamento->id,
+                        'area_responsable_id' => $areaResponsable->id,
+                        'area_superior_id' => $areaSuperior ? $areaSuperior->id : null,
+                        'division_id' => $division->id,
+                        'puesto_id' => $puestoJefeCarrera->id,
+                        'role' => $role->name,
+                    ]);
 
-        $this->command->info("Usuario Jefe de Carrera creado o actualizado con éxito.");
-
-        $delegadoRole = Role::firstOrCreate(
-            ['name' => 'Delegado'],
-            ['guard_name' => 'web']
-        );
-
-        $userDelegado = User::firstOrCreate(
-            ['email' => 'delegado@example.com'],
-            [
-                'name' => 'Delegado Responsable',
-                'password' => Hash::make('password'),
-            ]
-        );
-
-        $userDelegado->assignRole($delegadoRole);
-
-        $puestoDelegado = puesto::firstOrCreate(['name' => 'Jefe del Departamento de Ciencias Básicas']);
-        $departamento = Departamento::firstOrCreate(['nombre' => 'Departamento de Ciencias Básicas']);
-
-        UserAreaPosition::firstOrCreate([
-            'user_id' => $userDelegado->id,
-            'departamento_id' => $departamento->id,
-            'puesto_id' => $puestoDelegado->id,
-            'role' => $delegadoRole->name,
-        ]);
-
-        $this->command->info("Usuario Delegado creado o actualizado con éxito.");
+                    $this->command->info("Usuario Jefe de Carrera creado o actualizado con éxito.");
+                }
+            }
+        }
     }
 }

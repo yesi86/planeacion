@@ -11,8 +11,8 @@ class CreateUserAreaPositionTable extends Migration
         Schema::create('user_area_position', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('area_responsable_id')->nullable()->constrained('area_responsable')->onDelete('cascade');
             $table->foreignId('area_superior_id')->nullable()->constrained('area_superior')->onDelete('cascade');
+            $table->foreignId('area_responsable_id')->nullable()->constrained('area_responsable')->onDelete('cascade');
             $table->foreignId('departamento_id')->nullable()->constrained('departamento')->onDelete('cascade');
             $table->foreignId('division_id')->nullable()->constrained('divisiones_carrera')->onDelete('cascade');
             $table->foreignId('puesto_id')->constrained('puesto')->onDelete('cascade');
