@@ -2,39 +2,34 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Departamento;
 use App\Models\AreaResponsable;
 
 class DepartamentoSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
         $departamentos = [
-            ['nombre' => 'Divisiones de Carrera', 'area_responsable_id' => 1],
-            ['nombre' => 'Departamento De Desarrollo Academico', 'area_responsable_id' => 1],
-            ['nombre' => 'Departamento De Ciencias Basicas', 'area_responsable_id' => 1],
-            ['nombre' => 'Departamento De Estudios Profesionales', 'area_responsable_id' => 1],
-            ['nombre' => 'Coordinacion De Lenguas Extranjeras', 'area_responsable_id' => 1],
-
-            ['nombre' => 'Departamento De PLaneacion Programacion Y Evaluacion', 'area_responsable_id' => 3],
-            ['nombre' => 'Departamento De Estadistica', 'area_responsable_id' => 3],
-            ['nombre' => 'Departamento De Servicios Escolares', 'area_responsable_id' => 3],
-
-            ['nombre' => 'Departamento De Difusion Y Concertacion', 'area_responsable_id' => 4],
-            ['nombre' => 'Departamento De Residencias Profesionales Y Servicio Social', 'area_responsable_id' => 4],
-            ['nombre' => 'Servicio De Orientación Medica', 'area_responsable_id' => 4],
-
-
-
+            'Divisiones de Carrera' => 'Subdireccion Academica',
+            'Departamento De Desarrollo Academico' => 'Subdireccion Academica',
+            'Departamento De Ciencias Basicas' => 'Subdireccion Academica',
+            'Departamento De Estudios Profesionales' => 'Subdireccion Academica',
+            'Coordinacion De Lenguas Extranjeras' => 'Subdireccion Academica',
+            'Departamento De Planeacion Programacion Y Evaluacion' => 'Subdireccion De Planeacion',
+            'Departamento De Estadistica' => 'Subdireccion De Planeacion',
+            'Departamento De Servicios Escolares' => 'Subdireccion De Planeacion',
+            'Departamento De Difusion Y Concertacion' => 'Subdireccion De Vinculacion',
+            'Departamento De Residencias Profesionales Y Servicio Social' => 'Subdireccion De Vinculacion',
+            'Servicio De Orientación Medica' => 'Subdireccion De Vinculacion',
         ];
 
-        foreach ($departamentos as $departamento) {
-            Departamento::create($departamento);
+        foreach ($departamentos as $nombre => $areaResponsableNombre) {
+            $areaResponsable = AreaResponsable::where('nombre', $areaResponsableNombre)->first();
+            Departamento::create([
+                'nombre' => $nombre,
+                'area_responsable_id' => $areaResponsable->id,
+            ]);
         }
     }
 }
