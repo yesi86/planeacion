@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
 
                 if ($areaResponsable) {
                     $areaSuperior = $areaResponsable->areaSuperior;
-                    $puestoJefeCarrera = puesto::firstOrCreate(['name' => 'Jefe de Carrera']);
+                    $puestoJefeCarrera = puesto::firstOrCreate(['name' => 'Jefe de la División de la Carrera de Gastronomía']);
                     $role = Role::firstOrCreate(
                         ['name' => 'Jefe de Carrera'],
                         ['guard_name' => 'web']
