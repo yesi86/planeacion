@@ -20,7 +20,7 @@ class ResponsableController extends Controller
             return redirect()->route('dashboard')
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
-        $responsables = User::role('Responsable')->paginate(10);
+        $responsables = User::role('Responsable De Area')->paginate(10);
 
         return view('responsable.index', compact('responsables'));
     }
