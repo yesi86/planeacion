@@ -20,7 +20,6 @@ class DepartamentoSeeder extends Seeder
             ['nombre' => 'Departamento De Ciencias Basicas', 'area_responsable_id' => 1],
             ['nombre' => 'Departamento De Estudios Profesionales', 'area_responsable_id' => 1],
             ['nombre' => 'Coordinacion De Lenguas Extranjeras', 'area_responsable_id' => 1],
-            ['nombre' => 'Coordinacion De Lenguas Extranjeras', 'area_responsable_id' => 1],
 
             ['nombre' => 'Departamento De PLaneacion Programacion Y Evaluacion', 'area_responsable_id' => 3],
             ['nombre' => 'Departamento De Estadistica', 'area_responsable_id' => 3],

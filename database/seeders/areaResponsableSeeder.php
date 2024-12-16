@@ -2,31 +2,31 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\AreaResponsable;
-use App\Models\areaSuperior;
+use App\Models\AreaSuperior;
 
-class areaResponsableSeeder extends Seeder
+class AreaResponsableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        $areasResponsables = [
-            ['nombre' => 'Subdireccion Academica', 'area_superior_id' => 2],
-            ['nombre' => 'Subireccion De Posgrado E Investigacion', 'area_superior_id' => 2],
-            ['nombre' => 'Subdireccion De Planeacion', 'area_superior_id' => 3],
-            ['nombre' => 'Subdireccion De Vinculacion', 'area_superior_id' => 3],
-            ['nombre' => 'Departamento De Recursos Humanos', 'area_superior_id' => 4],
-            ['nombre' => 'Departamento De Recursos Financieros', 'area_superior_id' => 4],
-            ['nombre' => 'Departamento De Recursos Materiales Y Servicios Generales', 'area_superior_id' => 4],
-            ['nombre' => 'Departamento De Tecnologias De La Informacion', 'area_superior_id' => 4],
+        $areas = [
+            'Subdireccion Academica' => 'Direccion Academica',
+            'Subdireccion De Posgrado E Investigacion' => 'Direccion Academica',
+            'Subdireccion De Planeacion' => 'Direccion De Planeacion y Vinculacion',
+            'Subdireccion De Vinculacion' => 'Direccion De Planeacion y Vinculacion',
+            'Departamento De Recursos Humanos' => 'Subdireccion Administrativa',
+            'Departamento De Recursos Financieros' => 'Subdireccion Administrativa',
+            'Departamento De Recursos Materiales Y Servicios Generales' => 'Subdireccion Administrativa',
+            'Departamento De Tecnologias De La Informacion' => 'Subdireccion Administrativa',
         ];
 
-        foreach ($areasResponsables as $area) {
-            AreaResponsable::create($area);
+        foreach ($areas as $nombre => $areaSuperiorNombre) {
+            $areaSuperior = AreaSuperior::where('nombre', $areaSuperiorNombre)->first();
+            AreaResponsable::create([
+                'nombre' => $nombre,
+                'area_superior_id' => $areaSuperior->id,
+            ]);
         }
     }
 }
