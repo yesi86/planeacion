@@ -1,6 +1,10 @@
-<aside id="sidebar" 
-       class="sticky top-0 h-screen w-64 transition-all duration-300 overflow-hidden bg-gradient-to-b dark:from-sidebar-a-d dark:to-sidebar-b-d from-sidebar-a-l to-sidebar-b-l h-full rounded-lg shadow-xl">
-    <div class="relative flex flex-col h-full">
+<style>
+    #sidebar {
+        transition: width 0.3s ease, opacity 0.3s ease;
+    }
+</style>
+<aside id="sidebar" class="transition-all duration-300 ease-in-out">
+<div class="relative flex flex-col h-full">
         
         <!-- Botón de Toggling Sidebar -->
         <button id="toggleSidebar" 
@@ -23,7 +27,6 @@
                 :ruta="null"
                 :disable="false"
                 icon="fas fa-home"
-                x-bind:open="open"
              />
 
             <!-- Botón Usuarios -->
