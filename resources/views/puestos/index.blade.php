@@ -48,6 +48,7 @@
                             Eliminar
                         </button>
                     </form>
+                    
                 </td>
                 <td class="border border-gray-300 px-4 py-2 align-middle">
                     {{ $puesto->name }}
@@ -77,3 +78,6 @@
 
 @endsection
 
+@push('scripts')
+<script src="{{ asset('js/delete.js') }}"></script>
+@endpush

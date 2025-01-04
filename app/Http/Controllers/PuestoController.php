@@ -15,8 +15,10 @@ class PuestoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required|max:255']);
-
+        if (empty($request->name)) {
+            return redirect()->route('puestos.index')
+                ->with('error', 'El nombre del puesto es obligatorio.');
+        }
         if (Puesto::where('name', $request->name)->exists()) {
             return redirect()->route('puestos.index')
                 ->with('error', 'El nombre del puesto ya existe. Intenta con otro.');
@@ -33,17 +35,15 @@ class PuestoController extends Controller
         $puesto->update(['name' => $request->name]);
         return redirect()->route('puestos.index')->with('success', 'Puesto actualizado exitosamente.');
     }
-
     public function destroy($id)
     {
         $puesto = Puesto::findOrFail($id);
 
         try {
             $puesto->delete();
-            // return response()->json(['success' => true, 'message' => 'Puesto eliminado correctamente']);
-            return redirect()->route('puestos.index')->with('success', 'puesto eliminado exitosamente');
+            return redirect()->route('puestos.index')->with('success', 'Puesto eliminado exitosamente.');
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Error al eliminar el puesto']);
+            return redirect()->route('puestos.index')->with('error', 'Error al eliminar el puesto.');
         }
     }
 }

@@ -36,7 +36,16 @@
               @endif
 
               @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador') || auth()->user()->hasRole('Administrador')))
-                <!-- boton area y responsables-->
+                
+                <!-- boton creacion puestos-->
+                <x-buttom_sidebar
+                    etiqueta="Puestos"
+                    path="{{ route('puestos.index') }}"
+                    :ruta="null"
+                    :disable="false"
+                    icon="fas fa-user-tie"
+                />
+              <!-- boton area -->
                  <x-buttom_sidebar
                     etiqueta="Areas"
                     path="null"
@@ -46,14 +55,7 @@
                />
             
             
-              <!-- boton creacion responsable-->
-                <x-buttom_sidebar
-                    etiqueta="Puestos"
-                    path="{{ route('puestos.index') }}"
-                    :ruta="null"
-                    :disable="false"
-                    icon="fas fa-user-tie"
-                />
+            
 
               @endif
             <!-- Botón Objetivos -->
