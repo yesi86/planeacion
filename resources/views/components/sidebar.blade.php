@@ -47,14 +47,13 @@
             
             
               <!-- boton creacion responsable-->
-                  <x-buttom_sidebar
+                <x-buttom_sidebar
                     etiqueta="Puestos"
-                    path="null"
+                    path="{{ route('puestos.index') }}"
                     :ruta="null"
                     :disable="false"
                     icon="fas fa-user-tie"
-                     
-                   />
+                />
 
               @endif
             <!-- Botón Objetivos -->

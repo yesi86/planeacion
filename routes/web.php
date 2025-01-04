@@ -5,17 +5,10 @@ use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ObjetivoController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ResponsableController;
+use App\Http\Controllers\PuestoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
-
-// pruebas
-Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('login', [AuthenticatedSessionController::class, 'store']);
-Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,7 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 // ruta usuarios
-
 Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
     Route::post('/', [UserController::class, 'store'])->name('users.store');
@@ -41,7 +33,13 @@ Route::get('/objetivo', [ObjetivoController::class, 'index'])->name('objetivos.i
 Route::post('/objetivo/add', [ObjetivoController::class, 'addToQueue'])->name('objetivos.add');
 Route::post('/objetivo/store', [ObjetivoController::class, 'store'])->name('objetivos.store');
 Route::get('/objetivo/queue', [ObjetivoController::class, 'getQueue'])->name('objetivos.queue');
-
+// ruta de puestos
+Route::prefix('puestos')->group(function () {
+    Route::get('/', [PuestoController::class, 'index'])->name('puestos.index');
+    Route::post('/store', [PuestoController::class, 'store'])->name('puestos.store');
+    Route::put('/update/{id}', [PuestoController::class, 'update'])->name('puestos.update');
+    Route::delete('/delete/{id}', [PuestoController::class, 'destroy'])->name('puestos.destroy');
+});
 
 //rutas acciones
 Route::get('/accion', [AccionController::class, 'index'])->name('acciones.index');
@@ -50,6 +48,8 @@ Route::post('/accion/store', [AccionController::class, 'store'])->name('acciones
 Route::get('/accion/agregar', [AccionController::class, 'getagregar'])->name('acciones.agregar');
 Route::post('/acciones/actualizarcola', [AccionController::class, 'actualizarCola'])->name('acciones.actualizarcola');
 Route::get('/acciones/obtenercola', [AccionController::class, 'obtenerCola'])->name('acciones.obtenercola');
+
+
 
 Route::get('/actividadlist', [ActividadController::class, 'obtenerAcciones']);
 
