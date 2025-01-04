@@ -54,11 +54,4 @@ Route::get('/acciones/obtenercola', [AccionController::class, 'obtenerCola'])->n
 Route::get('/actividadlist', [ActividadController::class, 'obtenerAcciones']);
 
 
-
-// rutas responsables:
-Route::prefix('responsables')->group(function () {
-    Route::get('/', [ResponsableController::class, 'index'])->name('responsables.index');
-    Route::post('/guardar', [UserController::class, 'storeResponsable'])->name('responsables.store');
-});
-
 require __DIR__ . '/auth.php';

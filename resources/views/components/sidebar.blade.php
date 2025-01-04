@@ -12,11 +12,6 @@
             <i id="toggleIcon" class="fas fa-bars"></i>
         </button>
       
-        {{-- <div class="items-center text-cyan-50">
-            {{ Auth::user()->name }}
-        </div>  --}}
-
-
         <!-- Botones de la Sidebar -->
         <div class="flex flex-col p-3 h-full overflow-y-auto gap-y-2 mt-12">
 
@@ -41,25 +36,26 @@
               @endif
 
               @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador') || auth()->user()->hasRole('Administrador')))
-              <!-- boton creacion responsable-->
-                  <x-buttom_sidebar
-                    etiqueta="Responsables"
-                    path="{{ route('responsables.index') }}"
-                    :ruta="request()->routeIs('responsable.*')"
-                    :disable="false"
-                    icon="fas fa-user-tie"
-                     
-                   />
-
-                    <!-- boton area y responsables-->
+                <!-- boton area y responsables-->
                  <x-buttom_sidebar
                     etiqueta="Areas"
                     path="null"
                     :ruta="null"
                     :disable="false"
                     icon="fas fa-layer-group"
+               />
+            
+            
+              <!-- boton creacion responsable-->
+                  <x-buttom_sidebar
+                    etiqueta="Puestos"
+                    path="null"
+                    :ruta="null"
+                    :disable="false"
+                    icon="fas fa-user-tie"
                      
                    />
+
               @endif
             <!-- Botón Objetivos -->
             <x-buttom_sidebar 

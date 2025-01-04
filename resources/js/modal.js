@@ -17,6 +17,13 @@ function initializeModals() {
                     modal.classList.add("hidden");
                 });
             }
+
+            // Cerrar el modal si el usuario hace clic fuera de él
+            modal.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    modal.classList.add("hidden");
+                }
+            });
         }
     });
 }
