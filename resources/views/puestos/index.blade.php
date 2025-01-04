@@ -7,14 +7,13 @@
     <div class="success-message bg-green-500 text-white p-4 rounded mb-4">
         {{ session('success') }}
     </div>
-@endif
+    @endif
 
-@if (session('error'))
+    @if (session('error'))
     <div class="error-message bg-red-500 text-white p-4 rounded mb-4">
         {{ session('error') }}
     </div>
-@endif
-
+    @endif
 
     <h2 class="text-2xl font-semibold mb-4">Gestión de Puestos</h2>
 
@@ -35,20 +34,25 @@
             @forelse ($puestos as $puesto)
             <tr>
                 <td class="border border-gray-300 px-4 py-2 flex justify-center items-center space-x-2">
+                    <!-- Modal Editar -->
                     <button data-modal-toggle="editPuestoModal-{{ $puesto->id }}" 
                         class="bg-yellow-500 text-white py-1 px-3 rounded">
                         Editar
                     </button>
-                    <form method="POST" action="{{ route('puestos.destroy', $puesto->id) }}" id="delete-form-{{ $puesto->id }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" 
-                            class="bg-red-500 text-white py-1 px-3 rounded confirm-delete" 
-                            data-id="{{ $puesto->id }}" data-name="{{ $puesto->name }}">
-                            Eliminar
-                        </button>
-                    </form>
-                    
+
+                <!-- Formulario de eliminación -->
+                <form method="POST" action="{{ route('puestos.destroy', $puesto->id) }}" id="delete-form-{{ $puesto->id }}">
+                    @csrf
+                    @method('DELETE')
+                    <!-- Eliminar botón que solo abre el modal -->
+                    <button type="button"
+                        class="bg-red-500 text-white py-1 px-3 rounded"
+                        data-modal-toggle="deleteModal-{{ $puesto->id }}"  
+                        data-item-id="{{ $puesto->id }}" 
+                        data-item-name="{{ $puesto->name }}">
+                        Eliminar
+                    </button>
+                </form>
                 </td>
                 <td class="border border-gray-300 px-4 py-2 align-middle">
                     {{ $puesto->name }}
@@ -62,7 +66,7 @@
         </tbody>
     </table>
 
-    <!-- Paginación recuerda agregarlo al final para que funcion y mandar un compac desde el controller-->
+    <!-- Paginación -->
     <div class="mt-4">
         {{ $puestos->links() }}
     </div>
@@ -71,13 +75,15 @@
 <!-- Modal Crear -->
 @include('puestos.modals.create')
 
-<!-- Modales Editar -->
+<!-- Modal Eliminar -->
 @foreach ($puestos as $puesto)
-    @include('puestos.modals.edit', ['puesto' => $puesto])
+    @include('components.modals.modalDelete', ['puesto' => $puesto])
+@endforeach
+
+<!-- Modales Editar -->
+@foreach ($puestos as $delete)
+    @include('puestos.modals.edit', ['puesto' => $delete])
 @endforeach
 
 @endsection
 
-@push('scripts')
-<script src="{{ asset('js/delete.js') }}"></script>
-@endpush
