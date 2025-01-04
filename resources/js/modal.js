@@ -1,20 +1,15 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtener todos los elementos que tienen el atributo data-modal-toggle
+function initializeModals() {
     const modalToggles = document.querySelectorAll("[data-modal-toggle]");
-
     modalToggles.forEach(modalToggle => {
-
         const modalId = modalToggle.getAttribute('data-modal-toggle');
         const modal = document.getElementById(modalId);
 
-        // Mostrar modal cuando se hace clic en el botón de abrir
-        if (modalToggle) {
+        if (modalToggle && modal) { // Asegúrate de que tanto el toggle como el modal existen
             modalToggle.addEventListener("click", () => {
                 modal.classList.remove("hidden");
             });
         }
 
-        // Cerrar modal cuando se hace clic en el botón de cerrar
         if (modal) {
             const closeModalButton = modal.querySelector(".closeModalButton");
             if (closeModalButton) {
@@ -24,4 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+}
+
+// Exportar globalmente
+window.initializeModals = initializeModals;
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeModals();
 });
