@@ -26,21 +26,26 @@
         </thead>
         <tbody>
             @forelse ($puestos as $puesto)
-                <tr>
-                    <td class="border border-gray-300 px-4 py-2 flex space-x-2">
-                        <button data-modal-toggle="editPuestoModal-{{ $puesto->id }}" class="bg-yellow-500 text-white py-1 px-3 rounded">
-                            Editar
+            <tr>
+                <td class="border border-gray-300 px-4 py-2 flex justify-center items-center space-x-2">
+                    <button data-modal-toggle="editPuestoModal-{{ $puesto->id }}" 
+                        class="bg-yellow-500 text-white py-1 px-3 rounded">
+                        Editar
+                    </button>
+                    <form method="POST" action="{{ route('puestos.destroy', $puesto->id) }}" id="delete-form-{{ $puesto->id }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" 
+                            class="bg-red-500 text-white py-1 px-3 rounded confirm-delete" 
+                            data-id="{{ $puesto->id }}" data-name="{{ $puesto->name }}">
+                            Eliminar
                         </button>
-                        <form method="POST" action="{{ route('puestos.destroy', $puesto->id) }}" id="delete-form-{{ $puesto->id }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="bg-red-500 text-white py-1 px-3 rounded confirm-delete" data-id="{{ $puesto->id }}" data-name="{{ $puesto->name }}">
-                                Eliminar
-                            </button>
-                        </form>
-                    </td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $puesto->name }}</td>
-                </tr>
+                    </form>
+                </td>
+                <td class="border border-gray-300 px-4 py-2 align-middle">
+                    {{ $puesto->name }}
+                </td>
+            </tr>
             @empty
                 <tr>
                     <td colspan="2" class="text-center py-4">No hay puestos registrados.</td>
