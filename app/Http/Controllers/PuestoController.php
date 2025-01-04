@@ -15,11 +15,17 @@ class PuestoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required|unique:puesto,name|max:255']);
-        Puesto::create(['name' => $request->name]);
-        return redirect()->route('puestos.index')->with('success', 'Puesto creado exitosamente.');
-    }
+        $request->validate(['name' => 'required|max:255']);
 
+        if (Puesto::where('name', $request->name)->exists()) {
+            return redirect()->route('puestos.index')
+                ->with('error', 'El nombre del puesto ya existe. Intenta con otro.');
+        }
+        Puesto::create(['name' => $request->name]);
+
+        return redirect()->route('puestos.index')
+            ->with('success', 'Puesto creado exitosamente.');
+    }
     public function update(Request $request, $id)
     {
         $request->validate(['name' => 'required|unique:puesto,name|max:255']);

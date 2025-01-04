@@ -3,11 +3,18 @@
 @section('content')
 <div class="max-w-6xl mx-auto bg-white shadow-md rounded p-6">
     <!-- Mensaje de confirmación -->
-    @if(session('success')) 
-        <div id="success-message" class="success-message bg-green-500 text-white p-4 rounded mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
+    @if(session('success'))
+    <div class="success-message bg-green-500 text-white p-4 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="error-message bg-red-500 text-white p-4 rounded mb-4">
+        {{ session('error') }}
+    </div>
+@endif
+
 
     <h2 class="text-2xl font-semibold mb-4">Gestión de Puestos</h2>
 
