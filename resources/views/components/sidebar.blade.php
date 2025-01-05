@@ -45,14 +45,14 @@
                     :disable="false"
                     icon="fas fa-user-tie"
                 />
-              <!-- boton area -->
-                 <x-buttom_sidebar
-                    etiqueta="Areas"
-                    path="null"
-                    :ruta="null"
-                    :disable="false"
-                    icon="fas fa-layer-group"
-               />
+                <!-- Botón Áreas -->
+                    <x-buttom_sidebar
+                        etiqueta="Áreas"
+                        path="{{ route('areas.index') }}" 
+                        :ruta="request()->routeIs('areas.*')" 
+                        :disable="false"
+                        icon="fas fa-layer-group"
+                    />
             
             
             

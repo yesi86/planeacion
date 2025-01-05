@@ -57,6 +57,6 @@
 </div>
 
 <!-- Incluir el modal desde la carpeta components/modals -->
-@include('components.modals.modaluser')
+@include('users.modals.modaluser')
 
 @endsection

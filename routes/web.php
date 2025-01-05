@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ObjetivoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PuestoController;
+use App\Http\Controllers\EstructuraController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
@@ -48,6 +49,10 @@ Route::post('/accion/store', [AccionController::class, 'store'])->name('acciones
 Route::get('/accion/agregar', [AccionController::class, 'getagregar'])->name('acciones.agregar');
 Route::post('/acciones/actualizarcola', [AccionController::class, 'actualizarCola'])->name('acciones.actualizarcola');
 Route::get('/acciones/obtenercola', [AccionController::class, 'obtenerCola'])->name('acciones.obtenercola');
+// Ruta para el módulo de Estructura/Áreas
+Route::prefix('estructura')->group(function () {
+    Route::get('/', [EstructuraController::class, 'index'])->name('areas.index');
+})->middleware('role:SuperAdministrador|Administrador');
 
 
 
