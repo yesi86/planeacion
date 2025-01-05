@@ -29,7 +29,7 @@
             >
             <button 
                 type="submit" 
-                class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
+                class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
                 Buscar
             </button>
         </form>
@@ -46,7 +46,7 @@
             </select>
         </form>
 
-        <button data-modal-toggle="createAreaModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
+        <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
             Crear Área
         </button>
     </div>

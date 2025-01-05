@@ -9,10 +9,10 @@
                 <input type="text" id="name" name="name" value="{{ $puesto->name }}" class="w-full border rounded p-2">
             </div>
             <div class="flex justify-end space-x-2">
-                <button type="button" class="closeModalButton bg-gray-500 text-white py-2 px-4 rounded">
+                <button type="button" class="closeModalButton bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
                     Cancelar
                 </button>
-                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
                     Guardar
                 </button>
             </div>
