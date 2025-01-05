@@ -17,8 +17,6 @@ class EstructuraController extends Controller
         $filter = $request->input('filter');
         $perPage = 10;
         $currentPage = $request->input('page', 1);
-
-        // Iniciar una colección vacía para almacenar todos los datos
         $allData = collect();
 
         // Filtrado por tipo
@@ -75,13 +73,12 @@ class EstructuraController extends Controller
         } else {
             $allData = $this->fetchAllData($search);
         }
-
-        // Si no hay datos, enviar un mensaje flash
+        // isEmpty compara si no hay una coincidencia, manda al rout con un messaje "errormessaje.js"
         if ($allData->isEmpty()) {
             return redirect()->route('areas.index')->with('error', 'No se encontraron resultados para tu búsqueda.');
         }
 
-        // Paginación manual
+        // Paginación manual no funciono el linkeo tradicional, se tuvo que hacer manual
         $paginatedData = new LengthAwarePaginator(
             $allData->forPage($currentPage, $perPage),
             $allData->count(),

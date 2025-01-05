@@ -86,11 +86,7 @@
             @empty
             <tr>
                 <td colspan="3" class="text-center py-4 text-gray-600">
-                    @if(request('search'))
-                        No se encontraron áreas que coincidan con "{{ request('search') }}".
-                    @else
-                        No hay áreas registradas.
-                    @endif
+                    No hay áreas registradas.
                 </td>
             </tr>
             @endforelse
