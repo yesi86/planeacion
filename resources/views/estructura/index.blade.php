@@ -33,9 +33,7 @@
                 Buscar
             </button>
         </form>
-
-        <!-- Filtro por tipo -->
-        <form method="GET" action="{{ route('areas.index') }}" class="flex items-center">
+        <form method="GET" action="{{ route('areas.index') }}" class="flex items-center ml-auto">
             <select 
                 name="filter" 
                 class="border border-gray-300 rounded px-4 py-2 mr-2"
@@ -66,16 +64,19 @@
             @forelse ($data as $item)
             <tr>
                 <td class="border border-gray-300 px-4 py-2 flex justify-center items-center space-x-2">
-                    <!-- Botón Ver -->
-                    <button data-modal-toggle="viewAreaModal-{{ $item['id'] }}" class="bg-blue-500 text-white py-1 px-3 rounded">
+                    <button 
+                        data-modal-toggle="viewAreaModal-{{ $item['id'] }}" 
+                        class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">
                         Ver
                     </button>
-                    <!-- Botón Editar -->
-                    <button data-modal-toggle="editAreaModal-{{ $item['id'] }}" class="bg-yellow-500 text-white py-1 px-3 rounded">
+                    <button 
+                        data-modal-toggle="editAreaModal-{{ $item['id'] }}" 
+                        class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
                         Editar
                     </button>
-                    <!-- Botón Eliminar -->
-                    <button data-modal-toggle="deleteAreaModal-{{ $item['id'] }}" class="bg-red-500 text-white py-1 px-3 rounded">
+                    <button 
+                        data-modal-toggle="deleteAreaModal-{{ $item['id'] }}" 
+                        class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
                         Eliminar
                     </button>
                 </td>
@@ -84,10 +85,17 @@
             </tr>
             @empty
             <tr>
-                <td colspan="3" class="text-center py-4">No hay áreas registradas.</td>
+                <td colspan="3" class="text-center py-4 text-gray-600">
+                    @if(request('search'))
+                        No se encontraron áreas que coincidan con "{{ request('search') }}".
+                    @else
+                        No hay áreas registradas.
+                    @endif
+                </td>
             </tr>
             @endforelse
         </tbody>
+        
     </table>
 
     <!-- Paginación -->
