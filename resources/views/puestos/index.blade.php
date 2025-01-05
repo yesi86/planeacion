@@ -17,12 +17,28 @@
 
     <h2 class="text-2xl font-semibold mb-4">Gestión de Puestos</h2>
 
-    <div class="flex justify-end mb-4">
+    <!-- Buscador y botón de crear puesto -->
+    <div class="flex justify-between items-center mb-4">
+        <form method="GET" action="{{ route('puestos.index') }}" class="flex items-center">
+            <input 
+                type="text" 
+                name="search" 
+                value="{{ request('search') }}" 
+                placeholder="Buscar puesto..." 
+                class="border border-gray-300 rounded px-4 py-2 mr-2"
+            >
+            <button 
+                type="submit" 
+                class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
+                Buscar
+            </button>
+        </form>
         <button data-modal-toggle="createPuestoModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
             Crear Puesto
         </button>
     </div>
 
+    <!-- Tabla de puestos -->
     <table class="w-full border-collapse border border-gray-200">
         <thead>
             <tr class="bg-gray-100">
@@ -40,28 +56,28 @@
                         Editar
                     </button>
 
-                <!-- Formulario de eliminación -->
-                <form method="POST" action="{{ route('puestos.destroy', $puesto->id) }}" id="delete-form-{{ $puesto->id }}">
-                    @csrf
-                    @method('DELETE')
-                    <!-- Eliminar botón que solo abre el modal -->
-                    <button type="button"
-                        class="bg-red-500 text-white py-1 px-3 rounded"
-                        data-modal-toggle="deleteModal-{{ $puesto->id }}"  
-                        data-item-id="{{ $puesto->id }}" 
-                        data-item-name="{{ $puesto->name }}">
-                        Eliminar
-                    </button>
-                </form>
+                    <!-- Formulario de eliminación -->
+                    <form method="POST" action="{{ route('puestos.destroy', $puesto->id) }}" id="delete-form-{{ $puesto->id }}">
+                        @csrf
+                        @method('DELETE')
+                        <!-- Botón Eliminar -->
+                        <button type="button"
+                            class="bg-red-500 text-white py-1 px-3 rounded"
+                            data-modal-toggle="deleteModal-{{ $puesto->id }}"  
+                            data-item-id="{{ $puesto->id }}" 
+                            data-item-name="{{ $puesto->name }}">
+                            Eliminar
+                        </button>
+                    </form>
                 </td>
                 <td class="border border-gray-300 px-4 py-2 align-middle">
                     {{ $puesto->name }}
                 </td>
             </tr>
             @empty
-                <tr>
-                    <td colspan="2" class="text-center py-4">No hay puestos registrados.</td>
-                </tr>
+            <tr>
+                <td colspan="2" class="text-center py-4">No hay puestos registrados.</td>
+            </tr>
             @endforelse
         </tbody>
     </table>
@@ -86,4 +102,3 @@
 @endforeach
 
 @endsection
-

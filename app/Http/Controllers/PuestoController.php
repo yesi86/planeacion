@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class PuestoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $puestos = Puesto::paginate(10);
+        $search = $request->input('search');
+
+        // Si hay una búsqueda, filtra los puestos
+        $puestos = Puesto::when($search, function ($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        })->paginate(10);
+
+        if ($search && $puestos->isEmpty()) {
+            return redirect()->route('puestos.index')
+                ->with('error', 'No se encontraron coincidencias para la búsqueda: "' . $search . '"');
+        }
+
         return view('puestos.index', compact('puestos'));
     }
 
