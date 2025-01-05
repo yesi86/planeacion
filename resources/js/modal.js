@@ -46,6 +46,8 @@ function initializeModals() {
                     modal.classList.add("hidden"); 
                 });
             }
+
+            
         }
     });
 }
