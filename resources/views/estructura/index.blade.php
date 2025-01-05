@@ -100,9 +100,10 @@
     </div>
 </div>
 
-<!-- Modal ver -->
 @foreach ($data as $item)
+    <!-- Modal para ver el área -->
     @include('estructura.modals.viewAreaModal', ['item' => $item])
 @endforeach
+
 
 @endsection

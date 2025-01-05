@@ -34,6 +34,7 @@ class EstructuraController extends Controller
                                 'areas_responsables' => $item->areasResponsables, // Agregar las áreas responsables
                             ];
                         });
+                    // dd($allData); // Aquí hacemos el dd
                     break;
                 case 'area_responsable':
                     $allData = AreaResponsable::with('areaSuperior', 'departamentos') // Cargar área superior y departamentos
@@ -48,6 +49,7 @@ class EstructuraController extends Controller
                                 'departamentos' => $item->departamentos, // Departamentos asociados
                             ];
                         });
+                    // dd($allData); // Aquí también hacemos el dd
                     break;
                 case 'departamento':
                     $allData = Departamento::with('areaResponsable', 'divisionesCarrera') // Cargar área responsable y divisiones
@@ -62,6 +64,7 @@ class EstructuraController extends Controller
                                 'divisiones_carrera' => $item->divisionesCarrera, // Divisiones asociadas
                             ];
                         });
+                    // dd($allData); // Aquí también hacemos el dd
                     break;
                 case 'division_carrera':
                     $allData = DivisionCarrera::with('departamento') // Cargar departamento
@@ -75,18 +78,16 @@ class EstructuraController extends Controller
                                 'departamento' => $item->departamento, // Departamento asociado
                             ];
                         });
+                    // dd($allData); // Aquí también hacemos el dd
                     break;
                 default:
                     $allData = $this->fetchAllData($search);
+                    // dd($allData); // Aquí también hacemos el dd
                     break;
             }
         } else {
             $allData = $this->fetchAllData($search);
-        }
-
-        // Si no hay datos, redirigir con mensaje de error
-        if ($allData->isEmpty()) {
-            return redirect()->route('areas.index')->with('error', 'No se encontraron resultados para tu búsqueda.');
+            // dd($allData); // Aquí también hacemos el dd
         }
 
         // Paginación manual
@@ -105,7 +106,7 @@ class EstructuraController extends Controller
         ]);
     }
 
-    // Función auxiliar para obtener todos los datos sin filtro de tipo
+
     private function fetchAllData($search)
     {
         $allData = collect();
@@ -126,45 +127,76 @@ class EstructuraController extends Controller
             return $query->where('nombre', 'like', '%' . $search . '%');
         });
 
+        // Área Superior
         $allData = $allData->merge(
             $areaSuperiorQuery->get()->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'nombre' => $item->nombre,
                     'tipo' => 'Área Superior',
-                    'areas_responsables' => $item->areasResponsables, // Áreas responsables
+                    'areas_responsables' => $item->areasResponsables->map(function ($areaResponsable) {
+                        return [
+                            'id' => $areaResponsable->id,
+                            'nombre' => $areaResponsable->nombre,
+                        ];
+                    }), // Extrae solo los atributos necesarios de las áreas responsables
                 ];
             })
         );
+
+        // Área Responsable
         $allData = $allData->merge(
             $areaResponsableQuery->get()->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'nombre' => $item->nombre,
                     'tipo' => 'Área Responsable',
-                    'area_superior' => $item->areaSuperior, // Área superior
-                    'departamentos' => $item->departamentos, // Departamentos
+                    'area_superior' => $item->areaSuperior ? [
+                        'id' => $item->areaSuperior->id,
+                        'nombre' => $item->areaSuperior->nombre,
+                    ] : null, // Extrae solo los atributos necesarios del área superior
+                    'departamentos' => $item->departamentos->map(function ($departamento) {
+                        return [
+                            'id' => $departamento->id,
+                            'nombre' => $departamento->nombre,
+                        ];
+                    }), // Extrae solo los atributos necesarios de los departamentos
                 ];
             })
         );
+
+        // Departamento
         $allData = $allData->merge(
             $departamentoQuery->get()->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'nombre' => $item->nombre,
                     'tipo' => 'Departamento',
-                    'area_responsable' => $item->areaResponsable, // Área responsable
-                    'divisiones_carrera' => $item->divisionesCarrera, // Divisiones carrera
+                    'area_responsable' => $item->areaResponsable ? [
+                        'id' => $item->areaResponsable->id,
+                        'nombre' => $item->areaResponsable->nombre,
+                    ] : null, // Extrae solo los atributos necesarios del área responsable
+                    'divisiones_carrera' => $item->divisionesCarrera->map(function ($divisionCarrera) {
+                        return [
+                            'id' => $divisionCarrera->id,
+                            'nombre' => $divisionCarrera->nombre,
+                        ];
+                    }), // Extrae solo los atributos necesarios de las divisiones carrera
                 ];
             })
         );
+
+        // División Carrera
         $allData = $allData->merge(
             $divisionCarreraQuery->get()->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'nombre' => $item->nombre,
                     'tipo' => 'División Carrera',
-                    'departamento' => $item->departamento, // Departamento
+                    'departamento' => $item->departamento ? [
+                        'id' => $item->departamento->id,
+                        'nombre' => $item->departamento->nombre,
+                    ] : null, // Extrae solo los atributos necesarios del departamento
                 ];
             })
         );
