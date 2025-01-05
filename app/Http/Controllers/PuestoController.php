@@ -10,19 +10,23 @@ class PuestoController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $order = $request->input('order', 'asc'); // Por defecto, ascendente
 
-        // Si hay una búsqueda, filtra los puestos
+        // Si hay una búsqueda, filtra y ordena los puestos
         $puestos = Puesto::when($search, function ($query, $search) {
             return $query->where('name', 'like', '%' . $search . '%');
-        })->paginate(10);
+        })
+            ->orderBy('name', $order) // Ordenar por nombre según el parámetro
+            ->paginate(10);
 
         if ($search && $puestos->isEmpty()) {
             return redirect()->route('puestos.index')
                 ->with('error', 'No se encontraron coincidencias para la búsqueda: "' . $search . '"');
         }
 
-        return view('puestos.index', compact('puestos'));
+        return view('puestos.index', compact('puestos', 'order'));
     }
+
 
     public function store(Request $request)
     {

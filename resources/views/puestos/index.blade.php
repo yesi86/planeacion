@@ -17,15 +17,14 @@
 
     <h2 class="text-2xl font-semibold mb-4">Gestión de Puestos</h2>
 
-    <!-- Buscador y botón de crear puesto -->
     <div class="flex justify-between items-center mb-4">
-        <form method="GET" action="{{ route('puestos.index') }}" class="flex items-center">
+        <form method="GET" action="{{ route('puestos.index') }}" class="flex items-center space-x-2">
             <input 
                 type="text" 
                 name="search" 
                 value="{{ request('search') }}" 
                 placeholder="Buscar puesto..." 
-                class="border border-gray-300 rounded px-4 py-2 mr-2"
+                class="border border-gray-300 rounded px-4 py-2"
             >
             <button 
                 type="submit" 
@@ -33,12 +32,24 @@
                 Buscar
             </button>
         </form>
-        <button data-modal-toggle="createPuestoModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
-            Crear Puesto
-        </button>
+    
+        <div class="flex items-center space-x-2">
+            <!-- Combobox de orden -->
+            <select 
+                name="order" 
+                class="border border-gray-300 rounded px-4 py-2"
+                onchange="this.form.submit()">
+                <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>A-Z</option>
+                <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
+            </select>
+    
+            <button data-modal-toggle="createPuestoModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
+                Crear Puesto
+            </button>
+        </div>
     </div>
+    
 
-    <!-- Tabla de puestos -->
     <table class="w-full border-collapse border border-gray-200">
         <thead>
             <tr class="bg-gray-100">
