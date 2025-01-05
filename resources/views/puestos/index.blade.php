@@ -35,13 +35,16 @@
     
         <div class="flex items-center space-x-2">
             <!-- Combobox de orden -->
-            <select 
-                name="order" 
-                class="border border-gray-300 rounded px-4 py-2"
-                onchange="this.form.submit()">
-                <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>A-Z</option>
-                <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
-            </select>
+            <form method="GET" action="{{ route('puestos.index') }}" class="flex items-center space-x-2">
+                <input type="hidden" name="search" value="{{ request('search') }}">
+                <select 
+                    name="order" 
+                    class="border border-gray-300 rounded px-4 py-2"
+                    onchange="this.form.submit()">
+                    <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>A-Z</option>
+                    <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
+                </select>
+            </form>
     
             <button data-modal-toggle="createPuestoModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
                 Crear Puesto

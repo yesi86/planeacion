@@ -24,8 +24,9 @@ class PuestoController extends Controller
                 ->with('error', 'No se encontraron coincidencias para la búsqueda: "' . $search . '"');
         }
 
-        return view('puestos.index', compact('puestos', 'order'));
+        return view('puestos.index', compact('puestos', 'order', 'search'));
     }
+
 
 
     public function store(Request $request)

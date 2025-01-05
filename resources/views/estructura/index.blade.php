@@ -100,4 +100,9 @@
     </div>
 </div>
 
+<!-- Modal ver -->
+@foreach ($data as $item)
+    @include('estructura.modals.viewAreaModal', ['item' => $item])
+@endforeach
+
 @endsection

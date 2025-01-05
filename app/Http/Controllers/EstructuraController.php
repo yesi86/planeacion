@@ -23,48 +23,58 @@ class EstructuraController extends Controller
         if ($filter) {
             switch ($filter) {
                 case 'area_superior':
-                    $allData = AreaSuperior::when($search, function ($query, $search) {
-                        return $query->where('nombre', 'like', '%' . $search . '%');
-                    })->get()->map(function ($item) {
-                        return [
-                            'id' => $item->id,
-                            'nombre' => $item->nombre,
-                            'tipo' => 'Área Superior',
-                        ];
-                    });
+                    $allData = AreaSuperior::with('areasResponsables') // Cargar las áreas responsables
+                        ->when($search, function ($query, $search) {
+                            return $query->where('nombre', 'like', '%' . $search . '%');
+                        })->get()->map(function ($item) {
+                            return [
+                                'id' => $item->id,
+                                'nombre' => $item->nombre,
+                                'tipo' => 'Área Superior',
+                                'areas_responsables' => $item->areasResponsables, // Agregar las áreas responsables
+                            ];
+                        });
                     break;
                 case 'area_responsable':
-                    $allData = AreaResponsable::when($search, function ($query, $search) {
-                        return $query->where('nombre', 'like', '%' . $search . '%');
-                    })->get()->map(function ($item) {
-                        return [
-                            'id' => $item->id,
-                            'nombre' => $item->nombre,
-                            'tipo' => 'Área Responsable',
-                        ];
-                    });
+                    $allData = AreaResponsable::with('areaSuperior', 'departamentos') // Cargar área superior y departamentos
+                        ->when($search, function ($query, $search) {
+                            return $query->where('nombre', 'like', '%' . $search . '%');
+                        })->get()->map(function ($item) {
+                            return [
+                                'id' => $item->id,
+                                'nombre' => $item->nombre,
+                                'tipo' => 'Área Responsable',
+                                'area_superior' => $item->areaSuperior, // Área superior asociada
+                                'departamentos' => $item->departamentos, // Departamentos asociados
+                            ];
+                        });
                     break;
                 case 'departamento':
-                    $allData = Departamento::when($search, function ($query, $search) {
-                        return $query->where('nombre', 'like', '%' . $search . '%');
-                    })->get()->map(function ($item) {
-                        return [
-                            'id' => $item->id,
-                            'nombre' => $item->nombre,
-                            'tipo' => 'Departamento',
-                        ];
-                    });
+                    $allData = Departamento::with('areaResponsable', 'divisionesCarrera') // Cargar área responsable y divisiones
+                        ->when($search, function ($query, $search) {
+                            return $query->where('nombre', 'like', '%' . $search . '%');
+                        })->get()->map(function ($item) {
+                            return [
+                                'id' => $item->id,
+                                'nombre' => $item->nombre,
+                                'tipo' => 'Departamento',
+                                'area_responsable' => $item->areaResponsable, // Área responsable asociada
+                                'divisiones_carrera' => $item->divisionesCarrera, // Divisiones asociadas
+                            ];
+                        });
                     break;
                 case 'division_carrera':
-                    $allData = DivisionCarrera::when($search, function ($query, $search) {
-                        return $query->where('nombre', 'like', '%' . $search . '%');
-                    })->get()->map(function ($item) {
-                        return [
-                            'id' => $item->id,
-                            'nombre' => $item->nombre,
-                            'tipo' => 'División Carrera',
-                        ];
-                    });
+                    $allData = DivisionCarrera::with('departamento') // Cargar departamento
+                        ->when($search, function ($query, $search) {
+                            return $query->where('nombre', 'like', '%' . $search . '%');
+                        })->get()->map(function ($item) {
+                            return [
+                                'id' => $item->id,
+                                'nombre' => $item->nombre,
+                                'tipo' => 'División Carrera',
+                                'departamento' => $item->departamento, // Departamento asociado
+                            ];
+                        });
                     break;
                 default:
                     $allData = $this->fetchAllData($search);
@@ -73,12 +83,13 @@ class EstructuraController extends Controller
         } else {
             $allData = $this->fetchAllData($search);
         }
-        // isEmpty compara si no hay una coincidencia, manda al rout con un messaje "errormessaje.js"
+
+        // Si no hay datos, redirigir con mensaje de error
         if ($allData->isEmpty()) {
             return redirect()->route('areas.index')->with('error', 'No se encontraron resultados para tu búsqueda.');
         }
 
-        // Paginación manual no funciono el linkeo tradicional, se tuvo que hacer manual
+        // Paginación manual
         $paginatedData = new LengthAwarePaginator(
             $allData->forPage($currentPage, $perPage),
             $allData->count(),
@@ -94,25 +105,24 @@ class EstructuraController extends Controller
         ]);
     }
 
-
     // Función auxiliar para obtener todos los datos sin filtro de tipo
     private function fetchAllData($search)
     {
         $allData = collect();
 
-        $areaSuperiorQuery = AreaSuperior::when($search, function ($query, $search) {
+        $areaSuperiorQuery = AreaSuperior::with('areasResponsables')->when($search, function ($query, $search) {
             return $query->where('nombre', 'like', '%' . $search . '%');
         });
 
-        $areaResponsableQuery = AreaResponsable::when($search, function ($query, $search) {
+        $areaResponsableQuery = AreaResponsable::with('areaSuperior', 'departamentos')->when($search, function ($query, $search) {
             return $query->where('nombre', 'like', '%' . $search . '%');
         });
 
-        $departamentoQuery = Departamento::when($search, function ($query, $search) {
+        $departamentoQuery = Departamento::with('areaResponsable', 'divisionesCarrera')->when($search, function ($query, $search) {
             return $query->where('nombre', 'like', '%' . $search . '%');
         });
 
-        $divisionCarreraQuery = DivisionCarrera::when($search, function ($query, $search) {
+        $divisionCarreraQuery = DivisionCarrera::with('departamento')->when($search, function ($query, $search) {
             return $query->where('nombre', 'like', '%' . $search . '%');
         });
 
@@ -122,6 +132,7 @@ class EstructuraController extends Controller
                     'id' => $item->id,
                     'nombre' => $item->nombre,
                     'tipo' => 'Área Superior',
+                    'areas_responsables' => $item->areasResponsables, // Áreas responsables
                 ];
             })
         );
@@ -131,6 +142,8 @@ class EstructuraController extends Controller
                     'id' => $item->id,
                     'nombre' => $item->nombre,
                     'tipo' => 'Área Responsable',
+                    'area_superior' => $item->areaSuperior, // Área superior
+                    'departamentos' => $item->departamentos, // Departamentos
                 ];
             })
         );
@@ -140,6 +153,8 @@ class EstructuraController extends Controller
                     'id' => $item->id,
                     'nombre' => $item->nombre,
                     'tipo' => 'Departamento',
+                    'area_responsable' => $item->areaResponsable, // Área responsable
+                    'divisiones_carrera' => $item->divisionesCarrera, // Divisiones carrera
                 ];
             })
         );
@@ -149,6 +164,7 @@ class EstructuraController extends Controller
                     'id' => $item->id,
                     'nombre' => $item->nombre,
                     'tipo' => 'División Carrera',
+                    'departamento' => $item->departamento, // Departamento
                 ];
             })
         );
