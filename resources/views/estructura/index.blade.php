@@ -66,7 +66,9 @@
                 <td class="border border-gray-300 px-4 py-2 flex justify-center items-center space-x-2">
                     <button 
                         data-modal-toggle="viewAreaModal-{{ $item['id'] }}" 
-                        class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">
+                        class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+                        data-id="{{ $item['id'] }}" 
+                        data-tipo="{{ $item['tipo'] }}">
                         Ver
                     </button>
                     <button 
@@ -107,3 +109,4 @@
 
 
 @endsection
+

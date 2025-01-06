@@ -8,7 +8,6 @@
 
         <!-- Content -->
         <div class="p-6 overflow-y-auto max-h-[70vh]">
-            <!-- Tabla de detalles -->
             <table class="table-auto w-full border-collapse border border-gray-200">
                 <tbody>
                     <!-- Tipo de Área -->
@@ -18,12 +17,12 @@
                     </tr>
 
                     <!-- Mostrar información dependiendo del tipo de área -->
-                    @if($item['tipo'] == 'Área Superior')
+                    @if($item['tipo'] == 'Superior')
                         <tr>
                             <td class="font-semibold py-2 px-4 border-b">Áreas Responsables:</td>
                             <td class="py-2 px-4 border-b">
                                 @if($item['areas_responsables']->isEmpty())
-                                    No disponibles
+                                    Ninguna
                                 @else
                                     <ul class="list-disc pl-5 max-h-32 overflow-y-auto">
                                         @foreach($item['areas_responsables'] as $areaResponsable)
@@ -33,7 +32,7 @@
                                 @endif
                             </td>
                         </tr>
-                    @elseif($item['tipo'] == 'Área Responsable')
+                    @elseif($item['tipo'] == 'Responsable')
                         <tr>
                             <td class="font-semibold py-2 px-4 border-b">Área Superior:</td>
                             <td class="py-2 px-4 border-b">{{ $item['area_superior']['nombre'] ?? 'N/A' }}</td>
@@ -42,7 +41,7 @@
                             <td class="font-semibold py-2 px-4 border-b">Departamentos:</td>
                             <td class="py-2 px-4 border-b">
                                 @if($item['departamentos']->isEmpty())
-                                    No disponibles
+                                    Ninguno
                                 @else
                                     <ul class="list-disc pl-5 max-h-32 overflow-y-auto">
                                         @foreach($item['departamentos'] as $departamento)
@@ -61,7 +60,7 @@
                             <td class="font-semibold py-2 px-4 border-b">Divisiones de Carrera:</td>
                             <td class="py-2 px-4 border-b">
                                 @if($item['divisiones_carrera']->isEmpty())
-                                    No disponibles
+                                    Ninguno
                                 @else
                                     <ul class="list-disc pl-5 max-h-32 overflow-y-auto">
                                         @foreach($item['divisiones_carrera'] as $division)

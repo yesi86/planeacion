@@ -30,7 +30,7 @@ class EstructuraController extends Controller
                             return [
                                 'id' => $item->id,
                                 'nombre' => $item->nombre,
-                                'tipo' => 'Área Superior',
+                                'tipo' => 'Superior',
                                 'areas_responsables' => $item->areasResponsables, // Agregar las áreas responsables
                             ];
                         });
@@ -44,7 +44,7 @@ class EstructuraController extends Controller
                             return [
                                 'id' => $item->id,
                                 'nombre' => $item->nombre,
-                                'tipo' => 'Área Responsable',
+                                'tipo' => 'Responsable',
                                 'area_superior' => $item->areaSuperior, // Área superior asociada
                                 'departamentos' => $item->departamentos, // Departamentos asociados
                             ];
@@ -86,8 +86,23 @@ class EstructuraController extends Controller
                     break;
             }
         } else {
-            $allData = $this->fetchAllData($search);
-            // dd($allData); // Aquí también hacemos el dd
+
+
+            if ($search) {
+                $allData = $this->fetchAllData($search);
+            } else {
+                $allData = AreaSuperior::with('areasResponsables') // Cargar las áreas responsables
+                    ->when($search, function ($query, $search) {
+                        return $query->where('nombre', 'like', '%' . $search . '%');
+                    })->get()->map(function ($item) {
+                        return [
+                            'id' => $item->id,
+                            'nombre' => $item->nombre,
+                            'tipo' => 'Superior',
+                            'areas_responsables' => $item->areasResponsables, // Agregar las áreas responsables
+                        ];
+                    });
+            }
         }
 
         // Paginación manual
@@ -111,6 +126,7 @@ class EstructuraController extends Controller
     {
         $allData = collect();
 
+        // Consultas para obtener los datos
         $areaSuperiorQuery = AreaSuperior::with('areasResponsables')->when($search, function ($query, $search) {
             return $query->where('nombre', 'like', '%' . $search . '%');
         });
@@ -133,13 +149,13 @@ class EstructuraController extends Controller
                 return [
                     'id' => $item->id,
                     'nombre' => $item->nombre,
-                    'tipo' => 'Área Superior',
+                    'tipo' => 'Superior',
                     'areas_responsables' => $item->areasResponsables->map(function ($areaResponsable) {
                         return [
                             'id' => $areaResponsable->id,
                             'nombre' => $areaResponsable->nombre,
                         ];
-                    }), // Extrae solo los atributos necesarios de las áreas responsables
+                    }),
                 ];
             })
         );
@@ -150,17 +166,17 @@ class EstructuraController extends Controller
                 return [
                     'id' => $item->id,
                     'nombre' => $item->nombre,
-                    'tipo' => 'Área Responsable',
+                    'tipo' => 'Responsable',
                     'area_superior' => $item->areaSuperior ? [
                         'id' => $item->areaSuperior->id,
                         'nombre' => $item->areaSuperior->nombre,
-                    ] : null, // Extrae solo los atributos necesarios del área superior
+                    ] : null,
                     'departamentos' => $item->departamentos->map(function ($departamento) {
                         return [
                             'id' => $departamento->id,
                             'nombre' => $departamento->nombre,
                         ];
-                    }), // Extrae solo los atributos necesarios de los departamentos
+                    }),
                 ];
             })
         );
@@ -175,13 +191,13 @@ class EstructuraController extends Controller
                     'area_responsable' => $item->areaResponsable ? [
                         'id' => $item->areaResponsable->id,
                         'nombre' => $item->areaResponsable->nombre,
-                    ] : null, // Extrae solo los atributos necesarios del área responsable
+                    ] : null,
                     'divisiones_carrera' => $item->divisionesCarrera->map(function ($divisionCarrera) {
                         return [
                             'id' => $divisionCarrera->id,
                             'nombre' => $divisionCarrera->nombre,
                         ];
-                    }), // Extrae solo los atributos necesarios de las divisiones carrera
+                    }),
                 ];
             })
         );
@@ -196,7 +212,7 @@ class EstructuraController extends Controller
                     'departamento' => $item->departamento ? [
                         'id' => $item->departamento->id,
                         'nombre' => $item->departamento->nombre,
-                    ] : null, // Extrae solo los atributos necesarios del departamento
+                    ] : null,
                 ];
             })
         );
