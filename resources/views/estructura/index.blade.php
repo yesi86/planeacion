@@ -46,9 +46,34 @@
             </select>
         </form>
 
+        @if(request('filter')=='')
         <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
-            Crear Área
+            crear Superior
         </button>
+        @endif
+        @if(request('filter')=='area_superior')
+        <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
+            crear Superior
+        </button>
+        @endif
+        
+        @if(request('filter')=='area_responsable')
+            <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
+                crear Responsable
+            </button>
+        @endif
+
+        @if(request('filter')=='departamento')
+        <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
+            crear departamento
+        </button>
+        @endif
+
+        @if(request('filter')=='division_carrera')
+        <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
+            crear division
+        </button>
+        @endif
     </div>
 
     <!-- Tabla de áreas -->

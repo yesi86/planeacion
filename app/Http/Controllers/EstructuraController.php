@@ -86,8 +86,6 @@ class EstructuraController extends Controller
                     break;
             }
         } else {
-
-
             if ($search) {
                 $allData = $this->fetchAllData($search);
             } else {
