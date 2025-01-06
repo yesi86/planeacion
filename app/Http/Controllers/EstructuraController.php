@@ -8,11 +8,22 @@ use App\Models\Departamento;
 use App\Models\DivisionCarrera;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+
 
 class EstructuraController extends Controller
 {
     public function index(Request $request)
     {
+
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
+
+        if (!$user->hasRole('SuperAdministrador')) {
+            return redirect()->route('dashboard')
+                ->with('alert', 'No tienes permisos para acceder a esta página');
+        }
+
         $search = $request->input('search');
         $filter = $request->input('filter');
         $perPage = 10;
