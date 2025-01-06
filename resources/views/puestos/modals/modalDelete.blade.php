@@ -1,5 +1,4 @@
-<!-- Modal Eliminar -->
-<div id="deleteModal-{{ $puesto->id }}" class="hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+<div id="deleteModal-{{ $puesto->id }}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{ $errors->any() ? 'block' : 'hidden' }}">
     <div class="bg-white p-6 rounded shadow-lg max-w-sm w-full">
         <h3 class="text-xl font-semibold mb-4">Confirmar Eliminación</h3>
 

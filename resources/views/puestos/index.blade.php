@@ -107,7 +107,7 @@
 
 <!-- Modal Eliminar -->
 @foreach ($puestos as $puesto)
-    @include('components.modals.modalDelete', ['puesto' => $puesto])
+    @include('puestos.modals.modalDelete', ['puesto' => $puesto])
 @endforeach
 
 <!-- Modales Editar -->
