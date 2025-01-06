@@ -51,6 +51,7 @@
             crear Superior
         </button>
         @endif
+
         @if(request('filter')=='area_superior')
         <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
             crear Superior
@@ -130,6 +131,11 @@
 @foreach ($data as $item)
     <!-- Modal para ver el área -->
     @include('estructura.modals.viewAreaModal', ['item' => $item])
+@endforeach
+
+@foreach ($data as $item)
+    <!-- Modal para editar el área -->
+    @include('estructura.modals.editAreaModal', ['item' => $item])
 @endforeach
 
 
