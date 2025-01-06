@@ -12,7 +12,7 @@
                 <button type="button" class="closeModalButton bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
                     Cancelar
                 </button>
-                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-bl">
                     Guardar
                 </button>
             </div>

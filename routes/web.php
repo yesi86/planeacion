@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
 Route::prefix('users')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('users.index');
     Route::post('/', [UserController::class, 'store'])->name('users.store');
-})->middleware('role:SuperAdministrador');
+})->middleware('role:SuperAdministrador|Administrador');
 
 Route::get('/objetivo', [ObjetivoController::class, 'index'])->name('objetivos.index');
 Route::post('/objetivo/add', [ObjetivoController::class, 'addToQueue'])->name('objetivos.add');
@@ -40,7 +40,7 @@ Route::prefix('puestos')->group(function () {
     Route::post('/store', [PuestoController::class, 'store'])->name('puestos.store');
     Route::put('/update/{id}', [PuestoController::class, 'update'])->name('puestos.update');
     Route::delete('/delete/{id}', [PuestoController::class, 'destroy'])->name('puestos.destroy');
-});
+})->middleware('role:SuperAdministrador|Administrador');
 
 //rutas acciones
 Route::get('/accion', [AccionController::class, 'index'])->name('acciones.index');

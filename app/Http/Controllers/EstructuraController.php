@@ -217,4 +217,35 @@ class EstructuraController extends Controller
 
         return $allData;
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        $item = null; //tiene que estar en null para que tenga nuevos datos
+        //lo puse así para que no tenga error nullpointer
+
+        switch ($request->input('tipo')) {
+            case 'Superior':
+                $item = AreaSuperior::findOrFail($id);
+                break;
+            case 'Responsable':
+                $item = AreaResponsable::findOrFail($id);
+                break;
+            case 'Departamento':
+                $item = Departamento::findOrFail($id);
+                break;
+            case 'División Carrera':
+                $item = DivisionCarrera::findOrFail($id);
+                break;
+            default:
+                return redirect()->route('areas.index')->with('error', 'Tipo no válido.');
+        }
+
+        $item->update(['nombre' => $request->input('name')]);
+
+        return redirect()->route('areas.index')->with('success', 'Área actualizada exitosamente.');
+    }
 }
