@@ -1,5 +1,5 @@
 <!-- Modal View -->
-<div id="viewAreaModal-{{ $item['id'] }}" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+<div id="viewAreaModal-{{ $item['id'] }}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{ $errors->any() ? 'block' : 'hidden' }}">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl h-auto max-h-[90vh] overflow-hidden">
         <!-- Header -->
         <div class="bg-gray-100 px-6 py-4 border-b flex justify-between items-center">

@@ -1,4 +1,4 @@
-<div id="editPuestoModal-{{ $puesto->id }}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<div id="editPuestoModal-{{ $puesto->id }}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{ $errors->any() ? 'block' : 'hidden' }}">
     <div class="bg-white rounded-lg p-6 w-96">
         <h3 class="text-xl font-semibold mb-4">Editar Puesto</h3>
         <form method="POST" action="{{ route('puestos.update', $puesto->id) }}">
