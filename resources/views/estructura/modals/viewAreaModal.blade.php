@@ -70,7 +70,7 @@
                                 @endif
                             </td>
                         </tr>
-                    @elseif($item['tipo'] == 'División Carrera')
+                    @elseif($item['tipo'] == 'Division Carrera')
                         <tr>
                             <td class="font-semibold py-2 px-4 border-b">Departamento:</td>
                             <td class="py-2 px-4 border-b">{{ $item['departamento']['nombre'] ?? 'N/A' }}</td>
