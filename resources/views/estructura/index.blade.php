@@ -136,6 +136,10 @@
     @include('estructura.modals.editAreaModal', ['item' => $item])
 @endforeach
 
+@foreach ($data as $item)
+    <!-- Modal para editar el área -->
+    @include('estructura.modals.deleteAreaModal', ['item' => $item])
+@endforeach
 
 @endsection
 

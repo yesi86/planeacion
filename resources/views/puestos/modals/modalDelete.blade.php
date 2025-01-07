@@ -6,7 +6,7 @@
             <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded cancel-delete-action">
                 Cancelar
             </button>
-            <button type="button" class="bg-red-600 text-white py-2 px-4 rounded confirm-delete-action" data-item-id="{{ $puesto->id }}" data-item-name="{{ $puesto->name }}">
+            <button type="button" class="bg-red-600 text-white py-2 px-4 rounded confirm-delete-action" data-item-id="{{ $puesto->id }}" >
                 Eliminar
             </button>
         </div>

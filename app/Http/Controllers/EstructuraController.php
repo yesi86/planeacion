@@ -85,7 +85,7 @@ class EstructuraController extends Controller
                             return [
                                 'id' => $item->id,
                                 'nombre' => $item->nombre,
-                                'tipo' => 'División Carrera',
+                                'tipo' => 'Division Carrera',
                                 'departamento' => $item->departamento, // Departamento asociado
                             ];
                         });
@@ -217,7 +217,7 @@ class EstructuraController extends Controller
                 return [
                     'id' => $item->id,
                     'nombre' => $item->nombre,
-                    'tipo' => 'División Carrera',
+                    'tipo' => 'Division Carrera',
                     'departamento' => $item->departamento ? [
                         'id' => $item->departamento->id,
                         'nombre' => $item->departamento->nombre,
@@ -248,7 +248,7 @@ class EstructuraController extends Controller
             case 'Departamento':
                 $item = Departamento::findOrFail($id);
                 break;
-            case 'División Carrera':
+            case 'Division Carrera':
                 $item = DivisionCarrera::findOrFail($id);
                 break;
             default:
@@ -258,5 +258,27 @@ class EstructuraController extends Controller
         $item->update(['nombre' => $request->input('name')]);
 
         return redirect()->route('areas.index')->with('success', 'Área actualizada exitosamente.');
+    }
+    public function destroy(Request $request, $id)
+    {
+        try {
+            $item = match ($request->input('tipo')) {
+                'Superior' => AreaSuperior::findOrFail($id),
+                'Responsable' => AreaResponsable::findOrFail($id),
+                'Departamento' => Departamento::findOrFail($id),
+                'Division Carrera' => DivisionCarrera::findOrFail($id),
+                default => null,
+            };
+
+            if (!$item) {
+                return redirect()->back()->with('error', 'Tipo no válido.');
+            }
+
+            $item->delete();
+
+            return redirect()->route('areas.index')->with('success', 'Elemento eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('areas.index')->with('error', 'Error al eliminar el elemento: ' . $e->getMessage());
+        }
     }
 }

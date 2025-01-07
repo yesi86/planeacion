@@ -29,7 +29,6 @@ function initializeModals() {
             if (confirmDeleteButton) {
                 confirmDeleteButton.addEventListener("click", function() {
                     const itemId = this.getAttribute("data-item-id");
-                    const itemName = this.getAttribute("data-item-name");
 
                     // Buscar el formulario de eliminación correspondiente
                     const form = document.getElementById("delete-form-" + itemId);
@@ -39,6 +38,7 @@ function initializeModals() {
                 });
             }
 
+            
             // Manejar la acción de Cancelar
             const cancelDeleteButton = modal.querySelector(".cancel-delete-action");
             if (cancelDeleteButton) {
@@ -47,7 +47,7 @@ function initializeModals() {
                 });
             }
 
-            
+
         }
     });
 }

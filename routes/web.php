@@ -54,6 +54,7 @@ Route::get('/acciones/obtenercola', [AccionController::class, 'obtenerCola'])->n
 Route::prefix('estructura')->group(function () {
     Route::get('/', [EstructuraController::class, 'index'])->name('areas.index');
     Route::put('/update/{id}', [EstructuraController::class, 'update'])->name('areas.update');
+    Route::delete('/delete/{id}', [EstructuraController::class, 'destroy'])->name('areas.destroy');
 })->middleware('role:SuperAdministrador|Administrador');
 
 
