@@ -98,11 +98,8 @@
 <!-- Modal Eliminar -->
 @foreach ($puestos as $puesto)
     @include('puestos.modals.modalDelete', ['puesto' => $puesto])
+    @include('puestos.modals.edit', ['puesto' => $puesto])
 @endforeach
 
-<!-- Modales Editar -->
-@foreach ($puestos as $delete)
-    @include('puestos.modals.edit', ['puesto' => $delete])
-@endforeach
 
 @endsection

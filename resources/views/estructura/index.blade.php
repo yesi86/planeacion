@@ -45,38 +45,28 @@
                 <option value="division_carrera" {{ request('filter') == 'division_carrera' ? 'selected' : '' }}>División Carrera</option>
             </select>
         </form>
-
-        @if(request('filter')=='')
-        <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
-            crear Superior
-        </button>
-        @endif
-
-        @if(request('filter')=='area_superior')
-        <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
-            crear Superior
-        </button>
-        @endif
         
-        @if(request('filter')=='area_responsable')
-            <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
-                crear Responsable
-            </button>
-        @endif
+        @php
+        $filters = [
+            '' => 'crear Superior',
+            'area_superior' => 'crear Superior',
+            'area_responsable' => 'crear responsable',
+            'departamento' => 'crear departamento',
+            'division_carrera' => 'crear division'
+        ];
+        @endphp
 
-        @if(request('filter')=='departamento')
-        <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
-            crear departamento
-        </button>
-        @endif
+        @foreach($filters as $filter => $buttonText)
+            @if(request('filter') == $filter)
+                <button 
+                    data-modal-toggle="createAreaModal-{{ $filter}}" 
+                    class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
+                    {{ $buttonText }}
+                </button>
+            @endif
+        @endforeach
 
-        @if(request('filter')=='division_carrera')
-        <button data-modal-toggle="createAreaModal" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">
-            crear division
-        </button>
-        @endif
     </div>
-
     <!-- Tabla de áreas -->
     <table class="w-full border-collapse border border-gray-200">
         <thead>
@@ -117,7 +107,6 @@
             </tr>
             @endforelse
         </tbody>
-        
     </table>
 
     <!-- Paginación -->
@@ -126,20 +115,18 @@
     </div>
 </div>
 
+<!-- Modal para crear área con base en el filtro -->
+@foreach($filters as $filter => $buttonText)
+    @if(request('filter') == $filter)
+        @include('estructura.modals.createAreaModal', ['filter' => $filter])
+    @endif
+@endforeach
+
+<!-- Modal para ver, editar y eliminar -->
 @foreach ($data as $item)
-    <!-- Modal para ver el área -->
     @include('estructura.modals.viewAreaModal', ['item' => $item])
-@endforeach
-
-@foreach ($data as $item)
-    <!-- Modal para editar el área -->
     @include('estructura.modals.editAreaModal', ['item' => $item])
-@endforeach
-
-@foreach ($data as $item)
-    <!-- Modal para editar el área -->
     @include('estructura.modals.deleteAreaModal', ['item' => $item])
 @endforeach
 
 @endsection
-

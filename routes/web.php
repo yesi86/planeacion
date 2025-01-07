@@ -53,6 +53,7 @@ Route::get('/acciones/obtenercola', [AccionController::class, 'obtenerCola'])->n
 // Ruta para el módulo de Estructura/Áreas
 Route::prefix('estructura')->group(function () {
     Route::get('/', [EstructuraController::class, 'index'])->name('areas.index');
+    Route::post('/store', [EstructuraController::class, 'store'])->name('areas.store');
     Route::put('/update/{id}', [EstructuraController::class, 'update'])->name('areas.update');
     Route::delete('/delete/{id}', [EstructuraController::class, 'destroy'])->name('areas.destroy');
 })->middleware('role:SuperAdministrador|Administrador');

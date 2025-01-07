@@ -15,7 +15,6 @@ class EstructuraController extends Controller
 {
     public function index(Request $request)
     {
-
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
 
@@ -25,7 +24,7 @@ class EstructuraController extends Controller
         }
 
         $search = $request->input('search');
-        $filter = $request->input('filter');
+        $filter = $request->input('filter', 'area_superior');
         $perPage = 10;
         $currentPage = $request->input('page', 1);
         $allData = collect();
@@ -45,7 +44,6 @@ class EstructuraController extends Controller
                                 'areas_responsables' => $item->areasResponsables, // Agregar las áreas responsables
                             ];
                         });
-                    // dd($allData); // Aquí hacemos el dd
                     break;
                 case 'area_responsable':
                     $allData = AreaResponsable::with('areaSuperior', 'departamentos') // Cargar área superior y departamentos
@@ -60,7 +58,6 @@ class EstructuraController extends Controller
                                 'departamentos' => $item->departamentos, // Departamentos asociados
                             ];
                         });
-                    // dd($allData); // Aquí también hacemos el dd
                     break;
                 case 'departamento':
                     $allData = Departamento::with('areaResponsable', 'divisionesCarrera') // Cargar área responsable y divisiones
@@ -75,7 +72,6 @@ class EstructuraController extends Controller
                                 'divisiones_carrera' => $item->divisionesCarrera, // Divisiones asociadas
                             ];
                         });
-                    // dd($allData); // Aquí también hacemos el dd
                     break;
                 case 'division_carrera':
                     $allData = DivisionCarrera::with('departamento') // Cargar departamento
@@ -89,11 +85,9 @@ class EstructuraController extends Controller
                                 'departamento' => $item->departamento, // Departamento asociado
                             ];
                         });
-                    // dd($allData); // Aquí también hacemos el dd
                     break;
                 default:
                     $allData = $this->fetchAllData($search);
-                    // dd($allData); // Aquí también hacemos el dd
                     break;
             }
         } else {
@@ -126,7 +120,7 @@ class EstructuraController extends Controller
         return view('estructura.index', [
             'data' => $paginatedData,
             'search' => $search,
-            'filter' => $filter,
+            'filter' => $filter, // Pasamos el filtro actual al modal
         ]);
     }
 
@@ -281,4 +275,6 @@ class EstructuraController extends Controller
             return redirect()->route('areas.index')->with('error', 'Error al eliminar el elemento: ' . $e->getMessage());
         }
     }
+
+    private function store() {}
 }
