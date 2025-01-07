@@ -10,8 +10,6 @@
             <div class="my-4">
                 <p class="text-center text-lg text-gray-800">
                     ¿Estás seguro de que deseas eliminar este elemento? <br>
-                    {{--calamos si envia los elementos de tipo 
-                        <span class="text-red-500 font-bold"> tipo:{{ $item['tipo'] }}</span> --}}
                 </p>
                 <p class="text-sm text-gray-600 text-center">
                     Esta acción no se puede deshacer.
