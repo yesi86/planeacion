@@ -1,6 +1,6 @@
 <div id="createAreaModal-{{$filter}}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{ $errors->any() ? 'block' : 'hidden' }}">
     <div class="bg-white rounded-lg p-6 w-96">
-        <h3 class="text-xl font-semibold mb-4">Crear Puesto - Tipo: {{$filter}}</h3>
+        <h3 class="text-xl font-semibold mb-4">Crear Area</h3>
         <form method="POST" action="{{ route('areas.store') }}">
             @csrf
             <div class="mb-4">
@@ -9,21 +9,22 @@
             </div>
 
             @if(($filter)=='' || ($filter)=='area_superior')
-            <span>hola</span>
-            <input type="hidden" name="tipo" value="{{ $filter}}">
+                <span>hola Superior</span>
+                <input type="hidden" name="tipo" value="{{ $filter}}">
             @endif
             @if(($filter)=='area_responsable')
-            <span>hola responsable</span>
-            <input type="hidden" name="tipo" value="{{ $filter}}">
+                <span>hola responsable</span>
+                <input type="hidden" name="tipo" value="{{ $filter}}">
             @endif
             @if(($filter)=='departamento')
-            <span>hola departamento</span>
-            <input type="hidden" name="tipo" value="{{ $filter}}">
+                <span>hola departamento</span>
+                <input type="hidden" name="tipo" value="{{ $filter}}">
             @endif
             @if(($filter)=='division_carrera')
-            <span>hola division</span>
-            <input type="hidden" name="tipo" value="{{ $filter}}">
+                <span>hola division</span>
+                <input type="hidden" name="tipo" value="{{ $filter}}">
             @endif
+
             <div class="flex justify-end space-x-2">
                 <button type="button" class="closeModalButton bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
                     Cancelar
