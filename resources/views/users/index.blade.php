@@ -17,14 +17,14 @@
 
 
     <h2 class="text-2xl font-semibold mb-4">Usuarios de sistema</h2>
-    {{-- asdad --}}
-    <div class="flex justify-between items-center mb-4">
+    <div class="flex items-center justify-between mb-4">
+        <!-- Buscador a la izquierda -->
         <form method="GET" action="{{ route('users.index') }}" class="flex items-center space-x-2">
             <input 
                 type="text" 
                 name="search" 
                 value="{{ request('search') }}" 
-                placeholder="Buscar puesto..." 
+                placeholder="Buscar Usuario..." 
                 class="border border-gray-300 rounded px-4 py-2"
             >
             <button 
@@ -33,11 +33,23 @@
                 Buscar
             </button>
         </form>
-    
+        <!-- Botón Crear Usuario y Filtros a la derecha -->
         <div class="flex items-center space-x-2">
-            <!-- Combobox de orden -->
+            <!-- Filtros -->
             <form method="GET" action="{{ route('users.index') }}" class="flex items-center space-x-2">
-                <input type="hidden" name="search" value="{{ request('search') }}">
+                <select 
+                    name="role" 
+                    class="border border-gray-300 rounded px-4 py-2"
+                    onchange="this.form.submit()">
+                    <option value="">Todos los roles</option>
+                    @foreach($roles as $role)
+                        <option 
+                            value="{{ $role->name }}" 
+                            {{ request('role') === $role->name ? 'selected' : '' }}>
+                            {{ $role->name }}
+                        </option>
+                    @endforeach
+                </select>
                 <select 
                     name="order" 
                     class="border border-gray-300 rounded px-4 py-2"
@@ -46,13 +58,13 @@
                     <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
                 </select>
             </form>
-    
+            <!-- Botón Crear Usuario -->
             <button data-modal-toggle="createUserModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
                 Crear Usuario
             </button>
         </div>
     </div>
-    {{-- no sirve, ahorita lo checo --}}
+    
 
     <table class="w-full border-collapse border border-gray-200">
         <thead>

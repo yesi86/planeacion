@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
@@ -21,12 +21,30 @@ class UserController extends Controller
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
 
-        $users = User::whereHas('roles')->paginate(10);
+        $search = $request->input('search');
+        $order = $request->input('order', 'asc'); // Por defecto 'asc'
+        $roleFilter = $request->input('role');
 
-        $rol = Role::all();
+        $query = User::query();
 
-        return view('users.index', compact('users', 'rol'));
+        if ($search) {
+            $query->where('name', 'like', "%$search%")
+                ->orWhere('email', 'like', "%$search%");
+        }
+
+        if ($roleFilter) {
+            $query->whereHas('roles', function ($q) use ($roleFilter) {
+                $q->where('name', $roleFilter);
+            });
+        }
+
+        $query->orderBy('name', $order);
+        $users = $query->paginate(10);
+        $roles = Role::all();
+
+        return view('users.index', compact('users', 'roles'));
     }
+
 
 
     public function store(Request $request)
@@ -48,24 +66,5 @@ class UserController extends Controller
         $user->assignRole($validated['role']);
 
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
-    }
-    public function storeResponsable(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        $responsable = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => bcrypt($validated['password']),
-        ]);
-
-        // Asignar el rol de Responsable
-        $responsable->assignRole('Responsable');
-
-        return redirect()->route('responsables.index')->with('success', 'Responsable creado correctamente.');
     }
 }

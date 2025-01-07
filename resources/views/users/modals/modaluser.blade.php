@@ -44,7 +44,7 @@
             <label for="role" class="block text-gray-700">Rol</label>
             <select name="role" id="role" class="w-full px-4 py-2 border border-gray-300 rounded" required>
                 <option value="" disabled selected>Seleccione un rol</option>
-                @foreach($rol as $role)
+                @foreach($roles as $role)
                     <option value="{{ $role->name }}">{{ $role->name }}</option>
                 @endforeach
             </select>
