@@ -69,20 +69,10 @@
                         class="bg-yellow-500 text-white py-1 px-3 rounded  hover:bg-yellow-600">
                         Editar
                     </button>
-
-                    <!-- Formulario de eliminación -->
-                    <form method="POST" action="{{ route('puestos.destroy', $puesto->id) }}" id="delete-form-{{ $puesto->id }}">
-                        @csrf
-                        @method('DELETE')
-                        <!-- Botón Eliminar -->
-                        <button type="button"
-                            class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700"
-                            data-modal-toggle="deleteModal-{{ $puesto->id }}"  
-                            data-item-id="{{ $puesto->id }}" 
-                            data-item-name="{{ $puesto->name }}">
-                            Eliminar
-                        </button>
-                    </form>
+                    <button data-modal-toggle="deleteModal-{{ $puesto->id }}" 
+                        class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                        Eliminar
+                    </button>
                 </td>
                 <td class="border border-gray-300 px-4 py-2 align-middle">
                     {{ $puesto->name }}
