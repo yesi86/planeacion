@@ -15,7 +15,7 @@
     <h2 class="text-2xl font-semibold mb-4">Usuarios de sistema</h2>
     {{-- asdad --}}
     <div class="flex justify-between items-center mb-4">
-        <form method="GET" action="{{ route('puestos.index') }}" class="flex items-center space-x-2">
+        <form method="GET" action="{{ route('users.index') }}" class="flex items-center space-x-2">
             <input 
                 type="text" 
                 name="search" 
@@ -32,7 +32,7 @@
     
         <div class="flex items-center space-x-2">
             <!-- Combobox de orden -->
-            <form method="GET" action="{{ route('puestos.index') }}" class="flex items-center space-x-2">
+            <form method="GET" action="{{ route('users.index') }}" class="flex items-center space-x-2">
                 <input type="hidden" name="search" value="{{ request('search') }}">
                 <select 
                     name="order" 
@@ -43,8 +43,8 @@
                 </select>
             </form>
     
-            <button data-modal-toggle="createPuestoModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
-                Crear Puesto
+            <button data-modal-toggle="createUserModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
+                Crear Usuario
             </button>
         </div>
     </div>
