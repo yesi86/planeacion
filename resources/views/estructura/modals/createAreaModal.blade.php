@@ -7,6 +7,23 @@
                 <label for="name" class="block font-medium">Nombre:</label>
                 <input type="text" id="name" name="name" class="w-full border rounded p-2">
             </div>
+
+            @if(($filter)=='' || ($filter)=='area_superior')
+            <span>hola</span>
+            <input type="hidden" name="tipo" value="{{ $filter}}">
+            @endif
+            @if(($filter)=='area_responsable')
+            <span>hola responsable</span>
+            <input type="hidden" name="tipo" value="{{ $filter}}">
+            @endif
+            @if(($filter)=='departamento')
+            <span>hola departamento</span>
+            <input type="hidden" name="tipo" value="{{ $filter}}">
+            @endif
+            @if(($filter)=='division_carrera')
+            <span>hola division</span>
+            <input type="hidden" name="tipo" value="{{ $filter}}">
+            @endif
             <div class="flex justify-end space-x-2">
                 <button type="button" class="closeModalButton bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
                     Cancelar

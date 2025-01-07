@@ -276,5 +276,47 @@ class EstructuraController extends Controller
         }
     }
 
-    private function store() {}
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        switch ($request->input('tipo')) {
+
+            case '':
+                AreaSuperior::create([
+                    'nombre' => $request->input('name'),
+                ]);
+                break;
+            case 'area_superior':
+                AreaSuperior::create([
+                    'nombre' => $request->input('name'),
+                ]);
+                break;
+
+            case 'area_responsable':
+                AreaResponsable::create([
+                    'nombre' => $request->input('name'),
+                ]);
+                break;
+
+            case 'departamento':
+                Departamento::create([
+                    'nombre' => $request->input('name'),
+                ]);
+                break;
+
+            case 'division_carrera':
+                DivisionCarrera::create([
+                    'nombre' => $request->input('name'),
+                ]);
+                break;
+
+            default:
+                return redirect()->route('areas.index')->with('error', 'Tipo no válido.');
+        }
+
+        return redirect()->route('areas.index')->with('success', 'Área creada exitosamente.');
+    }
 }
