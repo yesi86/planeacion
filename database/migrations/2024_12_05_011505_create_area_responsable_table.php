@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 255);
             $table->foreignId('area_superior_id')
+                ->nullable()
                 ->constrained('area_superior')
                 ->onDelete('cascade');
             $table->timestamps();
