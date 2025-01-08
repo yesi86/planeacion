@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccionController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\catalogoObjetoController;
 use App\Http\Controllers\ObjetivoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PuestoController;
@@ -62,6 +63,10 @@ Route::prefix('estructura')->group(function () {
     Route::delete('/delete/{id}', [EstructuraController::class, 'destroy'])->name('areas.destroy');
 })->middleware('role:SuperAdministrador|Administrador');
 
+// ruta de catalogo objeto de gasto
+Route::prefix('objeto')->group(function () {
+    Route::get('/', [catalogoObjetoController::class, 'index'])->name('objeto.index');
+})->middleware('role:SuperAdministrador|Administrador');
 //Ruta de planeacion
 Route::get('/obtener-acciones/{objetivoId}', [PlaneacionController::class, 'obtenerAcciones']);
 Route::get('/obtener-actividades/{accionId}', [PlaneacionController::class, 'obtenerActividades']);

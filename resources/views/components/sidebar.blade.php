@@ -53,11 +53,16 @@
                         :disable="false"
                         icon="fas fa-layer-group"
                     />
-            
-            
-            
 
-              @endif
+                       <!-- Botón Módulo de Catalogo de gasto -->
+                    <x-buttom_sidebar 
+                        etiqueta="Objetos de Gasto"
+                        path="{{route('objeto.index')}}"
+                        :ruta="null" 
+                        :disabled="false" 
+                        icon="fas fa-dollar"
+                    />
+                @endif
             <!-- Botón Objetivos -->
             <x-buttom_sidebar 
                 etiqueta="Objetivos"
@@ -94,14 +99,7 @@
                 icon="fas fa-chart-line"
                  />
 
-            <!-- Botón Módulo de Modificación -->
-            <x-buttom_sidebar 
-                etiqueta="Módulo de Modificación"
-                path=""
-                :ruta="null" 
-                :disabled="false" 
-                icon="fas fa-edit"
-                 />
+         
 
             <!-- Botón Planecion -->
             <x-buttom_sidebar 
@@ -126,7 +124,3 @@
 </aside>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-{{-- @vite(['resources/css/app.css', 'resources/js/sidebar.js'])  funciona con solo importarlo en el app.js
-ya que el app.js se importa con vite desde el layout principal
---}}
-{{-- checar el script de la vista de la sidebar --}}
