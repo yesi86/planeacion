@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-6xl mx-auto bg-white shadow-md rounded p-6">
+<div class="min-h-screen bg-white shadow-md rounded p-6">
     <!-- Mensaje de confirmación -->
     @if(session('success'))
     <div class="success-message bg-green-500 text-white p-4 rounded mb-4">

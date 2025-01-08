@@ -2,7 +2,8 @@
 
 @section('content')
 
-<div class="max-w-4xl mx-auto bg-white shadow-md rounded p-6">
+<div class="min-h-screen bg-white shadow-md rounded p-6">
+
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold">Lista de Acciones</h2>
         <!-- Botón para abrir el modal -->

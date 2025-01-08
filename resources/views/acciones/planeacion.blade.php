@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="max-w-4xl mx-auto bg-white shadow-md rounded p-6">
+<div class="min-h-screen bg-white shadow-md rounded p-6">
+
     <h4 class="text-2xl font-semibold tracking-wider mb-4">Planeacion</h4>
     <table class="table-auto w-full border-collapse border border-gray-300">
         <thead>
