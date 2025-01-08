@@ -53,4 +53,18 @@ class ObjetivoController extends Controller
         $queue = session('objetivos', []);
         return response()->json(['queue' => $queue]);
     }
+    public function removeFromQueue(Request $request)
+    {
+        $index = $request->input('index');
+        $queue = session('objetivos', []);
+
+        if (isset($queue[$index])) {
+            unset($queue[$index]);
+            $queue = array_values($queue); // Reindexar el array
+            session(['objetivos' => $queue]);
+        }
+
+        return response()->json(['queue' => $queue]);
+    }
+
 }

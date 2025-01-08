@@ -34,6 +34,7 @@ Route::get('/objetivo', [ObjetivoController::class, 'index'])->name('objetivos.i
 Route::post('/objetivo/add', [ObjetivoController::class, 'addToQueue'])->name('objetivos.add');
 Route::post('/objetivo/store', [ObjetivoController::class, 'store'])->name('objetivos.store');
 Route::get('/objetivo/queue', [ObjetivoController::class, 'getQueue'])->name('objetivos.queue');
+Route::post('/objetivo/remove', [ObjetivoController::class, 'removeFromQueue'])->name('objetivos.remove');
 // ruta de puestos
 Route::prefix('puestos')->group(function () {
     Route::get('/', [PuestoController::class, 'index'])->name('puestos.index');

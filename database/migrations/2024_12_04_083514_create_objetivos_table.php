@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('objetivos', function (Blueprint $table) {
             $table->id();
             $table->string('objetivo');
-            $table->decimal('monto_asignado', 10, 2);
+            $table->string('indicador')->nullable();
+            $table->decimal('monto_asignado', 10, 2)->nullable();
             $table->timestamps();
         });
     }
