@@ -11,7 +11,6 @@
 
             <!-- Tipo de área según el filtro -->
             @if($filter == '' || $filter == 'area_superior')
-                <span>hola Superior</span>
                 <input type="hidden" name="tipo" value="{{ $filter }}">
             @elseif($filter == 'departamento')
                 <!-- Selección de área responsable -->
