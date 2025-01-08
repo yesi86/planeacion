@@ -29,7 +29,7 @@
                     </select>
                 </td>
                 <td class="border border-gray-300 px-4 py-2 text-center">
-                    <button id="btnActividades" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" disabled>
+                    <button id="btnActividades" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" disabled>
                         Ver Actividades
                     </button>
                 </td>
