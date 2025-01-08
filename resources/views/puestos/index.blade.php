@@ -52,7 +52,7 @@
         </div>
     </div>
     
-
+    <div class="overflow-y-auto max-h-[400px]"> 
     <table class="w-full border-collapse border border-gray-200">
         <thead>
             <tr class="bg-gray-100">
@@ -85,6 +85,8 @@
             @endforelse
         </tbody>
     </table>
+</div>
+
 
     <!-- Paginación -->
     <div class="mt-4">

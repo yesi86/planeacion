@@ -67,6 +67,7 @@
         @endforeach
 
     </div>
+    <div class="overflow-y-auto max-h-[400px]"> <!-- Agregar una altura máxima con overflow -->
     <!-- Tabla de áreas -->
     <table class="w-full border-collapse border border-gray-200">
         <thead>
@@ -108,6 +109,7 @@
             @endforelse
         </tbody>
     </table>
+    </div>
 
     <!-- Paginación -->
     <div class="mt-4">

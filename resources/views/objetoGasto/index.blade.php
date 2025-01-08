@@ -66,47 +66,49 @@
         </div>
     </div>
 
-    <!-- Tabla con los objetos de gasto -->
-    <table class="w-full border-collapse border border-gray-200">
-        <thead>
-            <tr class="bg-gray-100">
-                <th class="border border-gray-300 px-4 py-2">Acciones</th>
-                <th class="border border-gray-300 px-4 py-2">Capítulo</th>
-                <th class="border border-gray-300 px-4 py-2">Partida</th>
-                <th class="border border-gray-300 px-4 py-2">Descripción</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($objetoGasto as $objeto)
-                <tr>
-                    <td class="border border-gray-300 px-4 py-2 flex justify-center items-center space-x-2">
-                        <button 
-                            data-modal-toggle="viewUserModal-{{ $objeto['id'] }}" 
-                            class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">
-                            Ver
-                        </button>
-                        <button 
-                            data-modal-toggle="editUserModal-{{ $objeto['id'] }}" 
-                            class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
-                            Editar
-                        </button>
-                        <button 
-                            data-modal-toggle="deleteUserModal-{{ $objeto['id'] }}" 
-                            class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
-                            Eliminar
-                        </button>
-                    </td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $objeto->capitulo }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $objeto->partida }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $objeto->descripcion }}</td>
+    <!-- Contenedor con scrollbar -->
+    <div class="overflow-y-auto max-h-[400px]"> <!-- Agregar una altura máxima con overflow -->
+        <table class="w-full border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border border-gray-300 px-4 py-2">Acciones</th>
+                    <th class="border border-gray-300 px-4 py-2">Capítulo</th>
+                    <th class="border border-gray-300 px-4 py-2">Partida</th>
+                    <th class="border border-gray-300 px-4 py-2">Descripción</th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="4" class="text-center py-4">No se encontraron coincidencias.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @forelse ($objetoGasto as $objeto)
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-2 flex justify-center items-center space-x-2">
+                            <button 
+                                data-modal-toggle="viewUserModal-{{ $objeto['id'] }}" 
+                                class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">
+                                Ver
+                            </button>
+                            <button 
+                                data-modal-toggle="editUserModal-{{ $objeto['id'] }}" 
+                                class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                                Editar
+                            </button>
+                            <button 
+                                data-modal-toggle="deleteUserModal-{{ $objeto['id'] }}" 
+                                class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                                Eliminar
+                            </button>
+                        </td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $objeto->capitulo }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $objeto->partida }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $objeto->descripcion }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4" class="text-center py-4">No se encontraron coincidencias.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
     <div class="mt-4">
         {{ $objetoGasto->links() }}

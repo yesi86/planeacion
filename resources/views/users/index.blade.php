@@ -65,7 +65,7 @@
         </div>
     </div>
     
-
+<div class="overflow-y-auto max-h-[400px]"> <!-- Agregar una altura máxima con overflow -->
     <table class="w-full border-collapse border border-gray-200">
         <thead>
             <tr class="bg-gray-100">
@@ -112,6 +112,7 @@
             @endforelse
         </tbody>
     </table>
+</div>
 
     <div class="mt-4">
         {{ $users->links() }}
