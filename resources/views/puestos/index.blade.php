@@ -1,107 +1,105 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-white shadow-md rounded p-6">
-    <!-- Mensaje de confirmación -->
-    @if(session('success'))
-    <div class="success-message bg-green-500 text-white p-4 rounded mb-4">
+<div class="min-h-screen bg-gray-50 px-6"> <!-- Fondo más suave y padding general -->
+    <!-- Mensajes de éxito y error -->
+    @if(session('success')) 
+    <div class="success-message bg-green-500 text-white p-4 rounded-lg shadow-md mb-4">
         {{ session('success') }}
     </div>
     @endif
-
     @if (session('error'))
-    <div class="error-message bg-red-500 text-white p-4 rounded mb-4">
+    <div class="error-message bg-red-500 text-white p-4 rounded-lg shadow-md mb-4">
         {{ session('error') }}
     </div>
     @endif
 
-    <h2 class="text-2xl font-semibold mb-4">Gestión de Puestos</h2>
+    <!-- Título principal -->
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Puestos de Sistema</h2>
 
-    <div class="flex justify-between items-center mb-4">
+    <!-- Filtros y Buscador -->
+    <div class="flex items-center justify-between mb-6 bg-white p-4 shadow-md rounded-lg">
+        <!-- Buscador -->
         <form method="GET" action="{{ route('puestos.index') }}" class="flex items-center space-x-2">
             <input 
                 type="text" 
                 name="search" 
                 value="{{ request('search') }}" 
-                placeholder="Buscar puesto..." 
-                class="border border-gray-300 rounded px-4 py-2"
+                placeholder="Buscar Puesto..." 
+                class="border border-gray-300 rounded-full px-6 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
             >
             <button 
                 type="submit" 
-                class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
+                class="bg-indigo-800 text-white py-2 px-4 rounded-lg hover:bg-indigo-900 transition">
                 Buscar
             </button>
         </form>
-    
-        <div class="flex items-center space-x-2">
-            <!-- Combobox de orden -->
+
+        <!-- Filtros y Crear Puesto -->
+        <div class="flex items-center space-x-4">
             <form method="GET" action="{{ route('puestos.index') }}" class="flex items-center space-x-2">
-                <input type="hidden" name="search" value="{{ request('search') }}">
                 <select 
                     name="order" 
-                    class="border border-gray-300 rounded px-4 py-2"
+                    class="border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                     onchange="this.form.submit()">
                     <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>A-Z</option>
                     <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
                 </select>
             </form>
-    
-            <button data-modal-toggle="createPuestoModal" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
+
+            <!-- Botón Crear Puesto -->
+            <button data-modal-toggle="createPuestoModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
                 Crear Puesto
             </button>
         </div>
     </div>
     
-    <div class="overflow-y-auto max-h-[400px]"> 
-    <table class="w-full border-collapse border border-gray-200">
-        <thead>
-            <tr class="bg-gray-100">
-                <th class="border border-gray-300 px-4 py-2">Acciones</th>
-                <th class="border border-gray-300 px-4 py-2">Nombre</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($puestos as $puesto)
-            <tr>
-                <td class="border border-gray-300 px-4 py-2 flex justify-center items-center space-x-2">
-                    <!-- Modal Editar -->
-                    <button data-modal-toggle="editPuestoModal-{{ $puesto->id }}" 
-                        class="bg-yellow-500 text-white py-1 px-3 rounded  hover:bg-yellow-600">
-                        Editar
-                    </button>
-                    <button data-modal-toggle="deleteModal-{{ $puesto->id }}" 
-                        class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
-                        Eliminar
-                    </button>
-                </td>
-                <td class="border border-gray-300 px-4 py-2 align-middle">
-                    {{ $puesto->name }}
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="2" class="text-center py-4">No hay puestos registrados.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-
+    <!-- Tabla de puestos -->
+    <div class="overflow-x-auto max-h-[400px] bg-white shadow-md rounded-lg"> <!-- Estilo de contenedor de tabla -->
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-indigo-800 text-white">
+                    <th class="px-6 py-4 text-left">Acciones</th>
+                    <th class="px-6 py-4 text-left">Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($puestos as $puesto)
+                    <tr class="border-t hover:bg-gray-100">
+                        <td class="px-6 py-4 flex justify-center items-center space-x-2">
+                            <button 
+                                data-modal-toggle="editPuestoModal-{{ $puesto['id'] }}" 
+                                class="bg-yellow-600 text-white py-2 px-4 rounded-full hover:bg-yellow-700 transition">
+                                Editar
+                            </button>
+                            <button 
+                                data-modal-toggle="deletePuestoModal-{{ $puesto['id'] }}" 
+                                class="bg-red-600 text-white py-2 px-4 rounded-full hover:bg-red-700 transition">
+                                Eliminar
+                            </button>
+                        </td>
+                        <td class="px-6 py-4">{{ $puesto->name }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="2" class="text-center py-4">No hay puestos registrados.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 
     <!-- Paginación -->
-    <div class="mt-4">
-        {{ $puestos->links() }}
+    <div class="mt-4 text-center">
+        {{ $puestos->links('pagination::tailwind') }}
     </div>
 </div>
 
-<!-- Modal Crear -->
+<!-- Incluir el modal desde la carpeta components/modals -->
 @include('puestos.modals.create')
-
-<!-- Modal Eliminar -->
 @foreach ($puestos as $puesto)
     @include('puestos.modals.modalDelete', ['puesto' => $puesto])
     @include('puestos.modals.edit', ['puesto' => $puesto])
 @endforeach
-
 
 @endsection

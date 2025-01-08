@@ -1,4 +1,4 @@
-<nav class="bg-gray-500" x-data="{ open: true }">
+<nav class="bg-gray-50" x-data="{ open: true }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end items-center gap-4">
         <!-- Dropdown -->
         <div class="relative">
