@@ -1,3 +1,4 @@
+<!--
 <div id="AgregarActividadModal" tabindex="-1" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-[800]">
         <h2 class="text-lg font-bold mb-4">Actividad</h2>
@@ -49,4 +50,16 @@
         
     </div>
 
+</div> -->
+<div id="modalActividades" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-1/2">
+        <h2 class="text-lg font-bold mb-4">Actividades</h2>
+        <ul id="modalActividadesContent" class="list-disc pl-5">
+            <!-- Las actividades se agregarán dinámicamente aquí -->
+        </ul>
+        <div class="mt-4 flex justify-end">
+            <button id="closeModal" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Cerrar</button>
+        </div>
+    </div>
 </div>
+

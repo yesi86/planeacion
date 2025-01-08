@@ -17,4 +17,8 @@ class Acciones extends Model
     public function planeacion(): HasOne {
        return $this->hasOne(planeacion::class);
     }
+    public function actividades()
+{
+    return $this->hasMany(Actividad::class);
+}
 }

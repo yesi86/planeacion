@@ -15,9 +15,9 @@ class AccionController extends Controller
     public function index(){
         $acciones=Acciones::all();
         $agregar = session('acciones', []);
-        $objetivos = Objetivo::all();
+        
 
-        return view('acciones.accion', compact('acciones', 'agregar','objetivos'));
+        return view('acciones.accion', compact('acciones','agregar'));
     }
 
     public function addaccion(Request $request){

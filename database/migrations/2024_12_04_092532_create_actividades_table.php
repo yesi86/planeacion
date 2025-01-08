@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('actividades', function (Blueprint $table) {
             $table->id();
             $table->string('actividad');
-            $table->string('fecha');
+            $table->date('fecha');//date
             $table->timestamps();
         });
     }

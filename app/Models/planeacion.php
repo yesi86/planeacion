@@ -10,7 +10,7 @@ class planeacion extends Model
     protected $table='planeacion';
     protected $fillable = [
         'accion_id',
-        
+      
     ];
 
     public function accion():BelongsTo{

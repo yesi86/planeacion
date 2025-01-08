@@ -76,6 +76,15 @@
                 icon="fas fa-tasks"
                   />
 
+            <!-- Botón Actividades -->
+            <x-buttom_sidebar 
+                etiqueta="Actividades"
+                path=""
+                :ruta="null" 
+                :disabled="false"
+                icon="fas fa-check-square"
+                  />
+
             <!-- Botón Indicadores -->
             <x-buttom_sidebar 
                 etiqueta="Indicadores"
@@ -94,13 +103,13 @@
                 icon="fas fa-edit"
                  />
 
-            <!-- Botón Requisitos -->
+            <!-- Botón Planecion -->
             <x-buttom_sidebar 
-                etiqueta="Requisitos"
-                path=""
+                etiqueta="Modulo planeacion"
+                path="planeacion"
                 :ruta="null" 
                 :disabled="false"
-                icon="fas fa-check-square"
+                icon="fas fa-tasks"
                   />
 
             <!-- Botón Notificaciones -->

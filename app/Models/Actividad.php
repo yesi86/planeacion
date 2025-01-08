@@ -12,4 +12,9 @@ class Actividad extends Model
         'fecha',
         
     ];
+
+    public function acciones()
+{
+    return $this->hasMany(Acciones::class);
+}
 }

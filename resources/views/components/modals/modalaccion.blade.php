@@ -18,11 +18,13 @@
                     <!-- Aquí se mostrarán las acciones en cola -->
                 </div>
             </div>
-            <div>
-                <form method="POST" action="{{ route('acciones.store') }}">
-                    @csrf
-                    <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">Guardar</button>
-                </form>
+            <div class="flex space-x-4 mt-6">
+                <div class="flex -grow">
+                    <form method="POST" action="{{ route('acciones.store') }}">
+                        @csrf
+                        <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">Guardar</button>
+                    </form>
+                </div>
                 <button type="button" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-gray-700 closeModalButton">Cancelar</button>
             </div>
         

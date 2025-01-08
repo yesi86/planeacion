@@ -1,73 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="max-w-4xl mx-auto bg-white shadow-md rounded p-6">
-    <div>
-        <div class="flex-grow">
-            <h1 class="w-full text-2xl font-semibold mb-4">Modulo de Planeación</h1>
-        </div>
-        <div>
-            <h2 style="font-size: 18px;" class="font-semibold">Seleccionar objetivo</h2>
-            <section>
-                <select name="objetivo" id="objetivo" class="w-full px-4 py-2 border border-gray-300 rounded" required>
-                    <option value="" disabled selected>Seleccione un objetivo</option>
-                    @forelse ($objetivos as $obj)
-                        <option value="{{ $obj->id }}">{{ $obj->objetivo }} - ${{ number_format($obj->monto_asignado, 2) }}</option>
-                    @empty
-                        <option value="" disabled>No hay objetivos disponibles</option>
-                    @endforelse
-                </select>
-            </section>
-        </div>
-
-        <div>
-            <div class="p-2">
-                <h2 style="font-size: 18px;" class="font-semibold">Acciones</h2>
-                <div class="mt-2 flex flex-col space-y-4">
-                    <!-- Menú desplegable -->
-                    <div>
-                        <select name="acciones" id="acciones" class="w-full px-4 py-2 border border-gray-300 rounded">
-                            <option value="" disabled selected>Seleccione una acción</option>
-                            @forelse ($acciones as $acc)
-                                <option value="{{ $acc->id }}">{{ $acc->accion }}</option>
-                            @empty
-                                <option value="" disabled>No hay acciones disponibles</option>
-                            @endforelse
-                        </select>
-                    </div>
-            
-                    <!-- Botón para abrir el modal -->
-                    <div>
-                        <button type="button" id="openModalAccion" class="px-6 py-3 bg-blue-500 text-blue font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            <i class="fas fa-plus"></i>
-                            <span>Agregar Acción</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-2">
-                <h2 style="font-size: 18px;" class="font-semibold">Actividades</h2>
-                <div class="mt-2 flex">
-                    <button type="button" id="openModalActividad" class="px-6 py-3 bg-blue-500 text-blue font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        <i class="fas fa-plus"></i>
-                        <span>Agregar Actividad</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="p-2">
-                <h2 style="font-size: 18px;" class="font-semibold">Insumos</h2>
-                <div class="mt-2 flex">
-                    <button type="button" id="openModalInsumo" class="px-6 py-3 bg-blue-500 text-blue font-semibold rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                        <i class="fas fa-plus"></i>
-                        <span>Agregar Insumos</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Lista de Acciones</h2>
+        <!-- Botón para abrir el modal -->
+        <button data-modal-toggle="AgregarAccionModal" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600">
+            <i class="fas fa-plus"></i> Añadir Acción
+        </button>
     </div>
+
+    <!-- Tabla -->
+    <table class="w-full border-collapse border border-gray-300">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border border-gray-300 px-4 py-2 text-center w-1/6">Acción</th>
+                <th class="border border-gray-300 px-4 py-2 text-left w-3/4">Descripción</th>
+            </tr>
+        </thead>
+        <tbody id="tablaAcciones">
+            @foreach ($acciones as $accion)
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 text-center">{{ $accion->id }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ $accion->accion }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
+
+
+
+@include('components.modals.modalaccion')
 
 @endsection
 
@@ -77,34 +42,8 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Inicializar flatpickr en los campos de fecha
-        flatpickr("#fecha1", {
-            allowInput: true, 
-            dateFormat: "Y-m-d" 
-        });
-        flatpickr("#fecha2", {
-            allowInput: true, 
-            dateFormat: "Y-m-d" 
-        });
 
-        // Configurar la apertura de modales
-        document.getElementById('openModalAccion').addEventListener('click', function () {
-            document.getElementById('AgregarAccionModal').classList.remove('hidden');
-        });
-
-        document.getElementById('openModalActividad').addEventListener('click', function () {
-            document.getElementById('AgregarActividadModal').classList.remove('hidden');
-        });
-
-        document.getElementById('openModalInsumo').addEventListener('click', function () {
-            document.getElementById('AgregarInsumoModal').classList.remove('hidden');
-        });
-    });
-</script>
 @endsection
 
-@include('components.modals.modalaccion')
-@include('components.modals.modalactividad')
-@include('components.modals.modalinsumos')
+
+
