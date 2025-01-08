@@ -5,7 +5,7 @@
 {{-- hay que considerar un dashboard por cada usuario --}}
 <x-modals.modalAlert /> 
 
-<div class="min-h-screen bg-[#e5e5e5]">
+<div class="min-h-screen bg-gray-50">
     <!-- Main Content -->
     <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

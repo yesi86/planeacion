@@ -4,8 +4,7 @@
     }
 </style>
 <aside id="sidebar" class="transition-all duration-300 ease-in-out">
-<div class="relative flex flex-col h-full">
-        
+    <div class="relative flex flex-col h-full">
         <!-- Botón de Toggling Sidebar -->
         <button id="toggleSidebar" 
                 class="absolute top-4 right-4 z-10 p-2 rounded-full text-white bg-gray-700 hover:bg-gray-800 focus:outline-none">
@@ -14,110 +13,101 @@
       
         <!-- Botones de la Sidebar -->
         <div class="flex flex-col p-3 h-full overflow-y-auto gap-y-2 mt-12">
-
             <!-- boton home--> 
             <x-buttom_sidebar
                 etiqueta="HOME"
                 path="{{ route('dashboard') }}"
-                :ruta="null"
+                :ruta="request()->routeIs('dashboard')"
                 :disable="false"
                 icon="fas fa-home"
-             />
+            />
 
             <!-- Botón Usuarios -->
-              @if(auth()->check() && auth()->user()->hasRole('SuperAdministrador'))
-                 <x-buttom_sidebar
-                     etiqueta="Usuarios"
-                     path="{{ route('users.index') }}"
-                     :ruta="request()->routeIs('users.*')"
-                     :disabled="false"
-                     icon="fas fa-users"
+            @if(auth()->check() && auth()->user()->hasRole('SuperAdministrador'))
+                <x-buttom_sidebar
+                    etiqueta="Usuarios"
+                    path="{{ route('users.index') }}"
+                    :ruta="request()->routeIs('users.*')"
+                    :disable="false"
+                    icon="fas fa-users"
                 />
-              @endif
+            @endif
 
-              @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador') || auth()->user()->hasRole('Administrador')))
-                
+            @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador') || auth()->user()->hasRole('Administrador')))
                 <!-- boton creacion puestos-->
                 <x-buttom_sidebar
                     etiqueta="Puestos"
                     path="{{ route('puestos.index') }}"
-                    :ruta="null"
                     :disable="false"
                     icon="fas fa-user-tie"
                 />
                 <!-- Botón Áreas -->
-                    <x-buttom_sidebar
-                        etiqueta="Áreas"
-                        path="{{ route('areas.index') }}" 
-                        :ruta="request()->routeIs('areas.*')" 
-                        :disable="false"
-                        icon="fas fa-layer-group"
-                    />
-
-                       <!-- Botón Módulo de Catalogo de gasto -->
-                    <x-buttom_sidebar 
-                        etiqueta="Objetos de Gasto"
-                        path="{{route('objeto.index')}}"
-                        :ruta="null" 
-                        :disabled="false" 
-                        icon="fas fa-dollar"
-                    />
-                @endif
+                <x-buttom_sidebar
+                    etiqueta="Áreas"
+                    path="{{ route('areas.index') }}" 
+                    :disable="false"
+                    icon="fas fa-layer-group"
+                />
+                <!-- Botón Módulo de Catalogo de gasto -->
+                <x-buttom_sidebar 
+                    etiqueta="Objetos de Gasto"
+                    path="{{route('objeto.index')}}"
+                    :disabled="false" 
+                    icon="fas fa-dollar"
+                />
+            @endif
             <!-- Botón Objetivos -->
             <x-buttom_sidebar 
                 etiqueta="Objetivos"
                 path="objetivo"
-                :ruta="null" 
+                :ruta="request()->routeIs('objetivo')"
                 :disabled="false"
                 icon="fas fa-bullseye"
-                  />
+            />
 
             <!-- Botón Acciones -->
             <x-buttom_sidebar 
                 etiqueta="Acciones"
                 path="accion"
-                :ruta="null" 
+                :ruta="request()->routeIs('accion')"
                 :disabled="false"
                 icon="fas fa-tasks"
-                  />
+            />
 
             <!-- Botón Actividades -->
             <x-buttom_sidebar 
                 etiqueta="Actividades"
-                path=""
-                :ruta="null" 
+                path="actividad"
+                :ruta="request()->routeIs('actividad')"
                 :disabled="false"
                 icon="fas fa-check-square"
-                  />
+            />
 
             <!-- Botón Indicadores -->
             <x-buttom_sidebar 
                 etiqueta="Indicadores"
-                path=""
-                :ruta="null" 
+                path="indicador"
+                :ruta="request()->routeIs('indicador')"
                 :disabled="false" 
                 icon="fas fa-chart-line"
-                 />
+            />
 
-         
-
-            <!-- Botón Planecion -->
+            <!-- Botón Planificación -->
             <x-buttom_sidebar 
                 etiqueta="Modulo planeacion"
                 path="planeacion"
-                :ruta="null" 
+                :ruta="request()->routeIs('planeacion')"
                 :disabled="false"
                 icon="fas fa-tasks"
-                  />
+            />
 
             <!-- Botón Notificaciones -->
             <x-buttom_sidebar 
                 etiqueta="Notificaciones"
-                path=""
-                :ruta="null" 
+                path="notificacion"
+                :ruta="request()->routeIs('notificacion')"
                 :disabled="false"
                 icon="fas fa-bell"
-                 
             />
         </div>
     </div>

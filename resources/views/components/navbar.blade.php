@@ -3,7 +3,7 @@
         <!-- Dropdown -->
         <div class="relative">
             <!-- Trigger -->
-            <button id="dropdownButton" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 dark:text-white bg-[#3e3d45] rounded-md border border-transparent hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+            <button id="dropdownButton" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg border border-transparent hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ease-in-out duration-150">
                 <span>{{ Auth::user()->name }}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                     <path fill-rule="evenodd"
@@ -11,21 +11,22 @@
                         clip-rule="evenodd" />
                 </svg>
             </button>
-
+        
             <!-- Dropdown content -->
-            <div id="dropdownContent" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10 hidden">
+            <div id="dropdownContent" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-100 dark:hover:bg-gray-700">
+                    <button type="submit" class="block w-full px-4 py-2 text-left text-red-600 hover:bg-red-100 focus:outline-none dark:hover:bg-gray-700">
                         {{ __('Log Out') }}
                     </button>
                 </form>
             </div>
         </div>
+        
 
         <!-- Notification Button -->
         <div class="relative">
-            <button class="flex items-center justify-center w-10 h-10 bg-[#3e3d45] text-white rounded-full hover:bg-gray-700 transition duration-150">
+            <button class="flex items-center justify-center w-10 h-10  bg-indigo-600 text-white rounded-full hover:bg-gray-700 transition duration-150">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="0 0 20 20">
                     <path fill-rule="evenodd"
                         d="M10 2a6 6 0 00-6 6v5.586a1 1 0 01-.293.707L2.707 15a1 1 0 001.414 1.414l1.293-1.293a1 1 0 01.293-.707V8a4 4 0 118 0v6.707a1 1 0 01.293.707L17.293 15a1 1 0 001.414-1.414l-1.293-1.293a1 1 0 01-.293-.707V8a6 6 0 00-6-6z"
