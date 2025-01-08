@@ -7,6 +7,7 @@ use App\Http\Controllers\ObjetivoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PuestoController;
 use App\Http\Controllers\EstructuraController;
+use App\Http\Controllers\PlaneacionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
@@ -43,6 +44,8 @@ Route::prefix('puestos')->group(function () {
     Route::delete('/delete/{id}', [PuestoController::class, 'destroy'])->name('puestos.destroy');
 })->middleware('role:SuperAdministrador|Administrador');
 
+
+Route::get('/planeacion', [PlaneacionController::class, 'index'])->name('planeacion.index');
 //rutas acciones
 Route::get('/accion', [AccionController::class, 'index'])->name('acciones.index');
 Route::post('/accion/add', [AccionController::class, 'addaccion'])->name('acciones.add');
@@ -59,6 +62,9 @@ Route::prefix('estructura')->group(function () {
     Route::delete('/delete/{id}', [EstructuraController::class, 'destroy'])->name('areas.destroy');
 })->middleware('role:SuperAdministrador|Administrador');
 
+//Ruta de planeacion
+Route::get('/obtener-acciones/{objetivoId}', [PlaneacionController::class, 'obtenerAcciones']);
+Route::get('/obtener-actividades/{accionId}', [PlaneacionController::class, 'obtenerActividades']);
 
 
 Route::get('/actividadlist', [ActividadController::class, 'obtenerAcciones']);
