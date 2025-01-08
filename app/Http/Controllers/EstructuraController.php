@@ -288,23 +288,42 @@ class EstructuraController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $request->validate([
-            'name' => 'required|max:255',
-            'tipo' => 'required',
-        ]);
+        if (empty($request->input('name'))) {
+            return redirect()->route('areas.index')
+                ->with('error', 'El nombre del puesto es obligatorio.');
+        }
 
         switch ($request->input('tipo')) {
-            case 'area_superior':
+            case '':
+                if (AreaSuperior::where('nombre', $request->input('name'))->exists()) {
+                    return redirect()->route('areas.index')
+                        ->with('error', 'El área superior ya existe. Intenta con otro nombre.');
+                }
                 AreaSuperior::create([
                     'nombre' => $request->input('name'),
                 ]);
+                break;
+            case 'area_superior':
+
+                if (AreaSuperior::where('nombre', $request->input('name'))->exists()) {
+                    return redirect()->route('areas.index')
+                        ->with('error', 'El área superior ya existe. Intenta con otro nombre.');
+                }
+
+                AreaSuperior::create([
+                    'nombre' => $request->input('name'),
+                ]);
+
                 break;
 
             case 'area_responsable':
                 $request->validate([
                     'area_superior' => 'required|exists:area_superior,id',
                 ]);
-
+                if (AreaResponsable::where('nombre', $request->input('name'))->exists()) {
+                    return redirect()->route('areas.index')
+                        ->with('error', 'El área responsable ya existe. Intenta con otro nombre.');
+                }
                 AreaResponsable::create([
                     'nombre' => $request->input('name'),
                     'area_superior_id' => $request->input('area_superior'),
@@ -315,6 +334,10 @@ class EstructuraController extends Controller
                 $request->validate([
                     'area_responsable' => 'required|exists:area_responsable,id',
                 ]);
+                if (Departamento::where('nombre', $request->input('name'))->exists()) {
+                    return redirect()->route('areas.index')
+                        ->with('error', 'El departamento ya existe. Intenta con otro nombre.');
+                }
 
                 Departamento::create([
                     'nombre' => $request->input('name'),
@@ -327,6 +350,10 @@ class EstructuraController extends Controller
                 $departamento = Departamento::where('nombre', 'Divisiones de Carrera')->first();
                 if (!$departamento) {
                     return redirect()->route('areas.index')->with('error', 'No existe el departamento Divisiones de Carrera, favor de crearlo');
+                }
+                if (DivisionCarrera::where('nombre', $request->input('name'))->exists()) {
+                    return redirect()->route('areas.index')
+                        ->with('error', 'La división de carrera ya existe. Intenta con otro nombre.');
                 }
 
                 DivisionCarrera::create([
