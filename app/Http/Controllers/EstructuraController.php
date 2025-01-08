@@ -29,6 +29,10 @@ class EstructuraController extends Controller
         $currentPage = $request->input('page', 1);
         $allData = collect();
 
+        $areasSuperiores = AreaSuperior::all();
+        $areasResponsables = AreaResponsable::all();
+        $departamento = Departamento::all();
+
         // Filtrado por tipo
         if ($filter) {
             switch ($filter) {
@@ -117,10 +121,15 @@ class EstructuraController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]
         );
 
+        // dd($departamento);
         return view('estructura.index', [
             'data' => $paginatedData,
             'search' => $search,
-            'filter' => $filter, // Pasamos el filtro actual al modal
+            'filter' => $filter,
+            // casos para combobox
+            'areasSuperiores' => $areasSuperiores,
+            'areasResponsables' => $areasResponsables,
+            'departamento' => $departamento,
         ]);
     }
 
@@ -278,17 +287,13 @@ class EstructuraController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|max:255',
+            'tipo' => 'required',
         ]);
 
         switch ($request->input('tipo')) {
-
-            case '':
-                AreaSuperior::create([
-                    'nombre' => $request->input('name'),
-                ]);
-                break;
             case 'area_superior':
                 AreaSuperior::create([
                     'nombre' => $request->input('name'),
@@ -296,21 +301,40 @@ class EstructuraController extends Controller
                 break;
 
             case 'area_responsable':
+                $request->validate([
+                    'area_superior' => 'required|exists:area_superior,id',
+                ]);
+
                 AreaResponsable::create([
                     'nombre' => $request->input('name'),
+                    'area_superior_id' => $request->input('area_superior'),
                 ]);
                 break;
 
             case 'departamento':
+                $request->validate([
+                    'area_responsable' => 'required|exists:area_responsable,id',
+                ]);
+
                 Departamento::create([
                     'nombre' => $request->input('name'),
+                    'area_responsable_id' => $request->input('area_responsable'),
                 ]);
                 break;
 
             case 'division_carrera':
+
+                $departamento = Departamento::where('nombre', 'Divisiones de Carrera')->first();
+                if (!$departamento) {
+                    return redirect()->route('areas.index')->with('error', 'No existe el departamento Divisiones de Carrera, favor de crearlo');
+                }
+
                 DivisionCarrera::create([
                     'nombre' => $request->input('name'),
+                    'departamento_id' => $departamento->id,
                 ]);
+
+                // dd($departamento->id);
                 break;
 
             default:

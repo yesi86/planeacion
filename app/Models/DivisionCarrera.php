@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DivisionCarrera extends Model
 {
     protected $table = 'divisiones_carrera';
-    protected $fillable = ['nombre', 'area_responsable_id'];
+    protected $fillable = ['nombre', 'departamento_id'];
 
 
     public function departamento()

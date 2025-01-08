@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 255);
             $table->foreignId('departamento_id')
-                ->nullable()
                 ->constrained('departamento')
                 ->onDelete('cascade'); // Si se elimina el departamento, eliminar las divisiones de carrera
             $table->timestamps();
