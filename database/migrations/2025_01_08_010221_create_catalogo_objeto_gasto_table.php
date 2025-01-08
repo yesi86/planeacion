@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('catalogo_objeto_gasto', function (Blueprint $table) {
             $table->id();
+            $table->string('capitulo');
+            $table->string('partida');
+            $table->string('descripcion');
             $table->timestamps();
         });
     }
