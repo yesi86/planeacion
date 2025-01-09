@@ -24,10 +24,13 @@
             @foreach ($acciones as $accion)
                 <tr>
                     <td class="border border-gray-300 px-4 py-2 text-center">{{ $accion->id }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $accion->accion }}</td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        {{ $accion->accion }}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
+        
     </table>
 </div>
 

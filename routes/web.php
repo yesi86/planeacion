@@ -70,6 +70,8 @@ Route::prefix('objeto')->group(function () {
 //Ruta de planeacion
 Route::get('/obtener-acciones/{objetivoId}', [PlaneacionController::class, 'obtenerAcciones']);
 Route::get('/obtener-actividades/{accionId}', [PlaneacionController::class, 'obtenerActividades']);
+// Ruta para eliminar acción
+Route::post('/acciones/remove', [AccionController::class, 'remove'])->name('acciones.remove');
 
 
 Route::get('/actividadlist', [ActividadController::class, 'obtenerAcciones']);

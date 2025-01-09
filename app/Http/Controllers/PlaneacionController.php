@@ -29,19 +29,10 @@ class PlaneacionController extends Controller
      */
     public function obtenerAcciones($objetivoId)
     {
+        // Obtener las acciones relacionadas al objetivo
         $acciones = Acciones::where('objetivo_id', $objetivoId)->get();
 
-        if ($acciones->isEmpty()) {
-            return response()->json([
-                'message' => 'No se encontraron acciones para este objetivo.',
-                'acciones' => []
-            ], 404);
-        }
-
-        return response()->json([
-            'message' => 'Acciones obtenidas con éxito.',
-            'acciones' => $acciones
-        ], 200);
+        return response()->json($acciones);
     }
 
     /**

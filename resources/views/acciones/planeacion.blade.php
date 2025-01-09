@@ -71,7 +71,10 @@
                     selectAccion.appendChild(option);
                 });
             })
-            .catch(error => console.error('Error al cargar acciones:', error));
+            .catch(error => {
+                console.error('Error al cargar acciones:', error);
+                alert('Hubo un error al cargar las acciones.');
+            });
     });
 
     // Cuando seleccionas una acción, habilitar botón de actividades
@@ -101,7 +104,10 @@
                 // Mostrar modal
                 document.getElementById('modalActividades').classList.remove('hidden');
             })
-            .catch(error => console.error('Error al cargar actividades:', error));
+            .catch(error => {
+                console.error('Error al cargar actividades:', error);
+                alert('Hubo un error al cargar las actividades.');
+            });
     });
 
     // Cerrar el modal

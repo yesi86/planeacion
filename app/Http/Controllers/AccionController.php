@@ -13,53 +13,82 @@ class AccionController extends Controller
 {
 
     public function index(){
-        $acciones=Acciones::all();
+        $acciones = Acciones::all();
         $agregar = session('acciones', []);
-        
-
-        return view('acciones.accion', compact('acciones','agregar'));
+        $objetivos = Objetivo::all();
+        return view('acciones.accion', compact('acciones', 'agregar', 'objetivos'));
     }
 
-    public function addaccion(Request $request){
-        $accion = $request->input('campo1');
-
-        if (!$accion ) {
-            return response()->json(['error' => 'porfavor, ingresa una accion'], 400);
-        }
-
-        $agregar = session('acciones', []);
-        $agregar[] = ['accion' => $accion];
-
-        session(['acciones' => $agregar]);
-
-        return response()->json(['agregar' => $agregar]);
-
-
-    }
-    public function store(Request $request)
+    public function addaccion(Request $request)
     {
-        $agregar = session('acciones', []);
+        // Validar los datos recibidos
+        $request->validate([
+            'campoAccion' => 'required|string',
+            'selectObjetivo' => 'required|integer',
+        ]);
 
-        foreach ($agregar as $item) {
-            Acciones::create([
-                'accion' => $item['accion']  
-            ]);
-        }
+        // Obtener los datos del formulario
+        $campoAccion = $request->input('campoAccion');
+        $selectObjetivo = $request->input('selectObjetivo');
 
-        session()->forget('acciones'); // Limpiar la cola después de guardar
+        // Crear la acción (ejemplo simple, puedes personalizarlo según tu modelo)
+        $accion = [
+            'accion' => $campoAccion,
+            'objetivo' => $selectObjetivo, // En este caso, solo guardamos el ID del objetivo
+        ];
 
-        return redirect()->route('acciones.index')->with('success', 'acciones guardadas correctamente.');
+        // Obtener la cola de acciones actual (puede estar en la sesión o en la base de datos)
+        $colaAcciones = session()->get('colaAcciones', []);
+
+        // Añadir la nueva acción a la cola
+        $colaAcciones[] = $accion;
+
+        // Guardar la cola actualizada en la sesión
+        session()->put('colaAcciones', $colaAcciones);
+
+        // Retornar la cola actualizada en formato JSON
+        return response()->json([
+            'success' => true,
+            'queue' => $colaAcciones, // Retornamos la cola actualizada
+        ]);
     }
+
+    public function store(Request $request)
+{
+    // Obtener las acciones en cola
+    $colaAcciones = session('colaAcciones', []);
+
+    if (empty($colaAcciones)) {
+        return redirect()->route('acciones.index')->withErrors(['error' => 'No hay acciones para guardar.']);
+    }
+
+    // Guardar las acciones en la base de datos
+    foreach ($colaAcciones as $item) {
+        Acciones::create([
+            'accion' => $item['accion'],
+            'objetivo_id' => $item['objetivo'], // Usa el ID del objetivo
+        ]);
+    }
+
+    // Limpiar la cola después de guardar
+    session()->forget('colaAcciones');
+
+    return redirect()->route('acciones.index')->with('success', 'Acciones guardadas correctamente.');
+}
+
+
     public function getagregar()
     {
         $agregar = session('acciones', []);
         return response()->json(['agregar' => $agregar]);
     }
+
     public function obtenerCola()
     {
         $agregar = session('acciones', []);
         return response()->json(['agregar' => $agregar]);
     }
+
     public function actualizarCola(Request $request)
     {
         $agregar = $request->input('agregar', []);
@@ -73,6 +102,40 @@ class AccionController extends Controller
         session(['acciones' => $agregar]);
     
         return response()->json(['success' => true]);
+    }
+
+    public function remove(Request $request)
+    {
+        // Validar el índice recibido
+        $request->validate([
+            'index' => 'required|integer|min:0',
+        ]);
+
+        $index = $request->input('index');
+
+        // Obtener la cola de acciones actual
+        $colaAcciones = session()->get('colaAcciones', []);
+
+        // Verificar si el índice es válido
+        if (isset($colaAcciones[$index])) {
+            // Eliminar la acción del índice especificado
+            array_splice($colaAcciones, $index, 1);
+
+            // Actualizar la cola en la sesión
+            session()->put('colaAcciones', $colaAcciones);
+
+            // Retornar la cola actualizada
+            return response()->json([
+                'success' => true,
+                'queue' => $colaAcciones,
+            ]);
+        }
+
+        // Si no se encuentra el índice, retornar error
+        return response()->json([
+            'success' => false,
+            'message' => 'Acción no encontrada.',
+        ]);
     }
         
 /*

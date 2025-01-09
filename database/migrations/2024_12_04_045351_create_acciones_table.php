@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('acciones', function (Blueprint $table) {
             $table->id();
             $table->string('accion');
-           
+            // Cambia 'objetivo' a 'objetivo_id' y usa el tipo unsignedBigInteger
+            $table->unsignedBigInteger('objetivo_id')->constrained(table: 'objetivos');
             $table->timestamps();
         });
     }
