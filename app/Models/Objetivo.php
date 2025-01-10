@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Objetivo extends Model
 {
-    
+
+    use HasFactory;
     protected $table = "objetivos";
-    // Definir los campos que son asignables masivamente
+
     protected $fillable = [
-        'objetivo',
-        'monto_asignado',
+        'descripcion',
+        'area_superior_id',
+        'area_responsable_id',
+        'departamento_id',
+        'divisiones_carrera_id',
     ];
-
-
 }

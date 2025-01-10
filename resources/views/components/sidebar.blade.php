@@ -39,7 +39,7 @@
                     etiqueta="Puestos"
                     path="{{ route('puestos.index') }}"
                     :disable="false"
-                    icon="fas fa-user-tie"
+                    icon="fas fa-address-book"
                 />
                 <!-- Botón Áreas -->
                 <x-buttom_sidebar
@@ -55,15 +55,17 @@
                     :disabled="false" 
                     icon="fas fa-dollar"
                 />
+
+                 <!-- Botón Objetivos -->
+                 <x-buttom_sidebar 
+                    etiqueta="Objetivos"
+                    path="objetivo"
+                    :ruta="request()->routeIs('objetivo')"
+                    :disabled="false"
+                    icon="fas fa-bullseye"
+                 />
             @endif
-            <!-- Botón Objetivos -->
-            <x-buttom_sidebar 
-                etiqueta="Objetivos"
-                path="objetivo"
-                :ruta="request()->routeIs('objetivo')"
-                :disabled="false"
-                icon="fas fa-bullseye"
-            />
+           
 
             <!-- Botón Acciones -->
             <x-buttom_sidebar 

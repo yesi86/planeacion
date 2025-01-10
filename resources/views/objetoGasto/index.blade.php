@@ -84,11 +84,6 @@
                     <tr class="border-t hover:bg-gray-100">
                         <td class="px-6 py-4 flex justify-center items-center space-x-2">
                             <button 
-                                data-modal-toggle="viewUserModal-{{ $objeto['id'] }}" 
-                                class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 transition">
-                                Ver
-                            </button>
-                            <button 
                                 data-modal-toggle="editUserModal-{{ $objeto['id'] }}" 
                                 class="bg-yellow-600 text-white py-2 px-4 rounded-full hover:bg-yellow-700 transition">
                                 Editar
@@ -118,5 +113,10 @@
     </div>
 </div>
 
+<!-- incorporamos los modals con foreach-->
+@foreach ($objetoGasto as $ojeto)
+    @include('objetoGasto.modals.editObjetoModal',['objeto'=>$objeto])
+    @include('objetoGasto.modals.deleteObjetoModal',['objeto'=>$objeto])
+@endforeach
 
 @endsection
