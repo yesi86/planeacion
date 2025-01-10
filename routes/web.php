@@ -32,11 +32,6 @@ Route::prefix('users')->group(function () {
     Route::post('/', [UserController::class, 'store'])->name('users.store');
 })->middleware('role:SuperAdministrador|Administrador');
 
-Route::get('/objetivo', [ObjetivoController::class, 'index'])->name('objetivos.index');
-Route::post('/objetivo/add', [ObjetivoController::class, 'addToQueue'])->name('objetivos.add');
-Route::post('/objetivo/store', [ObjetivoController::class, 'store'])->name('objetivos.store');
-Route::get('/objetivo/queue', [ObjetivoController::class, 'getQueue'])->name('objetivos.queue');
-Route::post('/objetivo/remove', [ObjetivoController::class, 'removeFromQueue'])->name('objetivos.remove');
 // ruta de puestos
 Route::prefix('puestos')->group(function () {
     Route::get('/', [PuestoController::class, 'index'])->name('puestos.index');
@@ -62,11 +57,15 @@ Route::prefix('estructura')->group(function () {
     Route::put('/update/{id}', [EstructuraController::class, 'update'])->name('areas.update');
     Route::delete('/delete/{id}', [EstructuraController::class, 'destroy'])->name('areas.destroy');
 })->middleware('role:SuperAdministrador|Administrador');
-
 // ruta de catalogo objeto de gasto
 Route::prefix('objeto')->group(function () {
     Route::get('/', [catalogoObjetoController::class, 'index'])->name('objeto.index');
 })->middleware('role:SuperAdministrador|Administrador');
+// ruta para objetivos
+Route::prefix('objetivos')->group(function () {
+    Route::get('/', [ObjetivoController::class, 'index'])->name('objetivos.index');
+})->middleware('role:SuperAdministrador|Administrador');
+
 //Ruta de planeacion
 Route::get('/obtener-acciones/{objetivoId}', [PlaneacionController::class, 'obtenerAcciones']);
 Route::get('/obtener-actividades/{accionId}', [PlaneacionController::class, 'obtenerActividades']);

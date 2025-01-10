@@ -59,8 +59,7 @@
                  <!-- Botón Objetivos -->
                  <x-buttom_sidebar 
                     etiqueta="Objetivos"
-                    path="objetivo"
-                    :ruta="request()->routeIs('objetivo')"
+                    path="{{route('objetivos.index')}}"
                     :disabled="false"
                     icon="fas fa-bullseye"
                  />

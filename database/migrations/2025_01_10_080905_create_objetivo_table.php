@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('objetivos', function (Blueprint $table) {
+        Schema::create('objetivo', function (Blueprint $table) {
             $table->id();
             $table->string('Folio', 255)->unique();
             $table->string('descripcion', 50);
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('objetivos');
+        Schema::dropIfExists('objetivo');
     }
 };

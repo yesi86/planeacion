@@ -9,7 +9,7 @@ class Objetivo extends Model
 {
 
     use HasFactory;
-    protected $table = "objetivos";
+    protected $table = "objetivo";
 
     protected $fillable = [
         'descripcion',
