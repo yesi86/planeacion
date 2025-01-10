@@ -42,7 +42,7 @@
                 <!-- Select de Tipo de Área -->
                 <select 
                     name="filter" 
-                    class="border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
+                    class="border border-gray-300 rounded-full px-7 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                     onchange="this.form.submit()">
                     <option value="">Seleccionar Tipo de Área</option>
                     <option value="">Área Superior</option>

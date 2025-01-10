@@ -37,9 +37,8 @@ class ObjetivoController extends Controller
         // Filtro por tipo de área (usando la tabla pivote `objetivo_areas`)
         if ($filter) {
             $query->whereHas('areas', function ($q) use ($filter) {
-                // Realizamos un solo join con un alias único
-                $q->join('objetivo_areas as oa', 'oa.objetivo_id', '=', 'objetivo.id')
-                    ->where('oa.tipo', $filter);
+                // Aquí le damos un alias único para evitar el conflicto
+                $q->where('objetivo_areas.tipo', $filter); // Filtramos por el tipo de área
             });
         }
 

@@ -41,7 +41,7 @@
             <form method="GET" action="{{ route('areas.index') }}" class="flex items-center space-x-2">
                 <select 
                     name="filter" 
-                    class="border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
+                    class="border border-gray-300 rounded-full px-7 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                     onchange="this.form.submit()">
                     <option value="">Seleccionar Tipo</option>
                     <option value="area_superior" {{ request('filter') == 'area_superior' ? 'selected' : '' }}>Área Superior</option>

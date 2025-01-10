@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Objetivo extends Model
 {
-
     use HasFactory;
+
     protected $table = "objetivo";
 
+    // Función para generar el Folio
     protected static function boot()
     {
         parent::boot();
@@ -21,9 +22,10 @@ class Objetivo extends Model
         });
     }
 
+    // Relación muchos a muchos con la tabla pivote `objetivo_areas`
     public function areas()
     {
         return $this->belongsToMany(ObjetivoArea::class, 'objetivo_areas', 'objetivo_id', 'area_id')
-            ->withPivot('tipo');
+            ->withPivot('tipo');  // Incluye el campo 'tipo' de la tabla pivote
     }
 }

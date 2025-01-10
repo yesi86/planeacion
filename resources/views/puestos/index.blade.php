@@ -40,7 +40,7 @@
             <form method="GET" action="{{ route('puestos.index') }}" class="flex items-center space-x-2">
                 <select 
                     name="order" 
-                    class="border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
+                    class="border border-gray-300 rounded-full px-7 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                     onchange="this.form.submit()">
                     <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>A-Z</option>
                     <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
