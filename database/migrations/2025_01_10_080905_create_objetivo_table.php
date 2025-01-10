@@ -14,24 +14,7 @@ return new class extends Migration
         Schema::create('objetivo', function (Blueprint $table) {
             $table->id();
             $table->string('Folio', 255)->unique();
-            $table->string('descripcion', 50);
-
-            $table->foreignId('area_superior_id')
-                ->nullable()
-                ->constrained('area_superior')
-                ->onDelete('set null');
-            $table->foreignId('area_responsable_id')
-                ->nullable()
-                ->constrained('area_responsable')
-                ->onDelete('set null');
-            $table->foreignId('departamento_id')
-                ->nullable()
-                ->constrained('departamento')
-                ->onDelete('set null');
-            $table->foreignId('divisiones_carrera_id')
-                ->nullable()
-                ->constrained('divisiones_carrera')
-                ->onDelete('set null');
+            $table->string('descripcion', 255);
             $table->timestamps();
         });
     }

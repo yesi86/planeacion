@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50 px-6"> <!-- Fondo más suave y padding general -->
-    
+
     <!-- Mensajes de éxito y error -->
     @if(session('success')) 
     <div class="success-message bg-green-500 text-white p-4 rounded-lg shadow-md mb-4">
@@ -26,7 +26,7 @@
                 type="text" 
                 name="search" 
                 value="{{ request('search') }}" 
-                placeholder="Buscar Partida o Descripción..." 
+                placeholder="Buscar Folio o Descripción..." 
                 class="border border-gray-300 rounded-full px-6 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
             >
             <button 
@@ -38,31 +38,22 @@
 
         <!-- Filtros y Crear Objeto -->
         <div class="flex items-center space-x-4">
-            {{-- <form method="GET" action="{{ route('objeto.index') }}" class="flex items-center space-x-2">
+            <form method="GET" action="{{ route('objetivos.index') }}" class="flex items-center space-x-2">
+                <!-- Select de Tipo de Área -->
                 <select 
-                    name="capitulo" 
+                    name="filter" 
                     class="border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                     onchange="this.form.submit()">
-                    <option value="">Seleccionar capítulo</option>
-                    @foreach($capitulos as $capitulo)
-                        <option 
-                            value="{{ $capitulo }}" 
-                            {{ request('capitulo') === $capitulo ? 'selected' : '' }}>
-                            {{ $capitulo }}
-                        </option>
-                    @endforeach
+                    <option value="">Seleccionar Tipo de Área</option>
+                    <option value="">Área Superior</option>
+                    <option value="">Área Responsable</option>
+                    <option value="">Departamento</option>
+                    <option value="">División Carrera</option>
                 </select>
-                <select 
-                    name="order" 
-                    class="border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
-                    onchange="this.form.submit()">
-                    <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>A-Z</option>
-                    <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
-                </select>
-            </form> --}}
+            </form>
 
             <!-- Botón Crear Objeto -->
-            <button data-modal-toggle="createUserModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
+            <button data-modal-toggle="createObjetivoModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
                 Crear objetivo
             </button>
         </div>
@@ -74,9 +65,9 @@
             <thead>
                 <tr class="bg-indigo-800 text-white">
                     <th class="px-6 py-4 text-left">Acciones</th>
-                    <th class="px-6 py-4 text-left">Capítulo</th>
-                    <th class="px-6 py-4 text-left">Partida</th>
-                    <th class="px-6 py-4 text-left">Descripción</th>
+                    <th class="px-6 py-4 text-left">Folio</th>
+                    <th class="px-6 py-4 text-left">Descripcion</th>
+                    <th class="px-6 py-4 text-left">Area Afectada</th>
                 </tr>
             </thead>
             <tbody>
@@ -95,11 +86,11 @@
                             </button>
                         </td>
                         <td class="px-6 py-4">{{ $objetivo->Folio }}</td>
-                        <td class="px-6 py-4">{{ $objeto->descripcion }}</td>
+                        <td class="px-6 py-4">{{ $objetivo->descripcion }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center py-4">No se encontraron coincidencias.</td>
+                        <td colspan="4" class="text-center py-4">Ningún Registro Guardado</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -112,6 +103,9 @@
     </div>
 </div>
 
+<!--modal para crear objetivo-->
+@include('objetivos.modals.createObjetivoModal')
+
 <!-- incorporamos los modals con foreach-->
 @foreach ($objetivos as $ojetivo)
     @include('objetivos.modals.editObjetivoModal',['objetivo'=>$objetivo])
@@ -119,3 +113,4 @@
 @endforeach
 
 @endsection
+

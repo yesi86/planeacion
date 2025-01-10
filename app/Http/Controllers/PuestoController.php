@@ -26,7 +26,7 @@ class PuestoController extends Controller
         $puestos = Puesto::when($search, function ($query, $search) {
             return $query->where('name', 'like', '%' . $search . '%');
         })
-            ->orderBy('name', $order) // Ordenar por nombre según el parámetro
+            ->orderBy('name', $order)
             ->paginate(10);
 
         if ($search && $puestos->isEmpty()) {

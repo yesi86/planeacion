@@ -11,11 +11,19 @@ class Objetivo extends Model
     use HasFactory;
     protected $table = "objetivo";
 
-    protected $fillable = [
-        'descripcion',
-        'area_superior_id',
-        'area_responsable_id',
-        'departamento_id',
-        'divisiones_carrera_id',
-    ];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($objetivo) {
+            $nextId = self::max('id') + 1;
+            $objetivo->Folio = 'OBITS-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
+        });
+    }
+
+    public function areas()
+    {
+        return $this->belongsToMany(ObjetivoArea::class, 'objetivo_areas', 'objetivo_id', 'area_id')
+            ->withPivot('tipo');
+    }
 }
