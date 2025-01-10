@@ -22,10 +22,34 @@ class Objetivo extends Model
         });
     }
 
-    // Relación muchos a muchos con la tabla pivote `objetivo_areas`
-    public function areas()
+    // Relación con la tabla pivote
+    public function objetivoAreas()
     {
-        return $this->belongsToMany(ObjetivoArea::class, 'objetivo_areas', 'objetivo_id', 'area_id')
-            ->withPivot('tipo');  // Incluye el campo 'tipo' de la tabla pivote
+        return $this->hasMany(ObjetivoArea::class, 'objetivo_id');
+    }
+
+    // Relaciones dinámicas basadas en el tipo
+    public function areaSuperiores()
+    {
+        return $this->hasManyThrough(AreaSuperior::class, ObjetivoArea::class, 'objetivo_id', 'id', 'id', 'area_id')
+            ->where('objetivo_areas.tipo', 'area_superior');
+    }
+
+    public function areaResponsables()
+    {
+        return $this->hasManyThrough(AreaResponsable::class, ObjetivoArea::class, 'objetivo_id', 'id', 'id', 'area_id')
+            ->where('objetivo_areas.tipo', 'area_responsable');
+    }
+
+    public function departamentos()
+    {
+        return $this->hasManyThrough(Departamento::class, ObjetivoArea::class, 'objetivo_id', 'id', 'id', 'area_id')
+            ->where('objetivo_areas.tipo', 'departamento');
+    }
+
+    public function divisionesCarrera()
+    {
+        return $this->hasManyThrough(DivisionCarrera::class, ObjetivoArea::class, 'objetivo_id', 'id', 'id', 'area_id')
+            ->where('objetivo_areas.tipo', 'divisiones_carrera');
     }
 }

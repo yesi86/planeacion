@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Objetivo;
@@ -21,12 +20,13 @@ class ObjetivoController extends Controller
 
         $search = $request->input('search');
         $order = $request->input('order', 'asc');
-        $filter = $request->input('filter'); // Filtro de tipo de área
+        $filter = $request->input('filter');
 
-        // Consulta base para obtener los objetivos
-        $query = Objetivo::query()->with('areas'); // Relación con la tabla pivote
+        $query = Objetivo::query()->with(['areas' => function ($q) {
+            $q->with('area'); // Cargar el área asociada dinámicamente
+        }]);
 
-        // Filtro por búsqueda
+
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('Folio', 'like', "%$search%")
@@ -34,24 +34,17 @@ class ObjetivoController extends Controller
             });
         }
 
-        // Filtro por tipo de área (usando la tabla pivote `objetivo_areas`)
+
         if ($filter) {
-            $query->whereHas('areas', function ($q) use ($filter) {
-                // Aquí le damos un alias único para evitar el conflicto
-                $q->where('objetivo_areas.tipo', $filter); // Filtramos por el tipo de área
+            $query->whereHas('ObjetivoAreas', function ($q) use ($filter) {
+                $q->where('tipo', $filter);
             });
         }
 
-        // Ordenar por Folio
         $query->orderBy('Folio', $order);
 
-        // Obtener resultados paginados
         $objetivos = $query->paginate(10);
-
-        // Verificar si no hay registros con el filtro aplicado
-        if ($filter && $objetivos->isEmpty()) {
-            session()->flash('error', 'No se encontraron registros con el filtro aplicado.');
-        }
+        // dd($query);
 
         return view('objetivos.index', compact('objetivos', 'filter'));
     }

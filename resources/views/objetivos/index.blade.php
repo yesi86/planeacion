@@ -45,12 +45,13 @@
                     class="border border-gray-300 rounded-full px-7 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                     onchange="this.form.submit()">
                     <option value="">Seleccionar Tipo de Área</option>
-                    <option value="">Área Superior</option>
-                    <option value="">Área Responsable</option>
-                    <option value="">Departamento</option>
-                    <option value="">División Carrera</option>
+                    <option value="area_superior" {{ request('filter') === 'area_superior' ? 'selected' : '' }}>Área Superior</option>
+                    <option value="area_responsable" {{ request('filter') === 'area_responsable' ? 'selected' : '' }}>Área Responsable</option>
+                    <option value="departamento" {{ request('filter') === 'departamento' ? 'selected' : '' }}>Departamento</option>
+                    <option value="divisiones_carrera" {{ request('filter') === 'divisiones_carrera' ? 'selected' : '' }}>División Carrera</option>
                 </select>
             </form>
+            
 
             <!-- Botón Crear Objeto -->
             <button data-modal-toggle="createObjetivoModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
