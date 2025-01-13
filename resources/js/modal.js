@@ -38,7 +38,6 @@ function initializeModals() {
                 });
             }
 
-            
             // Manejar la acción de Cancelar
             const cancelDeleteButton = modal.querySelector(".cancel-delete-action");
             if (cancelDeleteButton) {
@@ -46,8 +45,6 @@ function initializeModals() {
                     modal.classList.add("hidden"); 
                 });
             }
-
-
         }
     });
 }

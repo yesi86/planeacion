@@ -26,7 +26,7 @@ class ObjetivoArea extends Model
             case 'divisiones_carrera':
                 return $this->belongsTo(DivisionCarrera::class, 'area_id');
             default:
-                return null;
+                throw new \Exception("Tipo de área inválido: {$this->tipo}");
         }
     }
 }

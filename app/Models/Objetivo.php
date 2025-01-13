@@ -28,6 +28,12 @@ class Objetivo extends Model
         return $this->hasMany(ObjetivoArea::class, 'objetivo_id');
     }
 
+    public function areas()
+    {
+        return $this->hasMany(ObjetivoArea::class, 'objetivo_id')->with('area');
+    }
+
+
     // Relaciones dinámicas basadas en el tipo
     public function areaSuperiores()
     {
