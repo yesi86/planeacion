@@ -65,7 +65,7 @@
                     <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
                 </select>
             </form>
-            <button data-modal-toggle="createUserModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
+            <button data-modal-toggle="createAreaModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
                 Crear area
             </button>
         </div>
@@ -121,14 +121,14 @@
 
 <!-- Modal para crear área con base en el filtro -->
 
-{{-- @include ('estructura.modals.createAreaModal'); --}}
+@include ('estructura.modals.createAreaModal');
     
 
 <!-- Modal para ver, editar y eliminar -->
 @foreach ($areas as $area)
     @include('estructura.modals.viewAreaModal', ['area' => $area])
     @include('estructura.modals.editAreaModal', ['area' => $area]) 
-    {{-- @include('estructura.modals.deleteAreaModal', ['item' => $item]) --}} --}}
+    @include('estructura.modals.deleteAreaModal', ['area' => $area])
 @endforeach
 
 @endsection

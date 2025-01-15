@@ -1,12 +1,12 @@
-<div id="deleteAreaModal-{{ $item['id'] }}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{ $errors->any() ? 'block' : 'hidden' }}">
+<div id="deleteAreaModal-{{ $area->id }}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{ $errors->any() ? 'block' : 'hidden' }}">
     <div class="bg-white rounded-lg p-6 w-96">
         <div class="bg-gray-100 px-4 py-1 border-b flex justify-between items-center rounded-b-xl">
-            <h3 class="text-xl font-semibold">Eliminar: <span class="text-red-500">{{ $item['nombre'] }}</span></h3>
+            <h3 class="text-xl font-semibold">Eliminar: <span class="text-red-500">{{ $area->nombre }}</span></h3>
         </div>
-        <form method="POST" action="{{ route('areas.destroy', $item['id']) }}" id="delete-form-{{ $item['id'] }}">
+        <form method="POST" action="{{ route('areas.destroy', $area->id) }}" id="delete-form-{{ $area->id }}">
             @csrf
             @method('DELETE')
-            <input type="hidden" name="tipo" value="{{ $item['tipo'] }}">
+            <input type="hidden" name="tipo" value="{{ $area->tipo }}">
             <div class="my-4">
                 <p class="text-center text-lg text-gray-800">
                     ¿Estás seguro de que deseas eliminar este elemento? <br>
@@ -19,7 +19,7 @@
                 <button type="button" class="closeModalButton bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600">
                     Cancelar
                 </button>
-                <button type="button" class="confirm-delete-action bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" data-item-id="{{ $item['id'] }}">
+                <button type="button" class="confirm-delete-action bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" data-item-id="{{ $area->id }}">
                     Confirmar
                 </button>
             </div>

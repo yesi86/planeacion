@@ -1,3 +1,4 @@
+// Función de inicialización de modales
 function initializeModals() {
     const modalToggles = document.querySelectorAll("[data-modal-toggle]");
     modalToggles.forEach(modalToggle => {
@@ -6,6 +7,11 @@ function initializeModals() {
 
         if (modalToggle && modal) {
             modalToggle.addEventListener("click", () => {
+                // Cerrar todos los modales antes de abrir el nuevo
+                const allModals = document.querySelectorAll('.modal');
+                allModals.forEach(m => m.classList.add("hidden"));
+
+                // Mostrar el modal seleccionado
                 modal.classList.remove("hidden");
             });
         }
