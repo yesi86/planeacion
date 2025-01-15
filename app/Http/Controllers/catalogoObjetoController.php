@@ -37,15 +37,9 @@ class catalogoObjetoController extends Controller
 
         $query->orderBy('capitulo', $order);
 
-        $objetoGasto = $query->paginate(10);
+        $objetoGasto = $query->paginate(15)->appends($request->except('page'));
 
-        $capitulos = [
-            '1000_(Serv._Personales)',
-            '2000_(Mat._y_Suministros)',
-            '3000_(Serv._Generales)',
-            '4000_(Subsidios_y_transf)',
-            '5000_(Bienes)'
-        ];
+        $capitulos = ObjetoGasto::distinct()->pluck('capitulo')->toArray();
 
         return view('objetoGasto.index', compact('objetoGasto', 'capitulos'));
     }

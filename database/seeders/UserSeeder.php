@@ -24,7 +24,6 @@ class UserSeeder extends Seeder
     {
 
         $this->createSuperAdmin();
-        $this->createHierarchicalUsers();
     }
     private function createSuperAdmin()
     {
@@ -43,46 +42,5 @@ class UserSeeder extends Seeder
         $user->assignRole($role);
 
         $this->command->info("Usuario Superadmin creado o actualizado con éxito.");
-    }
-    private function createHierarchicalUsers()
-    {
-        $division = DivisionCarrera::find(10);
-
-        if ($division) {
-            $departamento = $division->departamento()->first();
-
-            if ($departamento) {
-                $areaResponsable = $departamento->areaResponsable;
-
-                if ($areaResponsable) {
-                    $areaSuperior = $areaResponsable->areaSuperior;
-                    $puestoJefeCarrera = puesto::firstOrCreate(['name' => 'Jefe de la División de la Carrera de Gastronomía']);
-                    $role = Role::firstOrCreate(
-                        ['name' => 'Jefe de Carrera'],
-                        ['guard_name' => 'web']
-                    );
-                    $userJefeCarrera = User::firstOrCreate(
-                        ['email' => 'jefe.carrera@example.com'],
-                        [
-                            'name' => 'Jefe de Carrera',
-                            'password' => Hash::make('password'),
-                        ]
-                    );
-                    $userJefeCarrera->assignRole($role);
-
-                    UserAreaPosition::firstOrCreate([
-                        'user_id' => $userJefeCarrera->id,
-                        'departamento_id' => $departamento->id,
-                        'area_responsable_id' => $areaResponsable->id,
-                        'area_superior_id' => $areaSuperior ? $areaSuperior->id : null,
-                        'division_id' => $division->id,
-                        'puesto_id' => $puestoJefeCarrera->id,
-                        'role' => $role->name,
-                    ]);
-
-                    $this->command->info("Usuario Jefe de Carrera creado o actualizado con éxito.");
-                }
-            }
-        }
     }
 }

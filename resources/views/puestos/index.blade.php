@@ -13,6 +13,11 @@
         {{ session('error') }}
     </div>
     @endif
+    @if(session('info'))
+    <div class="info-message bg-yellow-300 text-black p-4 rounded-lg shadow-md mb-4">
+        {{ session('info') }}
+    </div>
+    @endif
 
     <!-- Título principal -->
     <h2 class="text-3xl font-semibold text-gray-800 mb-6">Puestos de Sistema</h2>

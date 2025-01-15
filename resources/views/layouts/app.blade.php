@@ -15,19 +15,19 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased overflow-hidden"> <!-- Cambié aquí para evitar el scrollbar global -->
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex overflow-auto"> <!-- Cambié aquí para permitir el desplazamiento solo en el contenedor principal -->
+    <body class="font-sans antialiased overflow-hidden">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex overflow-auto"> 
             
             <!-- Sidebar -->
             <x-sidebar />
             <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
             
             <!-- Content -->
-            <div class="flex-1 p-6 overflow-auto"> <!-- Aseguré que el contenido principal pueda desplazarse -->
+            <div class="flex-1 p-4 overflow-auto"> 
                 <!-- Page Heading -->
                 @isset($header)
                     <header class="bg-white dark:bg-gray-800 shadow">
-                        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        <div class="w-full py-3 px-4">
                             {{ $header }}
                         </div>
                     </header>

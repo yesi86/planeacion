@@ -27,7 +27,7 @@ class PuestoController extends Controller
             return $query->where('name', 'like', '%' . $search . '%');
         })
             ->orderBy('name', $order)
-            ->paginate(10);
+            ->paginate(10)->appends($request->except('page'));;
 
         if ($search && $puestos->isEmpty()) {
             return redirect()->route('puestos.index')

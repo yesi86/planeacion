@@ -39,7 +39,7 @@ class UserController extends Controller
         }
 
         $query->orderBy('name', $order);
-        $users = $query->paginate(10);
+        $users = $query->paginate(10)->appends($request->except('page'));;
         $roles = Role::all();
 
         return view('users.index', compact('users', 'roles'));
