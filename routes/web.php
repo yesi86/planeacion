@@ -53,7 +53,7 @@ Route::get('/acciones/obtenercola', [AccionController::class, 'obtenerCola'])->n
 // Ruta para el módulo de Estructura/Áreas
 Route::prefix('estructura')->group(function () {
     Route::get('/', [EstructuraController::class, 'index'])->name('areas.index');
-    Route::get('/areas/parents/{type}', [EstructuraController::class, 'getParentAreas']);
+    Route::get('/areas/{tipo}', [EstructuraController::class, 'getAreasByTipo'])->name('areas.byTipo');
     Route::post('/areas/store', [EstructuraController::class, 'store'])->name('areas.store');
     Route::put('/update/{id}', [EstructuraController::class, 'update'])->name('areas.update');
     Route::delete('/delete/{id}', [EstructuraController::class, 'destroy'])->name('areas.destroy');

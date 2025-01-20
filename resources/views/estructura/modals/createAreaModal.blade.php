@@ -31,7 +31,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="parent_id" class="block font-medium">Seleccione una opción:</label>
+                <label for="parent_id" class="block font-medium">Seleccione una area dependiente:</label>
                 <select id="parent_id" name="parent_id" class="w-full border rounded p-2">
                     <option value="" disabled selected>Seleccione una opción</option>
                     <!-- Las opciones serán dinámicas aquí -->
@@ -50,36 +50,46 @@
         </form>
     </div>
 </div>
-
 <script>
-    function handleTipoChange(event) {
-        const tipoSeleccionado = event.target.value;
-        const parentIdSelect = document.getElementById('parent_id');
-
-        parentIdSelect.innerHTML = '<option value="" disabled selected>Seleccione una opción</option>';
-
-        let areas = [];
-        if (tipoSeleccionado === 'Superior') {
-            areas = @json($areasInstitutos);
-        } else if (tipoSeleccionado === 'Responsable') {
-            areas = @json($areasSuperiores);
-        } else if (tipoSeleccionado === 'Departamento') {
-            areas = @json($areasResponsables);
-        } 
-
-        areas.forEach(area => {
-            const option = document.createElement('option');
-            option.value = area.id;
-            option.textContent = area.nombre;
-            parentIdSelect.appendChild(option);
-        });
-    }
-
     document.addEventListener('DOMContentLoaded', function () {
         const tipoSelect = document.getElementById('tipo');
+        const parentIdSelect = document.getElementById('parent_id');
+
+        function handleTipoChange(event) {
+            const tipoSeleccionado = event.target.value;
+
+            parentIdSelect.innerHTML = '<option value="" disabled selected>Seleccione una opción</option>';
+
+            if (!tipoSeleccionado) return;
+
+            fetch(`estructura/areas/${tipoSeleccionado}`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    data.forEach(area => {
+                        const option = document.createElement('option');
+                        option.value = area.id;
+                        option.textContent = area.nombre;
+                        parentIdSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al obtener las áreas:', error);
+                });
+        }
+
         if (tipoSelect) {
             tipoSelect.addEventListener('change', handleTipoChange);
-            handleTipoChange({ target: tipoSelect }); // Ejecutar para el tipo seleccionado por defecto
+            handleTipoChange({ target: tipoSelect });
         }
     });
 </script>

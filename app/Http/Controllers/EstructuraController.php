@@ -34,13 +34,13 @@ class EstructuraController extends Controller
         $tipos = Areas::distinct()->pluck('tipo')->toArray();
         $areas = $query->paginate(10)->appends($request->except('page'));
 
-        $areasSuperiores = Areas::where('tipo', 'Superior')->get();
-        $areasResponsables = Areas::where('tipo', 'Responsable')->get();
-        $areasDepartamentos = Areas::where('tipo', 'Departamento')->get();
-        $areasInstitutos = Areas::where('tipo', 'Instituto')->get();
-        $divisionCarreraId = Areas::where('tipo', 'División de Carrera')->first()?->id;
+        // $areasSuperiores = Areas::where('tipo', 'Superior')->get();
+        // $areasResponsables = Areas::where('tipo', 'Responsable')->get();
+        // $areasDepartamentos = Areas::where('tipo', 'Departamento')->get();
+        // $areasInstitutos = Areas::where('tipo', 'Instituto')->get();
+        // $divisionCarreraId = Areas::where('tipo', 'División de Carrera')->first()?->id;
 
-        return view('estructura.index', compact('areas', 'tipos', 'areasSuperiores', 'areasResponsables', 'areasDepartamentos', 'areasInstitutos', 'divisionCarreraId'));
+        return view('estructura.index', compact('areas', 'tipos',));
     }
 
     public function store(Request $request)
@@ -72,7 +72,7 @@ class EstructuraController extends Controller
 
         if ($existingArea) {
             return redirect()->route('areas.index')
-                ->with('error', 'Ya existe un área con el mismo nombre en este tipo.');
+                ->with('error', 'Ya existe una área con el mismo nombre en este tipo.');
         }
 
         // Crear el área
@@ -84,8 +84,25 @@ class EstructuraController extends Controller
 
         return redirect()->route('areas.index')->with('success', 'Área creada exitosamente');
     }
+    public function getAreasByTipo($tipo)
+    {
+        switch ($tipo) {
+            case 'Superior':
+                $areas = Areas::where('tipo', 'Instituto')->get();
+                break;
+            case 'Responsable':
+                $areas = Areas::where('tipo', 'Superior')->get();
+                break;
+            case 'Departamento':
+                $areas = Areas::where('tipo', 'Responsable')->get();
+                break;
+            default:
+                $areas = collect(); // Vacío si el tipo no coincide
+                break;
+        }
 
-
+        return response()->json($areas);
+    }
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
