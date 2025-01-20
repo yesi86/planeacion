@@ -10,52 +10,31 @@ class Objetivo extends Model
     use HasFactory;
 
     protected $table = "objetivo";
+    protected $fillable = ['descripcion'];
 
-    // Función para generar el Folio
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($objetivo) {
+            // Generamos el Folio antes de guardar el objetivo
             $nextId = self::max('id') + 1;
-            $objetivo->Folio = 'OBITS-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
+            $objetivo->Folio = 'OB-ITSX-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
         });
     }
 
-    // Relación con la tabla pivote
-    public function objetivoAreas()
-    {
-        return $this->hasMany(ObjetivoArea::class, 'objetivo_id');
-    }
-
+    // Relación con las áreas
     public function areas()
     {
-        return $this->hasMany(ObjetivoArea::class, 'objetivo_id')->with('area');
+        return $this->belongsToMany(Areas::class, 'objetivo_areas', 'objetivo_id', 'area_id')
+            ->withPivot('tipo')
+            ->withTimestamps();
     }
 
 
-    // Relaciones dinámicas basadas en el tipo
-    public function areaSuperiores()
+    // Accesor para obtener el número de áreas afectadas
+    public function getNumAreasAfectadasAttribute()
     {
-        return $this->hasManyThrough(AreaSuperior::class, ObjetivoArea::class, 'objetivo_id', 'id', 'id', 'area_id')
-            ->where('objetivo_areas.tipo', 'area_superior');
-    }
-
-    public function areaResponsables()
-    {
-        return $this->hasManyThrough(AreaResponsable::class, ObjetivoArea::class, 'objetivo_id', 'id', 'id', 'area_id')
-            ->where('objetivo_areas.tipo', 'area_responsable');
-    }
-
-    public function departamentos()
-    {
-        return $this->hasManyThrough(Departamento::class, ObjetivoArea::class, 'objetivo_id', 'id', 'id', 'area_id')
-            ->where('objetivo_areas.tipo', 'departamento');
-    }
-
-    public function divisionesCarrera()
-    {
-        return $this->hasManyThrough(DivisionCarrera::class, ObjetivoArea::class, 'objetivo_id', 'id', 'id', 'area_id')
-            ->where('objetivo_areas.tipo', 'divisiones_carrera');
+        return $this->areas()->count(); // Contamos el número de áreas relacionadas
     }
 }

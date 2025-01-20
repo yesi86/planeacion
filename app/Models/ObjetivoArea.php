@@ -1,32 +1,24 @@
 <?php
 
+// app/Models/ObjetivoArea.php
+
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ObjetivoArea extends Model
 {
-    protected $table = "objetivo_areas";
+    use HasFactory;
+
     protected $fillable = ['objetivo_id', 'area_id', 'tipo'];
 
-    public function objetivo()
+    // Método para verificar si una área ya está asignada a un objetivo con un tipo específico
+    public static function isAreaAssignedToObjective($objetivoId, $areaId, $tipo)
     {
-        return $this->belongsTo(Objetivo::class, 'objetivo_id');
-    }
-
-    public function area()
-    {
-        switch ($this->tipo) {
-            case 'area_superior':
-                return $this->belongsTo(AreaSuperior::class, 'area_id');
-            case 'area_responsable':
-                return $this->belongsTo(AreaResponsable::class, 'area_id');
-            case 'departamento':
-                return $this->belongsTo(Departamento::class, 'area_id');
-            case 'divisiones_carrera':
-                return $this->belongsTo(DivisionCarrera::class, 'area_id');
-            default:
-                throw new \Exception("Tipo de área inválido: {$this->tipo}");
-        }
+        return self::where('objetivo_id', $objetivoId)
+            ->where('area_id', $areaId)
+            ->where('tipo', $tipo)
+            ->exists();
     }
 }

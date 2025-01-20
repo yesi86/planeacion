@@ -1,41 +1,98 @@
 <div id="createObjetivoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-lg p-6 w-96 max-h-[90vh] overflow-y-auto">
+    <div class="bg-white rounded-lg p-6 w-96 shadow-lg">
         <h3 class="text-xl font-semibold mb-4">Crear Objetivo</h3>
-        <form id="createObjetivoForm">
+        <form id="createObjectiveForm" method="POST" action="{{ route('objetivos.store') }}">
             @csrf
+
+            <!-- Campo de descripción del objetivo -->
             <div class="mb-4">
-                <label for="descripcion" class="block font-medium">Descripción del objetivo</label>
-                <input type="text" id="descripcion" name="descripcion" class="w-full border rounded p-2">
+                <label for="descripcion" class="block font-medium">Descripción del Objetivo:</label>
+                <input type="text" id="descripcion" name="descripcion" class="w-full border rounded p-2 @error('descripcion') border-red-500 @enderror"
+                       value="{{ old('descripcion') }}" required placeholder="Escriba la descripción del objetivo">
+                @error('descripcion')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
+            <!-- Selección de tipo de área -->
             <div class="mb-4">
-                <label for="tipoArea" class="block font-medium">Tipo de Área</label>
-                <select id="tipoArea" name="tipoArea" class="w-full border rounded p-2">
-                    <option value="">Seleccione un tipo</option>
-                    <option value="area_superior">Área Superior</option>
-                    <option value="area_responsable">Área Responsable</option>
-                    <option value="departamento">Departamento</option>
-                    <option value="divisiones_carrera">División de Carrera</option>
+                <label for="tipo_area" class="block font-medium">Tipo de Área Afectada:</label>
+                <select id="tipo_area" name="tipo_area" class="w-full border rounded p-2 @error('tipo_area') border-red-500 @enderror" required>
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option value="Instituto" {{ old('tipo_area') === 'Instituto' ? 'selected' : '' }}>Instituto</option>
+                    <option value="Superior" {{ old('tipo_area') === 'Superior' ? 'selected' : '' }}>Área Superior</option>
+                    <option value="Responsable" {{ old('tipo_area') === 'Responsable' ? 'selected' : '' }}>Área Responsable</option>
+                    <option value="Departamento" {{ old('tipo_area') === 'Departamento' ? 'selected' : '' }}>Departamento</option>
+                    <option value="División de Carrera" {{ old('tipo_area') === 'División de Carrera' ? 'selected' : '' }}>División de Carrera</option>
                 </select>
+                @error('tipo_area')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
+            <!-- Selección de áreas afectadas -->
             <div class="mb-4">
-                <label for="areasDisponibles" class="block font-medium">Áreas Disponibles</label>
-                <div id="areas-container" class="max-h-40 overflow-y-auto border rounded p-2"></div>
+                <label for="areas_afectadas" class="block font-medium">Áreas Afectadas:</label>
+                <div id="checkboxes-container" class="max-h-48 overflow-y-scroll">
+                    <!-- Los checkboxes se generarán dinámicamente -->
+                </div>
+                @error('areas_afectadas')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
-            <div class="mb-4">
-                <ul id="selectedAreas" class="list-disc pl-5"></ul>
-            </div>
-
+            <!-- Botones de acción -->
             <div class="flex justify-end space-x-2">
-                <button type="button" class="closeModalButton bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
+                <button type="button" class="closeModalButton bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600">
                     Cancelar
                 </button>
                 <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-                    Crear
+                    Guardar
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tipoAreaSelect = document.getElementById('tipo_area');
+    const checkboxesContainer = document.getElementById('checkboxes-container');
+    const cancelModalButton = document.getElementById('cancelModalButton');
+
+    // Cargar áreas dinámicamente
+    const updateAreas = (tipo) => {
+        checkboxesContainer.innerHTML = '<p>Cargando...</p>';
+        fetch(`/objetivos/areas/${tipo}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        })
+            .then((response) => response.json())
+            .then((areas) => {
+                checkboxesContainer.innerHTML = ''; // Limpiar el contenedor
+                areas.forEach((area) => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                        <label>
+                            <input type="checkbox" name="areas_afectadas[]" value="${area.id}" class="mr-2">
+                            ${area.nombre}
+                        </label>
+                    `;
+                    checkboxesContainer.appendChild(div);
+                });
+            })
+            .catch((error) => {
+                console.error('Error al cargar áreas:', error);
+                checkboxesContainer.innerHTML = '<p>Error al cargar áreas.</p>';
+            });
+    };
+
+    // Manejar cambio de tipo de área
+    tipoAreaSelect.addEventListener('change', (e) => {
+        const selectedTipo = e.target.value;
+        if (selectedTipo) updateAreas(selectedTipo);
+    });
+});
+</script>

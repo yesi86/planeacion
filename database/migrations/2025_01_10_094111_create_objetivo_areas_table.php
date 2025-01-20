@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('objetivo_areas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('objetivo_id')->constrained('objetivo')->onDelete('cascade');
-            $table->unsignedBigInteger('area_id'); // ID genérico del área
-            $table->string('tipo'); // Indica el tipo de área 
+            $table->foreignId('area_id')->constrained('areas')->onDelete('cascade'); // ID genérico del área
+            $table->string('tipo'); // Indica el tipo de área
             $table->timestamps();
             $table->unique(['objetivo_id', 'area_id', 'tipo']); // Evita duplicados para un mismo objetivo
         });

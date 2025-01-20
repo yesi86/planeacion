@@ -58,6 +58,7 @@ Route::prefix('estructura')->group(function () {
     Route::put('/update/{id}', [EstructuraController::class, 'update'])->name('areas.update');
     Route::delete('/delete/{id}', [EstructuraController::class, 'destroy'])->name('areas.destroy');
 })->middleware('role:SuperAdministrador|Administrador');
+
 // ruta de catalogo objeto de gasto
 Route::prefix('objeto')->group(function () {
     Route::get('/', [catalogoObjetoController::class, 'index'])->name('objeto.index');
@@ -66,9 +67,10 @@ Route::prefix('objeto')->group(function () {
 // ruta para objetivos
 Route::prefix('objetivos')->group(function () {
     Route::get('/', [ObjetivoController::class, 'index'])->name('objetivos.index');
+    Route::get('/areas/{tipo}', [ObjetivoController::class, 'getAreasByTipo'])->name('objetivos.byTipo');
     Route::post('/store', [ObjetivoController::class, 'store'])->name('objetivos.store');
-    Route::post('/get-areas', [ObjetivoController::class, 'getAreas'])->name('areas.get');
 })->middleware('role:SuperAdministrador|Administrador');
+
 //Ruta de planeacion
 Route::get('/obtener-acciones/{objetivoId}', [PlaneacionController::class, 'obtenerAcciones']);
 Route::get('/obtener-actividades/{accionId}', [PlaneacionController::class, 'obtenerActividades']);

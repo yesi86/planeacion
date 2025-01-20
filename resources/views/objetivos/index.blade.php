@@ -73,7 +73,7 @@
                     <th class="px-6 py-4 text-left">Acciones</th>
                     <th class="px-6 py-4 text-left">Folio</th>
                     <th class="px-6 py-4 text-left">Descripcion</th>
-                    <th class="px-6 py-4 text-left">Area Afectada</th>
+                    <th class="px-6 py-4 text-left">Num Areas Afectadas</th> <!-- Nueva columna -->
                 </tr>
             </thead>
             <tbody>
@@ -81,18 +81,19 @@
                     <tr class="border-t hover:bg-gray-100">
                         <td class="px-6 py-4 flex justify-center items-center space-x-2">
                             <button 
-                                data-modal-toggle="editUserModal-{{ $objetivo['id'] }}" 
-                                class="bg-yellow-600 text-white py-2 px-4 rounded-full hover:bg-yellow-700 transition">
-                                Editar
+                                data-modal-toggle="viewObjetivoModal-{{ $objetivo->id }}" 
+                                class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 transition">
+                                Ver
                             </button>
                             <button 
-                                data-modal-toggle="deleteUserModal-{{ $objetivo['id'] }}" 
+                                data-modal-toggle="deleteObjetivoModal-{{ $objetivo->id }}" 
                                 class="bg-red-600 text-white py-2 px-4 rounded-full hover:bg-red-700 transition">
                                 Eliminar
                             </button>
                         </td>
                         <td class="px-6 py-4">{{ $objetivo->Folio }}</td>
                         <td class="px-6 py-4">{{ $objetivo->descripcion }}</td>
+                        <td class="px-6 py-4">{{ $objetivo->num_areas_afectadas }}</td> <!-- Número de áreas -->
                     </tr>
                 @empty
                     <tr>
@@ -113,10 +114,9 @@
 @include('objetivos.modals.createObjetivoModal')
 
 <!-- incorporamos los modals con foreach-->
-@foreach ($objetivos as $ojetivo)
+@foreach ($objetivos as $objetivo)
     @include('objetivos.modals.editObjetivoModal',['objetivo'=>$objetivo])
     @include('objetivos.modals.deleteObjetivoModal',['objetivo'=>$objetivo])
 @endforeach
 
 @endsection
-
