@@ -62,29 +62,31 @@
 
             if (!tipoSeleccionado) return;
 
-            fetch(`estructura/areas/${tipoSeleccionado}`, {
+            fetch(`{{ url('estructura/areas') }}/${tipoSeleccionado}`, {
                 method: 'GET',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
-                },
+                 },
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error en la respuesta del servidor');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    data.forEach(area => {
-                        const option = document.createElement('option');
-                        option.value = area.id;
-                        option.textContent = area.nombre;
-                        parentIdSelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error al obtener las áreas:', error);
-                });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor');
+            }
+            return response.json();
+            })
+            .then(data => {
+                parentIdSelect.innerHTML = '<option value="" disabled selected>Seleccione una opción</option>';
+                data.forEach(area => {
+                const option = document.createElement('option');
+                option.value = area.id;
+                option.textContent = area.nombre;
+                parentIdSelect.appendChild(option);
+            });
+            })
+            .catch(error => {
+                console.error('Error al obtener las áreas:', error);
+            });
+
         }
 
         if (tipoSelect) {

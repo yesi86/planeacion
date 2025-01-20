@@ -34,6 +34,12 @@ class EstructuraController extends Controller
         $tipos = Areas::distinct()->pluck('tipo')->toArray();
         $areas = $query->paginate(10)->appends($request->except('page'));
 
+        // $areasSuperiores = Areas::where('tipo', 'Superior')->get();
+        // $areasResponsables = Areas::where('tipo', 'Responsable')->get();
+        // $areasDepartamentos = Areas::where('tipo', 'Departamento')->get();
+        // $areasInstitutos = Areas::where('tipo', 'Instituto')->get();
+        // $divisionCarreraId = Areas::where('tipo', 'División de Carrera')->first()?->id;
+
         return view('estructura.index', compact('areas', 'tipos',));
     }
 
@@ -91,7 +97,7 @@ class EstructuraController extends Controller
                 $areas = Areas::where('tipo', 'Responsable')->get();
                 break;
             default:
-                $areas = collect(); // Vacío si el tipo no coincide
+                $areas = collect();
                 break;
         }
 
