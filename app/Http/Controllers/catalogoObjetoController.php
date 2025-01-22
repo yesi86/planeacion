@@ -15,10 +15,13 @@ class catalogoObjetoController extends Controller
         $user = Auth::user();
 
         if (!$user->hasRole('SuperAdministrador')) {
-            return redirect()->route('dashboard')
+            if ($user->hasRole('Administrador')) {
+                return redirect()->route('admin')
+                    ->with('alert', 'No tienes permisos para acceder a esta página');
+            }
+            return redirect()->route('general')
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
-
         $search = $request->input('search');
         $order = $request->input('order', 'asc'); // Por defecto 'asc'
         $capituloFilter = $request->input('capitulo');

@@ -13,18 +13,16 @@
       
         <!-- Botones de la Sidebar -->
         <div class="flex flex-col p-3 h-full overflow-y-auto gap-y-2 mt-12">
-            <!-- boton home--> 
-            <x-buttom_sidebar
-                etiqueta="HOME"
-                path="{{ route('dashboard') }}"
-                :ruta="request()->routeIs('dashboard')"
-                :disable="false"
-                icon="fas fa-home"
-            />
-
-           
-
-            @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador') || auth()->user()->hasRole('Administrador')))
+        
+          
+            @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador')))
+                <!-- boton home --> 
+                  <x-buttom_sidebar
+                  etiqueta="HOME"
+                  path="{{ route('dashboard') }}"
+                  :disable="false"
+                  icon="fas fa-home"
+               />
             <!-- Botón Usuarios -->
                 <x-buttom_sidebar
                     etiqueta="Usuarios"
@@ -81,7 +79,7 @@
                     icon="fas fa-check-square"
                 />
             @endif
-            
+
             <!-- Botón Indicadores -->
             <x-buttom_sidebar 
                 etiqueta="Indicadores"

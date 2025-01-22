@@ -2,14 +2,17 @@
 
 use App\Http\Controllers\AccionController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\catalogoObjetoController;
 use App\Http\Controllers\ObjetivoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PuestoController;
 use App\Http\Controllers\EstructuraController;
-use App\Http\Controllers\PlaneacionController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SuperAdminController;
+use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
@@ -18,9 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,6 +29,18 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    //grupos de dashboards
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [SuperAdminController::class, 'index'])->name('dashboard');
+    })->middleware('role:SuperAdministrador');
+
+    Route::prefix('admin')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin');
+    })->middleware('role:Administrador');
+
+    Route::prefix('general')->group(function () {
+        Route::get('/', [GeneralController::class, 'index'])->name('general');
+    })->middleware('role:Titular De Area|Responsable De Area|Delegado|Jefe De Carrera');
     // ruta usuarios
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users.index');
