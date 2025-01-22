@@ -13,11 +13,32 @@
       
         <!-- Botones de la Sidebar -->
         <div class="flex flex-col p-3 h-full overflow-y-auto gap-y-2 mt-12">
-        
-          
+            {{-- rutas para usuario general --}}
+            @if(auth()->check() && auth()->user()->hasRole('Titular De Area|Responsable De Area|Delegado|Jefe De Carrera'))
+            <!-- Botón para roles generales -->
+                <x-buttom_sidebar
+                    etiqueta="HOME"
+                    path="{{ route('general') }}"
+                    :disable="false"
+                    icon="fas fa-home"
+                />
+            @endif
+            
+            {{-- rutas para administrador --}}
+            @if(auth()->check()&&(auth()->user()->hasRole('Administrador')))
+                 <!-- boton home --> 
+               <x-buttom_sidebar
+                  etiqueta="HOME"
+                  path="{{ route('admin') }}"
+                  :disable="false"
+                  icon="fas fa-home"
+                />
+
+            @endif
+             {{-- rutas para superadministrador --}}
             @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador')))
                 <!-- boton home --> 
-                  <x-buttom_sidebar
+                <x-buttom_sidebar
                   etiqueta="HOME"
                   path="{{ route('dashboard') }}"
                   :disable="false"
