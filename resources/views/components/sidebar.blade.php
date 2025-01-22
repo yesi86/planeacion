@@ -22,19 +22,18 @@
                 icon="fas fa-home"
             />
 
+           
+
+            @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador') || auth()->user()->hasRole('Administrador')))
             <!-- Botón Usuarios -->
-            @if(auth()->check() && auth()->user()->hasRole('SuperAdministrador'))
                 <x-buttom_sidebar
                     etiqueta="Usuarios"
                     path="{{ route('users.index') }}"
                     :ruta="request()->routeIs('users.*')"
                     :disable="false"
                     icon="fas fa-users"
-                />
-            @endif
-
-            @if(auth()->check() && (auth()->user()->hasRole('SuperAdministrador') || auth()->user()->hasRole('Administrador')))
-                <!-- boton creacion puestos-->
+                />    
+            <!-- boton creacion puestos-->
                 <x-buttom_sidebar
                     etiqueta="Puestos"
                     path="{{ route('puestos.index') }}"
@@ -63,27 +62,26 @@
                     :disabled="false"
                     icon="fas fa-bullseye"
                  />
+
+                     <!-- Botón Acciones -->
+                <x-buttom_sidebar 
+                    etiqueta="Acciones"
+                    path="accion"
+                    :ruta="request()->routeIs('accion')"
+                    :disabled="false"
+                    icon="fas fa-tasks"
+                />
+
+                  <!-- Botón Actividades -->
+                <x-buttom_sidebar 
+                    etiqueta="Actividades"
+                    path="actividad"
+                    :ruta="request()->routeIs('actividad')"
+                    :disabled="false"
+                    icon="fas fa-check-square"
+                />
             @endif
-           
-
-            <!-- Botón Acciones -->
-            <x-buttom_sidebar 
-                etiqueta="Acciones"
-                path="accion"
-                :ruta="request()->routeIs('accion')"
-                :disabled="false"
-                icon="fas fa-tasks"
-            />
-
-            <!-- Botón Actividades -->
-            <x-buttom_sidebar 
-                etiqueta="Actividades"
-                path="actividad"
-                :ruta="request()->routeIs('actividad')"
-                :disabled="false"
-                icon="fas fa-check-square"
-            />
-
+            
             <!-- Botón Indicadores -->
             <x-buttom_sidebar 
                 etiqueta="Indicadores"

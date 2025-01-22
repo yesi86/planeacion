@@ -29,7 +29,6 @@ function initializeModals() {
                     modal.classList.add("hidden");
                 }
             });
-
             // Si es un modal de eliminación, manejar la confirmación
             const confirmDeleteButton = modal.querySelector(".confirm-delete-action");
             if (confirmDeleteButton) {

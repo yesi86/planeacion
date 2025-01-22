@@ -1,5 +1,5 @@
-<div id="createObjetivoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-lg p-6 w-96 shadow-lg">
+<div id="createObjetivoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{ request()->has('showModal') || $errors->any() ? 'block' : 'hidden' }}">
+    <div class="bg-white rounded-lg p-4 w-96 shadow-xl">
         <h3 class="text-xl font-semibold mb-4">Crear Objetivo</h3>
         <form id="createObjectiveForm" method="POST" action="{{ route('objetivos.store') }}">
             @csrf
@@ -58,7 +58,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tipoAreaSelect = document.getElementById('tipo_area');
     const checkboxesContainer = document.getElementById('checkboxes-container');
-    const cancelModalButton = document.getElementById('cancelModalButton');
 
     // Cargar áreas dinámicamente
     const updateAreas = (tipo) => {
