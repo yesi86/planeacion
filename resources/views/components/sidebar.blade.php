@@ -85,8 +85,7 @@
                      <!-- Botón Acciones -->
                 <x-buttom_sidebar 
                     etiqueta="Acciones"
-                    path="accion"
-                    :ruta="request()->routeIs('accion')"
+                    path="{{route('acciones.index')}}"
                     :disabled="false"
                     icon="fas fa-tasks"
                 />
@@ -94,8 +93,7 @@
                   <!-- Botón Actividades -->
                 <x-buttom_sidebar 
                     etiqueta="Actividades"
-                    path="actividad"
-                    :ruta="request()->routeIs('actividad')"
+                    path="{{route('actividad.index')}}"
                     :disabled="false"
                     icon="fas fa-check-square"
                 />

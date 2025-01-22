@@ -82,7 +82,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->middleware('role:SuperAdministrador|Administrador');
 
     //ruta para actividades
-    Route::prefix('actividades')->group(function () {})->middleware('role:SuperAdministrador|Administrador');
+    Route::prefix('actividades')->group(function () {
+        Route::get('/', [ActividadController::class, 'index'])->name('actividad.index');
+    })->middleware('role:SuperAdministrador|Administrador');
 });
 
 
