@@ -45,19 +45,6 @@
             <!-- Filtro -->
             <form method="GET" action="{{ route('acciones.index') }}" class="flex items-center space-x-2">
                 <select 
-                    name="tipo" 
-                    class="border border-gray-300 rounded-full px-7 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
-                    onchange="this.form.submit()">
-                    <option value="">Seleccionar tipo</option>
-                    {{-- @foreach($tipos as $tipo)
-                        <option 
-                            value="{{ $tipo }}" 
-                            {{ request('tipo') === $tipo ? 'selected' : '' }}>
-                            {{ $tipo }}
-                        </option>
-                    @endforeach --}}
-                </select>
-                <select 
                     name="order" 
                     class="border border-gray-300 rounded-full px-6 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                     onchange="this.form.submit()">
@@ -65,8 +52,8 @@
                     <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
                 </select>
             </form>
-            <button data-modal-toggle="" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
-                Crear area
+            <button data-modal-toggle="createAccionModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
+                Crear Accion
             </button>
         </div>
     </div>
@@ -75,60 +62,60 @@
     <div class="overflow-y-auto max-h-[400px] bg-white shadow-md rounded-lg"> <!-- Estilo de contenedor de tabla -->
         <table class="w-full border-collapse">
             <thead>
-                <tr class="bg-indigo-800 text-white">
+                <tr class="bg-indigo-800 text-white ">
                     <th class="px-6 py-4 text-left">Acciones</th>
-                    <th class="px-6 py-4 text-left">Nombre</th>
-                    <th class="px-6 py-4 text-left">Tipo</th>
+                    <th class="px-6 py-4 text-left">Folio</th>
+                    <th class="px-6 py-4 text-left">Descripcion</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @forelse ($areas as $area)
+                @forelse ($acciones as $accion)
                     <tr class="border-t hover:bg-gray-100">
                         <td class="px-6 py-4 flex justify-center items-center space-x-2">
                             <button 
-                                data-modal-toggle="viewAreaModal-{{ $area['id'] }}" 
+                                data-modal-toggle="viewAccionModal-{{ $accion['id'] }}" 
                                 class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 transition">
                                 Ver
                             </button>
                             <button 
-                                data-modal-toggle="editAreaModal-{{ $area['id'] }}" 
+                                data-modal-toggle="editAccionModal-{{ $accion['id'] }}" 
                                 class="bg-yellow-600 text-white py-2 px-4 rounded-full hover:bg-yellow-700 transition">
                                 Editar
                             </button>
                             <button 
-                                data-modal-toggle="deleteAreaModal-{{ $area['id'] }}" 
+                                data-modal-toggle="deleteAccionModal-{{ $accion['id'] }}" 
                                 class="bg-red-600 text-white py-2 px-4 rounded-full hover:bg-red-700 transition">
                                 Eliminar
                             </button>
                         </td>
-                        <td class="px-6 py-4">{{ $area['nombre'] }}</td>
-                        <td class="px-6 py-4">{{ $area['tipo'] }}</td>
+                        <td class="px-6 py-4">{{ $accion['Folio'] }}</td>
+                        <td class="px-6 py-4">{{ $accion['descripcion'] }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="text-center py-4">No hay áreas registradas.</td>
+                        <td colspan="3" class="text-center py-4">No hay acciones registrados.</td>
                     </tr>
-                @endforelse --}}
+                @endforelse
             </tbody>
         </table>
     </div>
 
     <!-- Paginación -->
-    {{-- <div class="mt-4 text-center">
-        {{ $areas->links('pagination::tailwind') }}
-    </div> --}}
+    <div class="mt-4 text-center">
+        {{ $acciones->links('pagination::tailwind') }}
+    </div>
 </div>
 
- {{-- <!-- Modal para crear área con base en el filtro -->
+ <!-- Modal para crear área con base en el filtro -->
 
-@include ('estructura.modals.createAreaModal');
+ @include ('acciones.modals.createAccionModal');
     
 
 <!-- Modal para ver, editar y eliminar -->
-@foreach ($areas as $area)
-    @include('estructura.modals.viewAreaModal', ['area' => $area])
-    @include('estructura.modals.editAreaModal', ['area' => $area]) 
-    @include('estructura.modals.deleteAreaModal', ['area' => $area])
-@endforeach --}}
+@foreach ($acciones as $accion)
+    @include('acciones.modals.viewAccionModal', ['accion' => $accion])
+    @include('acciones.modals.editAccionModal', ['accion' => $accion]) 
+    @include('acciones.modals.deleteAccionModal', ['accion' => $accion])
+@endforeach 
 
 @endsection 

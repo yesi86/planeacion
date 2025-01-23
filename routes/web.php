@@ -79,6 +79,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //ruta para acciones
     Route::prefix('accion')->group(function () {
         Route::get('/', [AccionController::class, 'index'])->name('acciones.index');
+        Route::post('/store', [AccionController::class, 'store'])->name('acciones.store');
     })->middleware('role:SuperAdministrador|Administrador');
 
     //ruta para actividades

@@ -11,12 +11,22 @@ class Acciones extends Model
     protected $table = 'acciones';
     protected $fillable = ['objetivo_area_id', 'Folio', 'descripcion', 'capitulo'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($accion) {
+            $nextId = self::max('id') + 1;
+            $accion->Folio = 'AC-ITSX-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
+        });
+    }
+
     public function objetivoArea()
     {
         return $this->belongsTo(ObjetivoArea::class, 'objetivo_area_id');
     }
 
-    public function catalogoObjetoGasto()
+    public function capitulo()
     {
         return $this->belongsTo(ObjetoGasto::class, 'capitulo', 'capitulo');
     }

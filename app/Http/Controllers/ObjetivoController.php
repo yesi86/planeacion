@@ -25,7 +25,6 @@ class ObjetivoController extends Controller
 
         $search = $request->input('search');
         $order = $request->input('order', 'asc');
-        $filter = $request->input('filter');
 
         $query = Objetivo::query()->with(['areas']);
 
@@ -35,12 +34,6 @@ class ObjetivoController extends Controller
                     ->orWhere('descripcion', 'like', "%$search%");
             });
         }
-
-        // if ($filter) {
-        //     $query->whereHas('areas', function ($q) use ($filter) {
-        //         $q->where('tipo', $filter);
-        //     });
-        // }
 
         $query->orderBy('Folio', $order);
 
