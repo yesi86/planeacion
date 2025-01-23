@@ -50,7 +50,6 @@ class ObjetivoController extends Controller
             dd($e->getMessage());
         }
 
-        // Pasar el número de áreas afectadas para cada objetivo
         foreach ($objetivos as $objetivo) {
             $objetivo->num_areas_afectadas = $objetivo->areas->count();
         }
@@ -88,18 +87,16 @@ class ObjetivoController extends Controller
     {
         $validated = $request->validate([
             'descripcion' => 'required|string|max:255',
-            'tipo_area' => 'required|string', // El tipo seleccionado en el combobox
+            'tipo_area' => 'required|string',
             'areas_afectadas' => 'required|array|min:1',
-            'areas_afectadas.*' => 'exists:areas,id', // Validar que las áreas existan
+            'areas_afectadas.*' => 'exists:areas,id',
         ]);
 
-        // Crear el objetivo
         $objetivo = Objetivo::create([
             'descripcion' => $validated['descripcion'],
             'tipo_area' => $validated['tipo_area'],
         ]);
 
-        // Asociar las áreas seleccionadas con el tipo correspondiente
         $areasConTipo = [];
         foreach ($validated['areas_afectadas'] as $areaId) {
             $areasConTipo[$areaId] = ['tipo' => $validated['tipo_area']];

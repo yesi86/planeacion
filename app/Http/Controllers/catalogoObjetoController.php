@@ -23,7 +23,7 @@ class catalogoObjetoController extends Controller
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
         $search = $request->input('search');
-        $order = $request->input('order', 'asc'); // Por defecto 'asc'
+        $order = $request->input('order', 'asc');
         $capituloFilter = $request->input('capitulo');
 
         $query = ObjetoGasto::query();
@@ -40,7 +40,7 @@ class catalogoObjetoController extends Controller
 
         $query->orderBy('capitulo', $order);
 
-        $objetoGasto = $query->paginate(15)->appends($request->except('page'));
+        $objetoGasto = $query->paginate(35)->appends($request->except('page'));
 
         $capitulos = ObjetoGasto::distinct()->pluck('capitulo')->toArray();
 
