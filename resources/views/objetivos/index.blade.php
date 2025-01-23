@@ -44,16 +44,12 @@
         <!-- Filtros y Crear Objeto -->
         <div class="flex items-center space-x-4">
             <form method="GET" action="{{ route('objetivos.index') }}" class="flex items-center space-x-2">
-                <!-- Select de Tipo de Área -->
-                <select 
-                    name="filter" 
-                    class="border border-gray-300 rounded-full px-7 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
+               <select 
+                    name="order" 
+                    class="border border-gray-300 rounded-full px-6 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                     onchange="this.form.submit()">
-                    <option value="">Seleccionar Tipo de Área</option>
-                    <option value="area_superior" {{ request('filter') === 'area_superior' ? 'selected' : '' }}>Área Superior</option>
-                    <option value="area_responsable" {{ request('filter') === 'area_responsable' ? 'selected' : '' }}>Área Responsable</option>
-                    <option value="departamento" {{ request('filter') === 'departamento' ? 'selected' : '' }}>Departamento</option>
-                    <option value="divisiones_carrera" {{ request('filter') === 'divisiones_carrera' ? 'selected' : '' }}>División Carrera</option>
+                    <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>A-Z</option>
+                    <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
                 </select>
             </form>
             

@@ -36,16 +36,16 @@ class ObjetivoController extends Controller
             });
         }
 
-        if ($filter) {
-            $query->whereHas('areas', function ($q) use ($filter) {
-                $q->where('tipo', $filter);
-            });
-        }
+        // if ($filter) {
+        //     $query->whereHas('areas', function ($q) use ($filter) {
+        //         $q->where('tipo', $filter);
+        //     });
+        // }
 
         $query->orderBy('Folio', $order);
 
         try {
-            $objetivos = $query->paginate(10);
+            $objetivos = $query->paginate(10)->appends($request->except('page'));;
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
@@ -54,7 +54,7 @@ class ObjetivoController extends Controller
             $objetivo->num_areas_afectadas = $objetivo->areas->count();
         }
 
-        return view('objetivos.index', compact('objetivos', 'filter'));
+        return view('objetivos.index', compact('objetivos', 'order'));
     }
 
     public function getAreasByTipo($tipo)
