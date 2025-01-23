@@ -31,8 +31,11 @@
             <!-- Selección de partidas -->
             <div class="mb-4">
                 <label for="partida" class="block font-medium">Partida:</label>
-                <select id="partida" name="partida" class="w-full border border-gray-300 rounded-md p-2" required>
+                <select id="partida" name="partida" 
+                    class="w-full border border-gray-300 rounded-md p-2 text-sm truncate overflow-auto focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required>
                     <option value="" disabled selected>Seleccione una partida</option>
+                    <!-- Opciones dinámicas -->
                 </select>
                 @error('partida')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -56,11 +59,9 @@
     document.getElementById('accion_id').addEventListener('change', function () {
         const accionId = this.value;
 
-        // Limpiar el selector de partidas
         const partidaSelect = document.getElementById('partida');
         partidaSelect.innerHTML = '<option value="" disabled selected>Seleccione una partida</option>';
 
-        // Llamada AJAX para obtener las partidas
         fetch(`actividades/get-partidas/${accionId}`)
             .then(response => response.json())
             .then(data => {

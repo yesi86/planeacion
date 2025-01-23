@@ -1,4 +1,3 @@
-// Función de inicialización de modales
 function initializeModals() {
     const modalToggles = document.querySelectorAll("[data-modal-toggle]");
     modalToggles.forEach(modalToggle => {
@@ -21,14 +20,17 @@ function initializeModals() {
             if (closeModalButton) {
                 closeModalButton.addEventListener("click", () => {
                     modal.classList.add("hidden");
+                    resetModal(modal); // Llamar a la función para reiniciar
                 });
             }
 
             modal.addEventListener("click", (event) => {
                 if (event.target === modal) {
                     modal.classList.add("hidden");
+                    resetModal(modal); // Llamar a la función para reiniciar
                 }
             });
+
             // Si es un modal de eliminación, manejar la confirmación
             const confirmDeleteButton = modal.querySelector(".confirm-delete-action");
             if (confirmDeleteButton) {
@@ -43,13 +45,31 @@ function initializeModals() {
                 });
             }
 
-            // Manejar la acción de Cancelar
             const cancelDeleteButton = modal.querySelector(".cancel-delete-action");
             if (cancelDeleteButton) {
                 cancelDeleteButton.addEventListener("click", function() {
-                    modal.classList.add("hidden"); 
+                    modal.classList.add("hidden");
+                    resetModal(modal); // Llamar a la función para reiniciar
                 });
             }
+        }
+    });
+}
+
+function resetModal(modal) {
+    const forms = modal.querySelectorAll("form");
+    forms.forEach(form => {
+        form.reset(); 
+    });
+
+    const inputs = modal.querySelectorAll("input, textarea, select");
+    inputs.forEach(input => {
+        if (input.type === "checkbox" || input.type === "radio") {
+            input.checked = false; 
+        } else if (input.tagName.toLowerCase() === "select") {
+            input.selectedIndex = 0; 
+        } else {
+            input.value = ""; 
         }
     });
 }
