@@ -76,7 +76,7 @@
         <table class="w-full border-collapse">
             <thead>
                 <tr class="bg-indigo-800 text-white">
-                    <th class="px-6 py-4 text-left">Acciones</th>
+                    <th class="px-6 py-4 text-center">Acciones</th>
                     <th class="px-6 py-4 text-left">Nombre</th>
                     <th class="px-6 py-4 text-left">Tipo</th>
                 </tr>
