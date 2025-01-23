@@ -10,6 +10,15 @@ class Actividad extends Model
 
     protected $fillable = ['accion_id', 'Folio', 'descripcion', 'capitulo', 'partida',];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($actividad) {
+            $nextId = self::max('id') + 1;
+            $actividad->Folio = 'ACTI-ITSX-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
+        });
+    }
     public function accion()
     {
         return $this->belongsTo(Acciones::class, 'accion_id');

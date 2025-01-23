@@ -85,6 +85,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //ruta para actividades
     Route::prefix('actividades')->group(function () {
         Route::get('/', [ActividadController::class, 'index'])->name('actividad.index');
+        Route::post('/store', [ActividadController::class, 'store'])->name('actividad.store');
+        Route::get('/get-partidas/{accionId}', [ActividadController::class, 'getPartidas'])->name('actividad.getPartidas');
     })->middleware('role:SuperAdministrador|Administrador');
 });
 

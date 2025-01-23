@@ -53,7 +53,7 @@
                 </select>
             </form>
             <button data-modal-toggle="createActiModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
-                Crear Accion
+                Crear Actividad
             </button>
         </div>
     </div>

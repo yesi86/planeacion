@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Acciones;
 use App\Models\Actividad;
+use App\Models\ObjetoGasto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,9 +42,37 @@ class ActividadController extends Controller
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
+        //variables para mandar
+        $acciones = Acciones::all();
 
 
+        return view('actividades.index', compact('actividades', 'acciones'));
+    }
 
-        return view('actividades.index', compact('actividades'));
+    public function getPartidas($accionId)
+    {
+        $accion = Acciones::findOrFail($accionId);
+        $partidas = ObjetoGasto::where('capitulo', $accion->capitulo)->get();
+        return response()->json(['partidas' => $partidas]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'accion_id' => 'required|exists:acciones,id',
+            'partida' => 'required',
+            'descripcion' => 'required|string|max:255',
+        ]);
+
+        $accion = Acciones::findOrFail($request->accion_id);
+
+        Actividad::create([
+            'accion_id' => $accion->id,
+            'descripcion' => $request->descripcion,
+            'capitulo' => $accion->capitulo,
+            'partida' => $request->partida,
+        ]);
+
+        return redirect()->route('actividad.index')->with('success', 'Actividad creada exitosamente');
     }
 }
