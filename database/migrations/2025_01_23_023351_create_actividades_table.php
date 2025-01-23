@@ -11,13 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('catalogo_objeto_gasto', function (Blueprint $table) {
+        Schema::create('actividades', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('accion_id')->constrained('acciones')->onDelete('cascade');
+            $table->string('Folio')->unique();
+            $table->string('descripcion', 255);
             $table->string('capitulo', 50);
             $table->string('partida', 50);
-            $table->string('descripcion');
             $table->timestamps();
-            $table->unique(['capitulo', 'partida'], 'capitulo_partida_unique');
+
+            $table->foreign(['capitulo', 'partida'])
+                ->references(['capitulo', 'partida'])
+                ->on('catalogo_objeto_gasto')
+                ->onDelete('cascade');
         });
     }
 
@@ -26,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('catalogo_objeto_gasto');
+        Schema::dropIfExists('actividades');
     }
 };
