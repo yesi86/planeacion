@@ -20,7 +20,7 @@
     @endif
 
     <!-- Título principal -->
-    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Puestos de Sistema</h2>
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Gestion de Puestos</h2>
 
     <!-- Filtros y Buscador -->
     <div class="flex items-center justify-between mb-6 bg-white p-4 shadow-md rounded-lg">

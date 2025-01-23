@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ActividadController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
@@ -24,6 +24,26 @@ class ActividadController extends Controller
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
 
-        return view('actividades.index');
+        $query = Actividad::query();
+        $search = $request->input('search');
+        $order = $request->input('order', 'asc');
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('Folio', 'like', "%$search%")
+                    ->orWhere('descripcion', 'like', "%$search%");
+            });
+        }
+
+        $query->orderBy('Folio', $order);
+        try {
+            $actividades = $query->paginate(10)->appends($request->except('page'));;
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+
+
+
+        return view('actividades.index', compact('actividades'));
     }
 }

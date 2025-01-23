@@ -21,7 +21,7 @@
     @endif
 
     <!-- Título principal -->
-    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Objetivos</h2>
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Gestion de Objetivos</h2>
 
     <!-- Filtros y Buscador -->
     <div class="flex items-center justify-between mb-6 bg-white p-4 shadow-md rounded-lg">

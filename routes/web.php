@@ -88,27 +88,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->middleware('role:SuperAdministrador|Administrador');
 });
 
-
-
-
-
-// Route::get('/planeacion', [PlaneacionController::class, 'index'])->name('planeacion.index');
-// // //rutas acciones
-// Route::get('/accion', [AccionController::class, 'index'])->name('acciones.index');
-// Route::post('/accion/add', [AccionController::class, 'addaccion'])->name('acciones.add');
-// Route::post('/accion/store', [AccionController::class, 'store'])->name('acciones.store');
-// Route::get('/accion/agregar', [AccionController::class, 'getagregar'])->name('acciones.agregar');
-// Route::post('/acciones/actualizarcola', [AccionController::class, 'actualizarCola'])->name('acciones.actualizarcola');
-// Route::get('/acciones/obtenercola', [AccionController::class, 'obtenerCola'])->name('acciones.obtenercola');
-
-// //Ruta de planeacion
-// Route::get('/obtener-acciones/{objetivoId}', [PlaneacionController::class, 'obtenerAcciones']);
-// Route::get('/obtener-actividades/{accionId}', [PlaneacionController::class, 'obtenerActividades']);
-// // Ruta para eliminar acción
-// Route::post('/acciones/remove', [AccionController::class, 'remove'])->name('acciones.remove');
-
-
-// Route::get('/actividadlist', [ActividadController::class, 'obtenerAcciones']);
-
-
 require __DIR__ . '/auth.php';
