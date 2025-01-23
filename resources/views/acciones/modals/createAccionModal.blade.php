@@ -17,15 +17,15 @@
             <!-- Selección de Objetivo Área -->
             <div class="mb-4">
                 <label for="objetivo_area_id" class="block font-medium">Objetivo</label>
-                <select id="objetivo_area_id" name="objetivo_area_id" class="w-full border rounded p-2 @error('objetivo_area_id') border-red-500 @enderror" required>
+                <select name="objetivo_area_id" id="objetivo_area_id" 
+                    class="w-full border border-gray-300 rounded-md p-2 truncate" required>
                     <option value="" disabled selected>Seleccione un objetivo</option>
-                    @foreach($objetivoAreas as $objetivoArea)
-                        <option value="{{ $objetivoArea->id }}" {{ old('objetivo_area_id') == $objetivoArea->id ? 'selected' : '' }}>
-                            {{ $objetivoArea->id }}
+                    @foreach($objetivos as $objetivo)
+                        <option value="{{ $objetivo->id }}">
+                            {{ $objetivo->Folio }} - {{ $objetivo->descripcion }}
                         </option>
                     @endforeach
                 </select>
-                {{-- {{ dd($objetivoAreas) }} --}}
                 @error('objetivo_area_id')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
@@ -34,13 +34,14 @@
             <!-- Selección de Capítulo -->
             <div class="mb-4">
                 <label for="capitulo" class="block font-medium">Capítulo:</label>
-                <select id="capitulo" name="capitulo" class="w-full border rounded p-2 @error('capitulo') border-red-500 @enderror" required>
+                <select id="capitulo" name="capitulo" 
+                    class="w-full border border-gray-300 rounded-md p-2 truncate" required>
                     <option value="" disabled selected>Seleccione un capítulo</option>
-                    {{-- @foreach($capitulos as $capitulo)
-                        <option value="{{ $capitulo->capitulo }}" {{ old('capitulo') == $capitulo->capitulo ? 'selected' : '' }}>
-                            {{ $capitulo->capitulo }} - {{ $capitulo->descripcion }}
-                        </option>
-                    @endforeach --}}
+                    @foreach($capitulos as $capitulo)
+                    <option value="{{ $capitulo }}" {{ old('capitulo') == $capitulo ? 'selected' : '' }}>
+                        {{ $capitulo }}
+                    </option>
+                    @endforeach
                 </select>
                 @error('capitulo')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

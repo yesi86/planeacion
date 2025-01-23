@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('acciones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('objetivo_area_id')->constrained('objetivo_areas')->onDelete('cascade');
+            $table->foreignId('objetivo_id')->constrained('objetivo')->onDelete('cascade');
             $table->string('Folio')->unique();
             $table->string('descripcion', 255);
             $table->string('capitulo', 50);

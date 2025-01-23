@@ -21,7 +21,10 @@ class Objetivo extends Model
             $objetivo->Folio = 'OB-ITSX-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
         });
     }
-
+    public function objetivoAreas()
+    {
+        return $this->hasMany(ObjetivoArea::class, 'objetivo_id');
+    }
     public function areas()
     {
         return $this->belongsToMany(Areas::class, 'objetivo_areas', 'objetivo_id', 'area_id')
@@ -29,6 +32,10 @@ class Objetivo extends Model
             ->withTimestamps();
     }
 
+    public function acciones()
+    {
+        return $this->hasMany(Acciones::class, 'objetivo_id');
+    }
 
     public function getNumAreasAfectadasAttribute()
     {

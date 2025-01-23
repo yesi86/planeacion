@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Acciones extends Model
 {
     protected $table = 'acciones';
-    protected $fillable = ['objetivo_area_id', 'Folio', 'descripcion', 'capitulo'];
+    protected $fillable = ['objetivo_id', 'Folio', 'descripcion', 'capitulo'];
 
     protected static function boot()
     {
@@ -21,9 +21,9 @@ class Acciones extends Model
         });
     }
 
-    public function objetivoArea()
+    public function objetivo()
     {
-        return $this->belongsTo(ObjetivoArea::class, 'objetivo_area_id');
+        return $this->belongsTo(Objetivo::class, 'objetivo_id');
     }
 
     public function capitulo()

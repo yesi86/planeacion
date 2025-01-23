@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Acciones;
+use App\Models\Objetivo;
 use App\Models\ObjetivoArea;
+use App\Models\ObjetoGasto;
 use Illuminate\Support\Facades\Auth;
 
 class AccionController extends Controller
@@ -41,9 +43,11 @@ class AccionController extends Controller
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
-        $objetivoAreas = ObjetivoArea::all();
+        //desde aqui mando los datos para que funcione de forma jerarquica
+        $objetivos = Objetivo::all();
+        $capitulos = ObjetoGasto::distinct()->pluck('capitulo')->toArray();
 
-        return view('acciones.index', compact('acciones', 'order', 'objetivoAreas'));
+        return view('acciones.index', compact('acciones', 'order', 'objetivos', 'capitulos'));
     }
 
     public function store(Request $request)
