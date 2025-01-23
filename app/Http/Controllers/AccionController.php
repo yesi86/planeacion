@@ -26,7 +26,7 @@ class AccionController extends Controller
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
 
-        $query = Acciones::query()->with(['objetivoArea', 'capitulo']);
+        $query = Acciones::query();
         $search = $request->input('search');
         $order = $request->input('order', 'asc');
 
@@ -52,22 +52,24 @@ class AccionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'descripcion' => 'required|string|max:255',
-            'objetivo_area_id' => 'required|exists:objetivo_areas,id',
-            'capitulo' => 'required|string|max:50|exists:catalogo_objeto_gasto,capitulo',
+            'objetivo_id' => 'required|exists:objetivo,id',
+            'capitulo' => 'required|string|max:255',
         ]);
 
         try {
             $accion = new Acciones();
-            $accion->descripcion = $request->descripcion;
-            $accion->objetivo_area_id = $request->objetivo_area_id;
-            $accion->capitulo = $request->capitulo;
+            $accion->descripcion = $validated['descripcion'];
+            $accion->objetivo_id = $validated['objetivo_id'];
+            $accion->capitulo = $validated['capitulo'];
             $accion->save();
 
-            return redirect()->route('acciones.index')->with('success', 'Acción creada exitosamente.');
+            return redirect()->route('acciones.index')
+                ->with('success', 'La acción se creó correctamente con el folio ' . $accion->Folio);
         } catch (\Exception $e) {
-            return back()->with('error', 'Hubo un error al crear la acción: ' . $e->getMessage());
+            return redirect()->route('acciones.index')
+                ->with('error', 'Ocurrió un error al guardar la acción: ' . $e->getMessage());
         }
     }
 }

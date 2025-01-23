@@ -16,8 +16,8 @@
 
             <!-- Selección de Objetivo Área -->
             <div class="mb-4">
-                <label for="objetivo_area_id" class="block font-medium">Objetivo</label>
-                <select name="objetivo_area_id" id="objetivo_area_id" 
+                <label for="objetivo_id" class="block font-medium">Objetivo</label>
+                <select name="objetivo_id" id="objetivo_id" 
                     class="w-full border border-gray-300 rounded-md p-2 truncate" required>
                     <option value="" disabled selected>Seleccione un objetivo</option>
                     @foreach($objetivos as $objetivo)
@@ -26,7 +26,7 @@
                         </option>
                     @endforeach
                 </select>
-                @error('objetivo_area_id')
+                @error('objetivo_id')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
