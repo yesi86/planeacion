@@ -25,7 +25,8 @@ class AccionController extends Controller
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
 
-        $query = Acciones::query();
+
+        $query = Acciones::with(['objetivo.areas']);
         $search = $request->input('search');
         $order = $request->input('order', 'asc');
 
@@ -45,7 +46,7 @@ class AccionController extends Controller
         //desde aqui mando los datos para que funcione de forma jerarquica
         $objetivos = Objetivo::all();
         $capitulos = ObjetoGasto::distinct()->pluck('capitulo')->toArray();
-
+        // dd($acciones);
         return view('acciones.index', compact('acciones', 'order', 'objetivos', 'capitulos'));
     }
 
@@ -77,6 +78,43 @@ class AccionController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('acciones.index')
                 ->with('error', 'Ocurrió un error:' . $e->getMessage());
+        }
+    }
+    public function destroy($id)
+    {
+        $accion = Acciones::findOrFail($id);
+        $accion->delete();
+        return redirect()->route('acciones.index')
+            ->with('success', 'Accion eliminada correctamente');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'objetivo_id' => 'nullable|exists:objetivo,id', //tienes que verificar que haya existencia en la otra tabla
+            'descripcion' => 'nullable|string|max:255',
+        ]);
+
+        $accion = Acciones::findOrFail($id);
+        $isUpdated = false;
+
+        if (!empty($validate['objetivo_id']) && $accion->objetivo_id != $validate['objetivo_id']) {
+            $accion->objetivo_id = $validate['objetivo_id'];
+            $isUpdated = true;
+        }
+
+        if (!empty($validate['descripcion']) && $accion->descripcion != $validate['descripcion']) {
+            $accion->descripcion = $validate['descripcion'];
+            $isUpdated = true;
+        }
+
+        if ($isUpdated) {
+            $accion->save();
+            return redirect()->route('acciones.index')
+                ->with('success', 'accion actualizada correctamente');
+        } else {
+            return redirect()->route('acciones.index')
+                ->with('info', 'No se realizó ningún cambio');
         }
     }
 }

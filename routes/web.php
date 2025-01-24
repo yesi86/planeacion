@@ -84,6 +84,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('accion')->group(function () {
         Route::get('/', [AccionController::class, 'index'])->name('acciones.index');
         Route::post('/', [AccionController::class, 'store'])->name('acciones.store');
+        Route::delete('/delete/{id}', [AccionController::class, 'destroy'])->name('acciones.destroy');
+        Route::put('/update/{id}', [AccionController::class, 'update'])->name('acciones.update');
     })->middleware('role:SuperAdministrador|Administrador');
 
     //ruta para actividades
