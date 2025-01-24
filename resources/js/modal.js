@@ -24,10 +24,18 @@ function initializeModals() {
                 });
             }
 
+            const closeModalButtontwo =  modal.querySelector(".closeModalButtontwo");
+            if (closeModalButtontwo) {
+                closeModalButtontwo.addEventListener("click", () => {
+                    modal.classList.add("hidden");
+                   
+                });
+            }
+
             modal.addEventListener("click", (event) => {
                 if (event.target === modal) {
                     modal.classList.add("hidden");
-                    resetModal(modal); // Llamar a la función para reiniciar
+                    // resetModal(modal); // Llamar a la función para reiniciar
                 }
             });
 

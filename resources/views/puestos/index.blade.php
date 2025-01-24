@@ -1,23 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
 <div class="min-h-screen bg-gray-50 px-6"> <!-- Fondo más suave y padding general -->
-    <!-- Mensajes de éxito y error -->
-    @if(session('success')) 
-    <div class="success-message bg-green-500 text-white p-4 rounded-lg shadow-md mb-4">
-        {{ session('success') }}
-    </div>
-    @endif
-    @if (session('error'))
-    <div class="error-message bg-red-500 text-white p-4 rounded-lg shadow-md mb-4">
-        {{ session('error') }}
-    </div>
-    @endif
-    @if(session('info'))
-    <div class="info-message bg-yellow-300 text-black p-4 rounded-lg shadow-md mb-4">
-        {{ session('info') }}
-    </div>
-    @endif
+    <x-modals.modalSuccess/>
+    <x-modals.modalError/>
+    <x-modals.modalInfo/>
 
     <!-- Título principal -->
     <h2 class="text-3xl font-semibold text-gray-800 mb-6">Gestion de Puestos</h2>
@@ -103,7 +93,7 @@
 <!-- Incluir el modal desde la carpeta components/modals -->
 @include('puestos.modals.create')
 @foreach ($puestos as $puesto)
-    @include('puestos.modals.modalDelete', ['puesto' => $puesto])
+    @include('puestos.modals.deletePuestoModal', ['puesto' => $puesto])
     @include('puestos.modals.edit', ['puesto' => $puesto])
 @endforeach
 

@@ -67,6 +67,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ruta de catalogo objeto de gasto
     Route::prefix('objeto')->group(function () {
         Route::get('/', [catalogoObjetoController::class, 'index'])->name('objeto.index');
+        Route::post('/store', [catalogoObjetoController::class, 'store'])->name('objeto.store');
+        Route::delete('/delete/{id}', [catalogoObjetoController::class, 'destroy'])->name('objeto.destroy');
     })->middleware('role:SuperAdministrador|Administrador');
 
     // ruta para objetivos

@@ -1,4 +1,4 @@
-<div id="deleteObjetoModal-{{ $objeto->id }}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{ $errors->any() ? 'block' : 'hidden' }}">
+<div id="deletePuestoModal-{{ $puesto->id }}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 {{ $errors->any() ? 'block' : 'hidden' }}">
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
         <!-- Icono de advertencia -->
         <div class="flex justify-center items-center mb-4">
@@ -17,9 +17,7 @@
             ¿Estás seguro de que deseas eliminar el siguiente elemento?
         </p>
         <div class="bg-gray-100 rounded-md p-3 text-center mb-4">
-            <span class="block font-semibold text-gray-800">{{ $objeto['capitulo'] }}</span>
-            <span class="block text-gray-600">{{ $objeto['partida'] }}</span>
-            <span class="block text-gray-600">{{ $objeto['descripcion'] }}</span>
+            <span class="block font-semibold text-gray-800">{{ $puesto['name'] }}</span>
         </div>
 
         <p class="text-sm text-gray-500 text-center mb-6">
@@ -27,17 +25,19 @@
         </p>
 
         <!-- Formulario -->
-        <form method="POST" action="{{ route('objeto.destroy', $objeto->id) }}"id="delete-form-{{ $objeto->id }}">
+        <form method="POST" action="{{ route('puestos.destroy', $puesto->id) }}" id="delete-form-{{ $puesto->id }}">
             @csrf
             @method('DELETE')
             <div class="flex justify-between space-x-4">
                 <button type="button" class="closeModalButton bg-gray-100 text-gray-800 py-2 px-4 w-full rounded hover:bg-gray-200 focus:outline-none">
                     Cancelar
                 </button>
-                <button type="button" class="confirm-delete-action bg-red-500 text-white py-2 px-4 w-full rounded hover:bg-red-600 focus:outline-none" data-item-id="{{$objeto->id}}">
+                <button type="button" class="confirm-delete-action bg-red-500 text-white py-2 px-4 w-full rounded hover:bg-red-600 focus:outline-none" data-item-id="{{ $puesto->id }}">
                     Confirmar
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+

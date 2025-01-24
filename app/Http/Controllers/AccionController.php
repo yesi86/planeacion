@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Acciones;
 use App\Models\Objetivo;
-use App\Models\ObjetivoArea;
 use App\Models\ObjetoGasto;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,6 +58,14 @@ class AccionController extends Controller
         ]);
 
         try {
+            $exite = Acciones::where('descripcion', $validated['descripcion'])
+                ->where('objetivo_id', $validated['objetivo_id'])
+                ->where('capitulo', $validated['capitulo'])
+                ->exists();
+            if ($exite) {
+                throw new \Exception('Ya existe una descripcion de accion para este objetivo');
+            }
+
             $accion = new Acciones();
             $accion->descripcion = $validated['descripcion'];
             $accion->objetivo_id = $validated['objetivo_id'];
@@ -69,7 +76,7 @@ class AccionController extends Controller
                 ->with('success', 'La acción se creó correctamente con el folio ' . $accion->Folio);
         } catch (\Exception $e) {
             return redirect()->route('acciones.index')
-                ->with('error', 'Ocurrió un error al guardar la acción: ' . $e->getMessage());
+                ->with('error', 'Ocurrió un error:' . $e->getMessage());
         }
     }
 }

@@ -4,21 +4,10 @@
 <div class="min-h-screen bg-gray-50 px-6"> <!-- Fondo más suave y padding general -->
     
     <!-- Mensajes de éxito y error -->
-    @if(session('success')) 
-    <div class="success-message bg-green-500 text-white p-4 rounded-lg shadow-md mb-4">
-        {{ session('success') }}
-    </div>
-    @endif
-    @if (session('error'))
-    <div class="error-message bg-red-500 text-white p-4 rounded-lg shadow-md mb-4">
-        {{ session('error') }}
-    </div>
-    @endif
-    @if(session('info'))
-    <div class="info-message bg-yellow-300 text-black p-4 rounded-lg shadow-md mb-4">
-        {{ session('info') }}
-    </div>
-    @endif
+    <x-modals.modalSuccess/>
+    <x-modals.modalError/>
+    <x-modals.modalInfo/>
+
 
     <!-- Título principal -->
     <h2 class="text-3xl font-semibold text-gray-800 mb-6">Catálogo de Objetos del Gasto</h2>
@@ -67,7 +56,7 @@
             </form>
 
             <!-- Botón Crear Objeto -->
-            <button data-modal-toggle="createUserModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
+            <button data-modal-toggle="createObjetoModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
                 Crear objeto
             </button>
         </div>
@@ -89,12 +78,12 @@
                     <tr class="border-t hover:bg-gray-100">
                         <td class="px-6 py-4 flex justify-center items-center space-x-2">
                             <button 
-                                data-modal-toggle="editUserModal-{{ $objeto['id'] }}" 
+                                data-modal-toggle="editObjetoModal-{{ $objeto['id'] }}" 
                                 class="bg-yellow-600 text-white py-2 px-4 rounded-full hover:bg-yellow-700 transition">
                                 Editar
                             </button>
                             <button 
-                                data-modal-toggle="deleteUserModal-{{ $objeto['id'] }}" 
+                                data-modal-toggle="deleteObjetoModal-{{ $objeto['id'] }}" 
                                 class="bg-red-600 text-white py-2 px-4 rounded-full hover:bg-red-700 transition">
                                 Eliminar
                             </button>
@@ -118,8 +107,10 @@
     </div>
 </div>
 
+@include('objetoGasto.modals.createObjetoModal')
+
 <!-- incorporamos los modals con foreach-->
-@foreach ($objetoGasto as $ojeto)
+@foreach ($objetoGasto as $objeto)
     @include('objetoGasto.modals.editObjetoModal',['objeto'=>$objeto])
     @include('objetoGasto.modals.deleteObjetoModal',['objeto'=>$objeto])
 @endforeach

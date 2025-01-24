@@ -1,8 +1,6 @@
 import './bootstrap';
 import './modal';  // Esto importa tu archivo modal.js
-import './infomessaje.js';
-import './successmessage';
-import './erroremessaje.js';
+import './avisosmodal.js';
 import './modalAlert';
 import './dropdown.js';
 import './sidebar.js';

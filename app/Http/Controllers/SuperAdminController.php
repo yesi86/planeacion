@@ -14,9 +14,11 @@ class SuperAdminController extends Controller
 
         if (!$user->hasRole('SuperAdministrador')) {
             if ($user->hasRole('Administrador')) {
-                return redirect()->route('admin');
+                return redirect()->route('admin')
+                    ->with('alert', 'No tienes permisos para acceder a esta página');
             }
-            return redirect()->route('general');
+            return redirect()->route('general')
+                ->with('alert', 'No tienes permisos para acceder a esta página');
         }
         return view('dashboard.superadmin');
     }
