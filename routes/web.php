@@ -50,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ruta de puestos
     Route::prefix('puestos')->group(function () {
         Route::get('/', [PuestoController::class, 'index'])->name('puestos.index');
-        Route::post('/store', [PuestoController::class, 'store'])->name('puestos.store');
+        Route::post('/', [PuestoController::class, 'store'])->name('puestos.store');
         Route::put('/update/{id}', [PuestoController::class, 'update'])->name('puestos.update');
         Route::delete('/delete/{id}', [PuestoController::class, 'destroy'])->name('puestos.destroy');
     })->middleware('role:SuperAdministrador|Administrador');
@@ -59,7 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('estructura')->group(function () {
         Route::get('/', [EstructuraController::class, 'index'])->name('areas.index');
         Route::get('/areas/{tipo}', [EstructuraController::class, 'getAreasByTipo'])->name('areas.byTipo');
-        Route::post('/areas/store', [EstructuraController::class, 'store'])->name('areas.store');
+        Route::post('/', [EstructuraController::class, 'store'])->name('areas.store');
         Route::put('/update/{id}', [EstructuraController::class, 'update'])->name('areas.update');
         Route::delete('/delete/{id}', [EstructuraController::class, 'destroy'])->name('areas.destroy');
     })->middleware('role:SuperAdministrador|Administrador');
@@ -67,7 +67,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ruta de catalogo objeto de gasto
     Route::prefix('objeto')->group(function () {
         Route::get('/', [catalogoObjetoController::class, 'index'])->name('objeto.index');
-        Route::post('/store', [catalogoObjetoController::class, 'store'])->name('objeto.store');
+        Route::post('/', [catalogoObjetoController::class, 'store'])->name('objeto.store');
         Route::delete('/delete/{id}', [catalogoObjetoController::class, 'destroy'])->name('objeto.destroy');
         Route::put('/update/{id}', [catalogoObjetoController::class, 'update'])->name('objeto.update');
     })->middleware('role:SuperAdministrador|Administrador');
@@ -76,19 +76,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('objetivos')->group(function () {
         Route::get('/', [ObjetivoController::class, 'index'])->name('objetivos.index');
         Route::get('/areas/{tipo}', [ObjetivoController::class, 'getAreasByTipo'])->name('objetivos.byTipo');
-        Route::post('/store', [ObjetivoController::class, 'store'])->name('objetivos.store');
+        Route::post('/', [ObjetivoController::class, 'store'])->name('objetivos.store');
+        Route::delete('/delete/{id}', [ObjetivoController::class, 'destroy'])->name('objetivos.destroy');
     })->middleware('role:SuperAdministrador|Administrador');
 
     //ruta para acciones
     Route::prefix('accion')->group(function () {
         Route::get('/', [AccionController::class, 'index'])->name('acciones.index');
-        Route::post('/store', [AccionController::class, 'store'])->name('acciones.store');
+        Route::post('/', [AccionController::class, 'store'])->name('acciones.store');
     })->middleware('role:SuperAdministrador|Administrador');
 
     //ruta para actividades
     Route::prefix('actividades')->group(function () {
         Route::get('/', [ActividadController::class, 'index'])->name('actividad.index');
-        Route::post('/store', [ActividadController::class, 'store'])->name('actividad.store');
+        Route::post('/', [ActividadController::class, 'store'])->name('actividad.store');
         Route::get('/get-partidas/{accionId}', [ActividadController::class, 'getPartidas'])->name('actividad.getPartidas');
     })->middleware('role:SuperAdministrador|Administrador');
 });

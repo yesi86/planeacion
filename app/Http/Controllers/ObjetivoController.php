@@ -99,4 +99,15 @@ class ObjetivoController extends Controller
 
         return redirect()->route('objetivos.index')->with('success', 'Objetivo creado con éxito.');
     }
+
+    public function destroy($id)
+    {
+        $delete = Objetivo::findOrFail($id);
+        try {
+            $delete->delete();
+            return redirect()->route('objetivos.index')->with('success', 'Objeto Eliminado exitosamente');
+        } catch (\Exception $e) {
+            return redirect()->route('objetivos.index')->with('error', 'Error al eliminar el puesto.');
+        }
+    }
 }

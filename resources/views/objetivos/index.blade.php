@@ -100,8 +100,8 @@
 
 <!-- incorporamos los modals con foreach-->
 @foreach ($objetivos as $objetivo)
-    @include('objetivos.modals.editObjetivoModal',['objetivo'=>$objetivo])
     @include('objetivos.modals.deleteObjetivoModal',['objetivo'=>$objetivo])
+    @include('objetivos.modals.viewObjetivoModal',['objetivo'=>$objetivo])
 @endforeach
 
 @endsection
