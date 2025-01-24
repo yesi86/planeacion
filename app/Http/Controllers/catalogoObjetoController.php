@@ -88,4 +88,37 @@ class catalogoObjetoController extends Controller
             return redirect()->route('objeto.index')->with('error', 'Error al eliminar el puesto.');
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        // Valida solo los campos que se envían
+        $validate = $request->validate([
+            'partida' => 'nullable|string|max:255',
+            'descripcion' => 'nullable|string|max:255',
+        ]);
+
+        $objetoGasto = ObjetoGasto::findOrFail($id);
+
+        // Verifica si hubo algún cambio y actualiza solo los campos que han sido modificados
+        $isUpdated = false;
+
+        if (!empty($validate['partida']) && $objetoGasto->partida != $validate['partida']) {
+            $objetoGasto->partida = $validate['partida'];
+            $isUpdated = true;
+        }
+
+        if (!empty($validate['descripcion']) && $objetoGasto->descripcion != $validate['descripcion']) {
+            $objetoGasto->descripcion = $validate['descripcion'];
+            $isUpdated = true;
+        }
+
+        if ($isUpdated) {
+            $objetoGasto->save();
+            return redirect()->route('objeto.index')
+                ->with('success', 'Objeto actualizado correctamente');
+        } else {
+            return redirect()->route('objeto.index')
+                ->with('info', 'No se realizó ningún cambio');
+        }
+    }
 }

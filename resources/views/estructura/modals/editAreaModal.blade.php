@@ -12,13 +12,17 @@
         <!-- Título -->
         <h3 class="text-center text-2xl font-semibold text-gray-800 mb-4">Editar Area</h3>
 
-        <form method="POST" action="{{ route('puestos.update', $area->id) }}">
+        <form method="POST" action="{{ route('areas.update', $area->id) }}">
             @csrf
             @method('PUT')
             <!-- Campo de entrada -->
+
+            <div class="bg-gray-100 rounded-md p-3 text-center mb-4">
+                <span class="block font-semibold text-gray-800">{{ $area['nombre'] }}</span>
+            </div>
             <div class="mb-6">
-                <label for="name" class="block font-medium text-gray-700 mb-1">Nombre de la area</label>
-                <input type="text" id="name" name="name" value="{{ $area->nombre }}" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Ingrese el nuevo nombre del puesto">
+                <label for="name" class="block font-medium text-gray-700 mb-1">Nuevo nombre de la area</label>
+                <input type="text" id="name" name="name" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Ingrese el nuevo nombre de la area" required>
             </div>
 
             <!-- Botones -->

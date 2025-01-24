@@ -5,8 +5,5 @@
         </svg>
         <h3 class="text-2xl font-bold text-yellow-600">¡Información!</h3>
         <p id="infoMessage" class="text-gray-700">{{ session('info') }}</p>
-        <div class="flex justify-end">
-            <button type="button" class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 closeModalButton">Aceptar</button>
-        </div>
     </div>
 </div>

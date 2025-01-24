@@ -69,6 +69,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [catalogoObjetoController::class, 'index'])->name('objeto.index');
         Route::post('/store', [catalogoObjetoController::class, 'store'])->name('objeto.store');
         Route::delete('/delete/{id}', [catalogoObjetoController::class, 'destroy'])->name('objeto.destroy');
+        Route::put('/update/{id}', [catalogoObjetoController::class, 'update'])->name('objeto.update');
     })->middleware('role:SuperAdministrador|Administrador');
 
     // ruta para objetivos

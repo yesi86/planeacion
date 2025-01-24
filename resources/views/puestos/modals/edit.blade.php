@@ -16,9 +16,12 @@
             @csrf
             @method('PUT')
             <!-- Campo de entrada -->
+            <div class="bg-gray-100 rounded-md p-3 text-center mb-4">
+                <span class="block font-semibold text-gray-800">{{ $puesto['name'] }}</span>            
+            </div>
             <div class="mb-6">
-                <label for="name" class="block font-medium text-gray-700 mb-1">Nombre del puesto</label>
-                <input type="text" id="name" name="name" value="{{ $puesto->name }}" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Ingrese el nuevo nombre del puesto">
+                <label for="name" class="block font-medium text-gray-700 mb-1">Nuevo nombre del puesto</label>
+                <input type="text" id="name" name="name"  class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Ingrese el nuevo nombre del puesto" required>
             </div>
 
             <!-- Botones -->

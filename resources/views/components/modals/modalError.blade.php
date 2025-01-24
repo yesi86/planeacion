@@ -5,8 +5,5 @@
         </svg>
         <h3 class="text-2xl font-bold text-red-600">¡Error!</h3>
         <p id="errorMessage" class="text-gray-700">{{ session('error') }}</p>
-        <div class="flex justify-end">
-            <button type="button" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 closeModalButton">Aceptar</button>
-        </div>
     </div>
 </div>
