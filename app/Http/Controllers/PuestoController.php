@@ -75,4 +75,10 @@ class PuestoController extends Controller
             return redirect()->route('puestos.index')->with('error', 'Error al eliminar el puesto.');
         }
     }
+    public function imprimir()
+    {
+        $puestos = Puesto::all();
+
+        return response()->view('puestos.imprimir', compact('puestos'));
+    }
 }

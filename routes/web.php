@@ -54,6 +54,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/', [PuestoController::class, 'store'])->name('puestos.store');
         Route::put('/update/{id}', [PuestoController::class, 'update'])->name('puestos.update');
         Route::delete('/delete/{id}', [PuestoController::class, 'destroy'])->name('puestos.destroy');
+        Route::get('/puestos/imprimir', [PuestoController::class, 'imprimir'])->name('puestos.imprimir');
     })->middleware('role:SuperAdministrador|Administrador');
 
     // Ruta para el módulo de Estructura/Áreas
