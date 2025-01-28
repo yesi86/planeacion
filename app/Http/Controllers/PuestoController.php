@@ -24,22 +24,22 @@ class PuestoController extends Controller
         }
         $search = $request->input('search');
         $order = $request->input('order', 'asc'); // Por defecto, ascendente
+        $allPuestos = Puesto::orderBy('name', 'asc')->get();
 
         // Si hay una búsqueda, filtra y ordena los puestos
         $puestos = Puesto::when($search, function ($query, $search) {
             return $query->where('name', 'like', '%' . $search . '%');
         })
             ->orderBy('name', $order)
-            ->paginate(10)->appends($request->except('page'));;
+            ->paginate(10)->appends($request->except('page'));
 
         if ($search && $puestos->isEmpty()) {
             return redirect()->route('puestos.index')
                 ->with('error', 'No se encontraron coincidencias para la búsqueda: "' . $search . '"');
         }
 
-        return view('puestos.index', compact('puestos', 'order', 'search'));
+        return view('puestos.index', compact('puestos', 'order', 'search', 'allPuestos'));
     }
-
 
 
     public function store(Request $request)

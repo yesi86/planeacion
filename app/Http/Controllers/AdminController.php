@@ -22,6 +22,6 @@ class AdminController extends Controller
             return redirect()->route('general')
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
-        return view('dashboard.superadmin');
+        return view('dashboard.admin');
     }
 }
