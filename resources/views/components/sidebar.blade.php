@@ -99,11 +99,10 @@
                 />
             @endif
 
-            <!-- Botón Indicadores -->
+            <!-- Botón Diccionario -->
             <x-buttom_sidebar 
-                etiqueta="Indicadores"
-                path="indicador"
-                :ruta="request()->routeIs('indicador')"
+                etiqueta="Diccionario"
+                path="{{route('diccionario.index')}}"
                 :disabled="false" 
                 icon="fas fa-chart-line"
             />

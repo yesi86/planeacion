@@ -5,6 +5,7 @@ use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\catalogoObjetoController;
+use App\Http\Controllers\DiccionarioController;
 use App\Http\Controllers\ObjetivoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PuestoController;
@@ -93,6 +94,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [ActividadController::class, 'index'])->name('actividad.index');
         Route::post('/', [ActividadController::class, 'store'])->name('actividad.store');
         Route::get('/get-partidas/{accionId}', [ActividadController::class, 'getPartidas'])->name('actividad.getPartidas');
+    })->middleware('role:SuperAdministrador|Administrador');
+
+    //ruta para diccionario
+    Route::prefix('diccionario')->group(function () {
+        Route::get('/', [DiccionarioController::class, 'index'])->name('diccionario.index');
     })->middleware('role:SuperAdministrador|Administrador');
 });
 
