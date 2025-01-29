@@ -8,7 +8,7 @@ class Actividad extends Model
 {
     protected $table = 'actividades';
 
-    protected $fillable = ['accion_id', 'Folio', 'descripcion', 'capitulo', 'partida',];
+    protected $fillable = ['accion_id', 'Folio', 'descripcion', 'capitulo', 'partida'];
 
     protected static function boot()
     {
@@ -23,9 +23,8 @@ class Actividad extends Model
     {
         return $this->belongsTo(Acciones::class, 'accion_id');
     }
-
-    public function catalogoObjetoGasto()
+    public function objetoGasto()
     {
-        return $this->belongsTo(ObjetoGasto::class, ['capitulo', 'partida'], ['capitulo', 'partida']);
+        return $this->belongsTo(ObjetoGasto::class, 'partida', 'partida');
     }
 }

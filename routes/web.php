@@ -95,6 +95,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/', [ActividadController::class, 'index'])->name('actividad.index');
         Route::post('/', [ActividadController::class, 'store'])->name('actividad.store');
         Route::get('/get-partidas/{accionId}', [ActividadController::class, 'getPartidas'])->name('actividad.getPartidas');
+        Route::delete('/delete/{id}', [ActividadController::class, 'destroy'])->name('actividad.destroy');
     })->middleware('role:SuperAdministrador|Administrador');
 
     //ruta para diccionario

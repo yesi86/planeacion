@@ -8,7 +8,7 @@
                </svg>
            </div>
        </div>
-        
+       <h3 class="text-center text-2xl font-semibold text-gray-800 mb-4">Crear Nueva accion</h3>
         <form id="createAccionForm" method="POST" action="{{ route('acciones.store') }}">
             @csrf
 

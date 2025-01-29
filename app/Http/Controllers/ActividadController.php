@@ -6,6 +6,7 @@ use App\Models\Acciones;
 use App\Models\Actividad;
 use App\Models\ObjetoGasto;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -25,8 +26,9 @@ class ActividadController extends Controller
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
 
-        $query = Actividad::query();
+        $query = Actividad::with(['objetoGasto']);
         $search = $request->input('search');
+
         $order = $request->input('order', 'asc');
 
         if ($search) {
@@ -74,5 +76,12 @@ class ActividadController extends Controller
         ]);
 
         return redirect()->route('actividad.index')->with('success', 'Actividad creada exitosamente');
+    }
+    public function destroy($id)
+    {
+        $actividades = Actividad::findOrFail($id);
+        $actividades->delete();
+        return redirect()->route('acciones.index')
+            ->with('success', 'Actividad eliminada correctamente');
     }
 }
