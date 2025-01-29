@@ -80,6 +80,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/areas/{tipo}', [ObjetivoController::class, 'getAreasByTipo'])->name('objetivos.byTipo');
         Route::post('/', [ObjetivoController::class, 'store'])->name('objetivos.store');
         Route::delete('/delete/{id}', [ObjetivoController::class, 'destroy'])->name('objetivos.destroy');
+        Route::get('/objetivos/imprimir', [ObjetivoController::class, 'imprimir'])->name('objetivos.imprimir');
+        
     })->middleware('role:SuperAdministrador|Administrador');
 
     //ruta para acciones
@@ -88,6 +90,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/', [AccionController::class, 'store'])->name('acciones.store');
         Route::delete('/delete/{id}', [AccionController::class, 'destroy'])->name('acciones.destroy');
         Route::put('/update/{id}', [AccionController::class, 'update'])->name('acciones.update');
+        Route::get('/acciones/imprimir', [AccionController::class, 'imprimir'])->name('acciones.imprimir');
+        
     })->middleware('role:SuperAdministrador|Administrador');
 
     //ruta para actividades
@@ -96,6 +100,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/', [ActividadController::class, 'store'])->name('actividad.store');
         Route::get('/get-partidas/{accionId}', [ActividadController::class, 'getPartidas'])->name('actividad.getPartidas');
         Route::delete('/delete/{id}', [ActividadController::class, 'destroy'])->name('actividad.destroy');
+        Route::get('/actividades/imprimir', [ActividadController::class, 'imprimir'])->name('actividades.imprimir');
     })->middleware('role:SuperAdministrador|Administrador');
 
     //ruta para diccionario

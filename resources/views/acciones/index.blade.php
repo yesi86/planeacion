@@ -44,6 +44,11 @@
             <button data-modal-toggle="createAccionModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
                 Crear Accion
             </button>
+            <a href="{{ route('acciones.imprimir') }}" 
+                 target="_blank" 
+                 class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
+                    <i class="fas fa-print"></i>
+            </a>
         </div>
     </div>
     

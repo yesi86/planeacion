@@ -117,4 +117,11 @@ class AccionController extends Controller
                 ->with('info', 'No se realizó ningún cambio');
         }
     }
+
+    public function imprimir()
+    {
+        $acciones = Acciones::all();
+
+        return response()->view('acciones.imprimir', compact('acciones'));
+    }
 }

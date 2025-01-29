@@ -84,4 +84,11 @@ class ActividadController extends Controller
         return redirect()->route('acciones.index')
             ->with('success', 'Actividad eliminada correctamente');
     }
+
+    public function imprimir()
+    {
+        $actividades = Actividad::all();
+
+        return response()->view('actividades.imprimir', compact('actividades'));
+    }
 }
