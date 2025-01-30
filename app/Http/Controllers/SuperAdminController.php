@@ -11,6 +11,7 @@ class SuperAdminController extends Controller
     {
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
+        $user->load('puesto', 'area','roles');
 
         if (!$user->hasRole('SuperAdministrador')) {
             if ($user->hasRole('Administrador')) {
@@ -20,6 +21,6 @@ class SuperAdminController extends Controller
             return redirect()->route('general')
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
-        return view('dashboard.superadmin');
+        return view('dashboard.superadmin', compact('user'));
     }
 }

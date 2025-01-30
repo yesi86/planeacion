@@ -12,6 +12,7 @@ class GeneralController extends Controller
     {
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
+        $user->load('puesto', 'area');
 
         if ($user->hasRole('SuperAdministrador')) {
             return redirect()->route('dashboard')
@@ -21,6 +22,6 @@ class GeneralController extends Controller
                 ->with('alert', 'No puedes entrar a esta ruta');
         }
 
-        return view('dashboard.general');
+        return view('dashboard.general', compact('user'));
     }
 }
