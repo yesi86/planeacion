@@ -37,6 +37,7 @@
                         <h3 class="text-lg font-semibold text-indigo-700">{{ $accion->Folio }}</h3>
                         <p class="text-gray-700">{{ $accion->descripcion }}</p>
                         <span class="text-sm text-gray-500">Capítulo: {{ $accion->capitulo }}</span>
+                        <p class="text-sm text-gray-500">objetivo dependiente: <span class="text-lg font-semibold text-violet-900"> {{ $accion->objetivo->Folio }}</span></p>
                     </div>
                 @empty
                     <p class="text-gray-600">No hay acciones registradas.</p>
@@ -53,6 +54,7 @@
                         <h3 class="text-lg font-semibold text-indigo-700">{{ $actividad->Folio }}</h3>
                         <p class="text-gray-700">{{ $actividad->descripcion }}</p>
                         <span class="text-sm text-gray-500">Capítulo: {{ $actividad->capitulo }} | Partida: {{ $actividad->partida }}</span>
+                        <p class="text-sm text-gray-500">Accion dependiente: <span class="text-lg font-semibold text-violet-900"> {{ $actividad->accion->Folio }}</span></p>
                     </div>
                 @empty
                     <p class="text-gray-600">No hay actividades registradas.</p>
