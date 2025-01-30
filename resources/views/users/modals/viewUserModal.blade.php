@@ -22,21 +22,23 @@
                      <tr>
                         <td class="font-semibold py-2 px-4 border-b bg-gray-100">Area establecida:</td>
                         <td class="py-2 px-4 border-b">
-                            @if ($user->area_id && $user->area_id->isEmpty()) 
-                                {{ $user->roles->first()->name }}
-                             @else
-                                Sin asignar
-                            @endif
+                            @if ($user->area)
+                            {{ $user->area->nombre }} 
+                        @else
+                            Sin asignar
+                        @endif
+                        
                         </td>
                     </tr>
                     <tr>
                         <td class="font-semibold py-2 px-4 border-b bg-gray-100">Puesto:</td>
                         <td class="py-2 px-4 border-b">
-                            @if ($user->puesto_id && $user->puesto_id->isEmpty()) 
-                                {{ $user->roles->first()->name }}
-                             @else
-                                Sin asignar
-                            @endif
+                            @if ($user->puesto)
+                            {{ $user->puesto->name}} 
+                        @else
+                            Sin asignar
+                        @endif
+                        
                         </td>
                     </tr>
                 </tbody>

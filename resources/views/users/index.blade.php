@@ -80,7 +80,7 @@
                                 Ver
                             </button>
                             <button 
-                                data-modal-toggle="editUserModal-{{ $user['id'] }}" 
+                                data-modal-toggle="addUserModal-{{ $user['id'] }}" 
                                 class="bg-green-600 text-white py-2 px-4 rounded-full hover:bg-green-700 transition">
                                 Agregar
                             </button>
@@ -114,6 +114,10 @@
 @foreach ($users as $user)
     @include('users.modals.deleteUserModal',['user'=>$user])
     @include('users.modals.viewUserModal',['user'=>$user])
+    @include('users.modals.editUserModal',['user'=>$user])
+    @include('users.modals.addUserModal',['user'=>$user])
+
+
 @endforeach
 
 

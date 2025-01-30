@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Areas;
+use App\Models\puesto;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -45,11 +48,13 @@ class UserController extends Controller
         $query->orderBy('name', $order);
         $users = $query->paginate(10)->appends($request->except('page'));;
         $roles = Role::all();
+        $areas = Areas::all();
+        $puestos = puesto::all();
 
-        return view('users.index', compact('users', 'roles'));
+
+
+        return view('users.index', compact('users', 'roles', 'puestos', 'areas'));
     }
-
-
 
     public function store(Request $request)
     {
@@ -68,5 +73,33 @@ class UserController extends Controller
         $user->assignRole($validated['role']);
 
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
+    }
+    public function add(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'area_id' => 'nullable|exists:areas,id',
+            'puesto_id' => 'nullable|exists:puesto,id',
+        ]);
+
+        $user = User::findOrFail($id);
+        $isUpdated = false;
+
+        if (!empty($validate['area_id']) && $user->area_id != $validate['area_id']) {
+            $user->area_id = $validate['area_id'];
+            $isUpdated = true;
+        }
+        if (!empty($validate['puesto_id']) && $user->puesto_id != $validate['puesto_id']) {
+            $user->puesto_id = $validate['puesto_id'];
+            $isUpdated = true;
+        }
+
+        if ($isUpdated) {
+            $user->save();
+            return redirect()->route('users.index')
+                ->with('success', 'Área y puesto asignados correctamente');
+        } else {
+            return redirect()->route('users.index')
+                ->with('info', 'no se realizó ninguna operacion');
+        }
     }
 }

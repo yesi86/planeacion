@@ -46,4 +46,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function area()
+    {
+        return $this->belongsTo(Areas::class, 'area_id');
+    }
+    public function puesto()
+    {
+        return $this->belongsTo(puesto::class, 'puesto_id');
+    }
 }
