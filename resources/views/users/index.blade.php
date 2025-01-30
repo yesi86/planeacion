@@ -2,22 +2,9 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50  px-6"> <!-- Fondo más suave y padding general -->
-    <!-- Mensajes de éxito y error -->
-    @if(session('success')) 
-    <div class="success-message bg-green-500 text-white p-4 rounded-lg shadow-md mb-4">
-        {{ session('success') }}
-    </div>
-    @endif
-    @if (session('error'))
-    <div class="error-message bg-red-500 text-white p-4 rounded-lg shadow-md mb-4">
-        {{ session('error') }}
-    </div>
-    @endif
-    @if(session('info'))
-    <div class="info-message bg-yellow-300 text-black p-4 rounded-lg shadow-md mb-4">
-        {{ session('info') }}
-    </div>
-    @endif
+    <x-modals.modalSuccess/>
+    <x-modals.modalError/>
+    <x-modals.modalInfo/>
 
     <!-- Título principal -->
     <h2 class="text-3xl font-semibold text-gray-800 mb-6">Usuarios de Sistema</h2>
@@ -80,7 +67,7 @@
                     <th class="px-6 py-4 text-center">Acciones</th>
                     <th class="px-6 py-4 text-left">Nombre</th>
                     <th class="px-6 py-4 text-left">Correo</th>
-                    <th class="px-6 py-4 text-left">Rol</th> <!-- Columna para mostrar el rol -->
+                    <th class="px-6 py-4 text-left">Fecha de creacion</th> <!-- Columna para mostrar el rol -->
                 </tr>
             </thead>
             <tbody>
@@ -94,8 +81,8 @@
                             </button>
                             <button 
                                 data-modal-toggle="editUserModal-{{ $user['id'] }}" 
-                                class="bg-yellow-600 text-white py-2 px-4 rounded-full hover:bg-yellow-700 transition">
-                                Editar
+                                class="bg-green-600 text-white py-2 px-4 rounded-full hover:bg-green-700 transition">
+                                Agregar
                             </button>
                             <button 
                                 data-modal-toggle="deleteUserModal-{{ $user['id'] }}" 
@@ -105,13 +92,7 @@
                         </td>
                         <td class="px-6 py-4">{{ $user->name }}</td>
                         <td class="px-6 py-4">{{ $user->email }}</td>
-                        <td class="px-6 py-4">
-                            @if ($user->roles->isNotEmpty()) 
-                                {{ $user->roles->first()->name }}
-                            @else
-                                Sin asignar
-                            @endif
-                        </td>
+                        <td class="px-6 py-4">{{$user->created_at}}</td>
                     </tr>
                 @empty
                     <tr>
@@ -130,5 +111,10 @@
 
 <!-- Incluir el modal desde la carpeta components/modals -->
 @include('users.modals.modaluser')
+@foreach ($users as $user)
+    @include('users.modals.deleteUserModal',['user'=>$user])
+    @include('users.modals.viewUserModal',['user'=>$user])
+@endforeach
+
 
 @endsection

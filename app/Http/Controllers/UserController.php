@@ -65,8 +65,6 @@ class UserController extends Controller
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
-
-        // Asignar el rol al usuario
         $user->assignRole($validated['role']);
 
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');

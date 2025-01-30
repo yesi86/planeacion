@@ -46,25 +46,4 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    // relaciones para area, puestos...
-    public function areasResponsables()
-    {
-        return $this->belongsToMany(AreaResponsable::class, 'user_area_position');
-    }
-
-    public function areasSuperiores()
-    {
-        return $this->belongsToMany(AreaSuperior::class, 'user_area_position');
-    }
-
-    public function departamentos()
-    {
-        return $this->belongsToMany(Departamento::class, 'user_area_position');
-    }
-
-    public function divisiones()
-    {
-        return $this->belongsToMany(DivisionCarrera::class, 'user_area_position');
-    }
 }

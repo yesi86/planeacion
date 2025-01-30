@@ -84,6 +84,28 @@ class ActividadController extends Controller
         return redirect()->route('acciones.index')
             ->with('success', 'Actividad eliminada correctamente');
     }
+    public function update(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'descripcion' => 'nullable|string|max:255',
+        ]);
+
+        $actividad = Actividad::findOrFail($id);
+        $isUpdated = false;
+
+        if (!empty($validate['descripcion']) && $actividad->descripcion != $validate['descripcion']) {
+            $actividad->descripcion = $validate['descripcion'];
+            $isUpdated = true;
+        }
+        if ($isUpdated) {
+            $actividad->save();
+            return redirect()->route('actividad.index')
+                ->with('success', 'actividad actualizada correctamente');
+        } else {
+            return redirect()->route('actividad.index')
+                ->with('info', 'No se realizó ningún cambio');
+        }
+    }
 
     public function imprimir()
     {
