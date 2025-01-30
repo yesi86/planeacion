@@ -77,18 +77,26 @@
                             <button 
                                 data-modal-toggle="viewUserModal-{{ $user['id'] }}" 
                                 class="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 transition">
-                                Ver
+                                    Ver
+                            </button>
+                           
+                            @if(!$user->roles->contains('name', 'SuperAdministrador'))
+                            <button 
+                                data-modal-toggle="editUserModal-{{ $user['id'] }}" 
+                                class="bg-yellow-600 text-white py-2 px-4 rounded-full hover:bg-yellow-700 transition">
+                                    Editar
                             </button>
                             <button 
                                 data-modal-toggle="addUserModal-{{ $user['id'] }}" 
                                 class="bg-green-600 text-white py-2 px-4 rounded-full hover:bg-green-700 transition">
-                                Agregar
+                                    Agregar
                             </button>
                             <button 
                                 data-modal-toggle="deleteUserModal-{{ $user['id'] }}" 
                                 class="bg-red-600 text-white py-2 px-4 rounded-full hover:bg-red-700 transition">
-                                Eliminar
+                                    Eliminar
                             </button>
+                            @endif
                         </td>
                         <td class="px-6 py-4">{{ $user->name }}</td>
                         <td class="px-6 py-4">{{ $user->email }}</td>

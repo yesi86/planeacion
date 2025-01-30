@@ -102,4 +102,42 @@ class UserController extends Controller
                 ->with('info', 'no se realizó ninguna operacion');
         }
     }
+    public function update(Request $request, $id)
+    {
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'role' => 'required|exists:roles,name',
+            ]);
+
+            $user = User::findOrFail($id);
+
+            if ($user->name === $validated['name'] && $user->roles->first()->name === $validated['role']) {
+                return redirect()->route('users.index')->with('info', 'No se realizó ningún cambio.');
+            }
+
+            $user->name = $validated['name'];
+
+            if ($user->roles->first()->name !== $validated['role']) {
+                $user->roles()->detach();
+                $user->assignRole($validated['role']);
+            }
+
+            $user->save();
+
+            return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('users.index')->with('error', 'Ocurrió un error al actualizar: ' . $e->getMessage());
+        }
+    }
+    public function destroy($id)
+    {
+        $delete = User::findOrFail($id);
+        try {
+            $delete->delete();
+            return redirect()->route('users.index')->with('success', 'usuario Eliminado exitosamente');
+        } catch (\Exception $e) {
+            return redirect()->route('users.index')->with('error', 'Error al eliminar el puesto.');
+        }
+    }
 }

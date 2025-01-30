@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/', [UserController::class, 'store'])->name('users.store');
         Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
         Route::put('/agregar/{id}', [UserController::class, 'add'])->name('users.add');
+        Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
     })->middleware('role:SuperAdministrador|Administrador');
 
     // ruta de puestos
