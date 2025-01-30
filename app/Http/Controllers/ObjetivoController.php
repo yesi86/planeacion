@@ -110,4 +110,10 @@ class ObjetivoController extends Controller
             return redirect()->route('objetivos.index')->with('error', 'Error al eliminar el puesto.');
         }
     }
+    public function imprimir()
+    {
+        $objetivos = Objetivo::all();
+
+        return response()->view('objetivos.imprimir', compact('objetivos'));
+    }
 }
