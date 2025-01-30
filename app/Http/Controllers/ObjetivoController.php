@@ -112,7 +112,7 @@ class ObjetivoController extends Controller
     }
     public function imprimir()
     {
-        $objetivos = Objetivo::all();
+        $objetivos = Objetivo::query()->with(['areas'])->get();
 
         return response()->view('objetivos.imprimir', compact('objetivos'));
     }

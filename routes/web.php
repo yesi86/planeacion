@@ -108,6 +108,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //ruta para diccionario
     Route::prefix('diccionario')->group(function () {
         Route::get('/', [DiccionarioController::class, 'index'])->name('diccionario.index');
+        Route::get('/imprimir', [DiccionarioController::class, 'imprimir'])->name('diccionario.imprimir');
     })->middleware('role:SuperAdministrador|Administrador');
 });
 

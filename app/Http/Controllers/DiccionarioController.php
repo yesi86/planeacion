@@ -19,4 +19,13 @@ class DiccionarioController extends Controller
         // Retornar vista con los datos obtenidos
         return view('diccionario.index', compact('objetivos', 'acciones', 'actividades'));
     }
+
+    public function imprimir()
+    {
+        $objetivos = Objetivo::all();
+        $acciones = Acciones::all();
+        $actividades = Actividad::all();
+
+        return response()->view('diccionario.imprimir', compact('actividades', 'acciones', 'objetivos'));
+    }
 }

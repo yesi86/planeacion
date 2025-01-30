@@ -28,6 +28,7 @@
                 class="bg-indigo-800 text-white py-2 px-4 rounded-lg hover:bg-indigo-900 transition">
                 Buscar
             </button>
+           
         </form>
 
         <!-- Filtros y Crear Objeto -->
@@ -47,6 +48,11 @@
             <button data-modal-toggle="createObjetivoModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
                 Crear objetivo
             </button>
+            <a href="{{ route('objetivos.imprimir') }}" 
+                target="_blank" 
+                class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
+                    <i class="fas fa-print"></i>
+            </a>
         </div>
     </div>
 
