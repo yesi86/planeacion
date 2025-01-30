@@ -13,7 +13,7 @@ class AdminController extends Controller
 
         /** @var \App\Models\User|null $user */
         $user = Auth::user();
-        $user->load('puesto', 'area','roles');
+        $user->load('puesto', 'area', 'roles');
 
         if (!$user->hasRole('Administrador')) {
             if ($user->hasRole('SuperAdministrador')) {
@@ -23,6 +23,7 @@ class AdminController extends Controller
             return redirect()->route('general')
                 ->with('alert', 'No tienes permisos para acceder a esta página');
         }
+
         return view('dashboard.admin', compact('user'));
     }
 }
