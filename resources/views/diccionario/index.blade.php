@@ -2,92 +2,65 @@
 
 @section('content')
 
-<div class="min-h-screen bg-gray-50 px-6 flex flex-col"> <!-- Fondo más suave y padding general -->
-    <!-- Tabla de objetivos -->
-<h2 class="text-3xl font-semibold text-gray-800 mb-6">Objetivos</h2>
-<div class="overflow-x-auto max-h-[400px] bg-white shadow-md rounded-lg"> <!-- Estilo de contenedor de tabla -->
-    <table class="w-full border-collapse">
-        <thead>
-            <tr class="bg-indigo-800 text-white">
-                <th class="px-6 py-4 text-left">Folio</th>
-                <th class="px-6 py-4 text-left">Descripcion</th>
-                <th class="px-6 py-4 text-left">Num Areas Afectadas</th> <!-- Nueva columna -->
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($objetivos as $objetivo)
-                <tr class="border-t hover:bg-gray-100">
-                    <td class="px-6 py-4">{{ $objetivo->Folio }}</td>
-                    <td class="px-6 py-4">{{ $objetivo->descripcion }}</td>
-                    <td class="px-6 py-4">{{ $objetivo->num_areas_afectadas }}</td> <!-- Número de áreas -->
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="4" class="text-center py-4">Ningún Registro Guardado</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+<div class="min-h-screen bg-gray-50 px-6 py-8 flex flex-col items-center">
+    <h1 class="text-4xl font-bold text-gray-900 mb-8">Reporte general</h1>
+    <!-- Contenedor principal con scrollbar -->
+    <div class="w-full max-w-5xl space-y-8 overflow-y-auto max-h-[600px] p-4 bg-white shadow-lg rounded-lg">
+        
+        <!-- Sección de Objetivos -->
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-indigo-500 pb-2 mb-4">Objetivos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @forelse ($objetivos as $objetivo)
+                    <div class="bg-gray-100 p-4 shadow-md rounded-lg term-item">
+                        <h3 class="text-lg font-semibold text-indigo-700">{{ $objetivo->Folio }}</h3>
+                        <p class="text-gray-700">{{ $objetivo->descripcion }}</p>
+                        <p class="text-gray-700">Areas afectadas:</p>
+                        @foreach ($objetivo->areas as $area)
+                        <ul>
+                            <li class="py-2 px-4 border-b">{{ $area->nombre }}</li>
+                        </ul>
+                        @endforeach
+                    </div>
+                @empty
+                    <p class="text-gray-600">No hay objetivos registrados.</p>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- Sección de Acciones -->
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-indigo-500 pb-2 mb-4">Acciones</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @forelse ($acciones as $accion)
+                    <div class="bg-gray-100 p-4 shadow-md rounded-lg term-item">
+                        <h3 class="text-lg font-semibold text-indigo-700">{{ $accion->Folio }}</h3>
+                        <p class="text-gray-700">{{ $accion->descripcion }}</p>
+                        <span class="text-sm text-gray-500">Capítulo: {{ $accion->capitulo }}</span>
+                    </div>
+                @empty
+                    <p class="text-gray-600">No hay acciones registradas.</p>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- Sección de Actividades -->
+        <div>
+            <h2 class="text-2xl font-semibold text-gray-800 border-b-2 border-indigo-500 pb-2 mb-4">Actividades</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @forelse ($actividades as $actividad)
+                    <div class="bg-gray-100 p-4 shadow-md rounded-lg term-item">
+                        <h3 class="text-lg font-semibold text-indigo-700">{{ $actividad->Folio }}</h3>
+                        <p class="text-gray-700">{{ $actividad->descripcion }}</p>
+                        <span class="text-sm text-gray-500">Capítulo: {{ $actividad->capitulo }} | Partida: {{ $actividad->partida }}</span>
+                    </div>
+                @empty
+                    <p class="text-gray-600">No hay actividades registradas.</p>
+                @endforelse
+            </div>
+        </div>
+
+    </div>
 </div>
-
-<!-- Tabla de acciones -->
-<h2 class="mt-2 text-3xl font-semibold text-gray-800 mb-6">Acciones</h2>
-<div class="overflow-x-auto max-h-[400px] bg-white shadow-md rounded-lg"> <!-- Estilo de contenedor de tabla -->
-    <table class="w-full border-collapse">
-        <thead>
-            <tr class="bg-indigo-800 text-white">
-                <th class="px-6 py-4 text-left">Folio</th>
-                <th class="px-6 py-4 text-left">Descripcion</th>
-                <th class="px-6 py-4 text-left">Capitulo</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($acciones as $accion)
-                <tr class="border-t hover:bg-gray-100">
-                    <td class="px-6 py-4">{{ $accion->Folio }}</td>
-                    <td class="px-6 py-4">{{ $accion->descripcion }}</td>
-                    <td class="px-6 py-4">{{ $accion->capitulo }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="4" class="text-center py-4">Ningún Registro Guardado</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-
-<!-- Tabla de actividades -->
-<h2 class="mt-2 text-3xl font-semibold text-gray-800 mb-6">Actividades</h2>
-<div class="overflow-x-auto max-h-[400px] bg-white shadow-md rounded-lg"> <!-- Estilo de contenedor de tabla -->
-    <table class="w-full border-collapse">
-        <thead>
-            <tr class="bg-indigo-800 text-white">
-                <th class="px-6 py-4 text-left">Folio</th>
-                <th class="px-6 py-4 text-left">Descripcion</th>
-                <th class="px-6 py-4 text-left">Capitulo</th>
-                <th class="px-6 py-4 text-left">Partida</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($actividades as $actividad)
-                <tr class="border-t hover:bg-gray-100">
-                    <td class="px-6 py-4">{{ $actividad->Folio }}</td>
-                    <td class="px-6 py-4">{{ $actividad->descripcion }}</td>
-                    <td class="px-6 py-4">{{ $actividad->capitulo }}</td>
-                    <td class="px-6 py-4">{{ $actividad->partida }}</td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="4" class="text-center py-4">Ningún Registro Guardado</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-</div>
-
-
-
 
 @endsection

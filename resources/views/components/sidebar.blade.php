@@ -101,21 +101,11 @@
 
             <!-- Botón Diccionario -->
             <x-buttom_sidebar 
-                etiqueta="Diccionario"
+                etiqueta="Reporte General"
                 path="{{route('diccionario.index')}}"
                 :disabled="false" 
-                icon="fas fa-chart-line"
+                icon="fas fa-inbox"
             />
-
-            <!-- Botón Planificación -->
-            <x-buttom_sidebar 
-                etiqueta="Modulo planeacion"
-                path="planeacion"
-                :ruta="request()->routeIs('planeacion')"
-                :disabled="false"
-                icon="fas fa-tasks"
-            />
-
             <!-- Botón Notificaciones -->
             <x-buttom_sidebar 
                 etiqueta="Notificaciones"
