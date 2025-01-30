@@ -10,6 +10,9 @@
             /* Opcional: Ocultar elementos que no sean parte de la impresión */
             body { margin: 0; padding: 0; }
             a { display: none; }
+            .no-print { 
+                display: none;
+            }
         }
     </style>
 </head>
@@ -31,6 +34,12 @@
             </tbody>
         </table>
     </div>
+     <!-- Botón de impresión -->
+     <div class="text-center no-print mt-6">
+        <button onclick="window.print()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+            Imprimir puestos
+        </button>
+        </div>
     <script>
         // Imprimir automáticamente al cargar la página
         window.onload = function() {

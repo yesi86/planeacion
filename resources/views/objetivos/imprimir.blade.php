@@ -26,7 +26,7 @@
                 <tr class="bg-gray-200 text-left">
                     <th class="py-2 px-4 border-b border-gray-300">Folio</th>
                     <th class="py-2 px-4 border-b border-gray-300">Descripcion</th>
-                    <th class="py-2 px-4 border-b border-gray-300">Areas</th>
+                    <th class="py-2 px-4 border-b border-gray-300">Areas Afectadas</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,9 +36,9 @@
                         <td class="px-6 py-4">{{ $objetivo['descripcion'] }}</td>
                         <td class="px-6 py-4">
                             @foreach ($objetivo->areas as $area)
-                                <ul>
-                                    <li class="py-2 px-4 border-b">{{ $area->nombre }}</li>
-                                </ul>
+                            <ul class="list-disc list-inside">
+                                <li class="py-2 px-4 border-b">{{ $area->nombre }}</li>
+                            </ul>
                              @endforeach
                         </td>
                     </tr>
