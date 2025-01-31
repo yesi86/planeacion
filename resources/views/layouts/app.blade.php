@@ -34,7 +34,7 @@
                 @endisset
 
                 <!-- Navbar -->
-                <x-navbar/>
+                {{-- <x-navbar/> --}}
                 
                 <!-- Page Content -->
                 <main>

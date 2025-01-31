@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 px-6"> <!-- Fondo más suave y padding general -->
+<div class="min-h-screen bg-gray-50 px-6 pt-6"> <!-- Fondo más suave y padding general -->
     
     <!-- Mensajes de éxito y error -->
     <x-modals.modalSuccess/>

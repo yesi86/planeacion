@@ -106,14 +106,20 @@
                 :disabled="false" 
                 icon="fas fa-inbox"
             />
-            <!-- Botón Notificaciones -->
+            <!--Boton de salir  -->
             <x-buttom_sidebar 
-                etiqueta="Notificaciones"
-                path="notificacion"
-                :ruta="request()->routeIs('notificacion')"
-                :disabled="false"
-                icon="fas fa-bell"
-            />
+                etiqueta="Salir"
+    path=""
+    :ruta="request()->routeIs('notificacion')"
+    :disabled="false"
+    icon="fas fa-right-from-bracket"
+    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+/>
+
+<form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
+    @csrf
+</form>
+
         </div>
     </div>
 </aside>

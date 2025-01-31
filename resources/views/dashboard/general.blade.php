@@ -6,6 +6,8 @@
     <x-modals.modalSuccess/>
     <x-modals.modalError/>
     <x-modals.modalInfo/>
+    <x-modals.modalAlert /> 
+
 
 
     <!-- Título principal -->
