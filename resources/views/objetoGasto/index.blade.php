@@ -8,9 +8,9 @@
     <x-modals.modalError/>
     <x-modals.modalInfo/>
 
-    <div class="absolute top-4 right-4 text-sm text-gray-700 border border-gray-300 rounded-lg px-4 py-2">
+    <a href="{{ route('profile.show') }}" class="absolute top-4 right-4 text-sm text-gray-700 border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-200 transition duration-200">
         {{ Auth::user()->name }}
-    </div>
+    </a>
     <!-- Título principal -->
     <h2 class="text-3xl font-semibold text-gray-800 mb-6">Catálogo de Objetos del Gasto</h2>
 

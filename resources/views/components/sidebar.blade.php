@@ -13,12 +13,6 @@
       
         <!-- Botones de la Sidebar -->
         <div class="flex flex-col p-3 h-full overflow-y-auto gap-y-2 mt-12">
-            <x-buttom_sidebar
-                etiqueta="{{Auth::user()->name}}"
-                path="{{ route('profile.show') }}"
-                :disable="false"
-                icon="fas fa-user"
-             />
             
             {{-- rutas para usuario general --}}
             @if(auth()->check() && auth()->user()->hasRole('Titular De Area|Responsable De Area|Delegado|Jefe De Carrera'))
@@ -113,19 +107,26 @@
                 :disabled="false" 
                 icon="fas fa-inbox"
             />
+            <x-buttom_sidebar
+                etiqueta="Perfil"
+                path="{{ route('profile.show') }}"
+                :disable="false"
+                icon="fas fa-user"
+             />
             <!--Boton de salir  -->
             <x-buttom_sidebar 
                 etiqueta="Salir"
-    path=""
-    :ruta="request()->routeIs('notificacion')"
-    :disabled="false"
-    icon="fas fa-right-from-bracket"
-    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-/>
-
-<form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
-    @csrf
-</form>
+                path=""
+                :ruta="request()->routeIs('notificacion')"
+                :disabled="false"
+                icon="fas fa-right-from-bracket"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+            />
+            <form id="logout-form" method="POST" action="{{ route('logout') }}" class="hidden">
+                @csrf
+            </form>
+            
+           
 
         </div>
     </div>
