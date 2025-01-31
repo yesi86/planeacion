@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 px-6 flex flex-col"> <!-- Fondo más suave y padding general -->
+<div class="min-h-screen bg-gray-50 px-6 pt-6 flex flex-col relative"> <!-- Fondo más suave y padding general -->
    
     <x-modals.modalSuccess/>
     <x-modals.modalError/>
     <x-modals.modalInfo/>
 
+    <div class="absolute top-4 right-4 text-sm text-gray-700 border border-gray-300 rounded-lg px-4 py-2">
+        {{ Auth::user()->name }}
+    </div>
     <!-- Título principal -->
     <h2 class="text-3xl font-semibold text-gray-800 mb-6">Gestión de Áreas</h2>
 

@@ -1,93 +1,65 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 px-6 py-4">
+<div class="min-h-screen bg-gray-50 px-6 py-4 pt-6 relative">
     <!-- Mensajes de éxito y error -->
     <x-modals.modalSuccess/>
     <x-modals.modalError/>
     <x-modals.modalInfo/>
     <x-modals.modalAlert /> 
 
-    <!-- Encabezado del dashboard -->
-    <div class="flex justify-between items-center mb-6">
-        <!-- Título principal -->
-        <h2 class="text-3xl font-semibold text-gray-800">Módulo de Planeación</h2>
-
-        <!-- Widget de perfil del usuario -->
-        <div class="bg-white shadow-md rounded-lg p-4 w-72">
-            <h3 class="text-lg font-semibold text-gray-700 mb-2">Perfil de Usuario</h3>
-            <table class="text-sm w-full">
-                <tr>
-                    <td class="font-medium text-gray-600">Rol:</td>
-                    <td class="text-gray-800">{{ $user->roles->first()->name }}</td>
-                </tr>
-                <tr>
-                    <td class="font-medium text-gray-600">Área:</td>
-                    <td class="text-gray-800">
-                        @if ($user->area)
-                            {{ $user->area->nombre }}
-                        @else
-                            <span class="text-gray-500">Sin asignar</span>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td class="font-medium text-gray-600">Puesto:</td>
-                    <td class="text-gray-800">
-                        @if ($user->puesto)
-                            {{ $user->puesto->name }}
-                        @else
-                            <span class="text-gray-500">Sin asignar</span>
-                        @endif
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <!-- Nombre del usuario en la esquina superior derecha -->
+    <div class="absolute top-4 right-4 text-sm text-gray-700 border border-gray-300 rounded-lg px-4 py-2">
+        {{ Auth::user()->name }}
     </div>
 
-    <!-- Filtros y Buscador -->
-    <div class="flex items-center justify-between mb-6 bg-white p-4 shadow-md rounded-lg">
-        <!-- Buscador -->
-        <form method="GET" action="" class="flex items-center space-x-2">
-            <input 
-                type="text" 
-                name="search" 
-                value="{{ request('search') }}" 
-                placeholder="Buscar Folio o Descripción..." 
-                class="border border-gray-300 rounded-full px-6 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
-            >
-            <button 
-                type="submit" 
-                class="bg-indigo-800 text-white py-2 px-4 rounded-lg hover:bg-indigo-900 transition">
-                Buscar
-            </button>
-        </form>
+        <!-- Título principal -->
+        <h2 class="text-3xl font-semibold text-gray-800 mb-6">Módulo de Planeación</h2>
 
-        <!-- Filtros y Crear Objeto -->
-        <div class="flex items-center space-x-4">
+        <!-- Filtros y Buscador -->
+    <div class="flex items-center justify-between mb-6 bg-white p-4 shadow-md rounded-lg">
+       
+            <!-- Buscador -->
             <form method="GET" action="" class="flex items-center space-x-2">
-                <select 
-                    name="order" 
+                <input 
+                    type="text" 
+                    name="search" 
+                    value="{{ request('search') }}" 
+                    placeholder="Buscar Folio o Descripción..." 
                     class="border border-gray-300 rounded-full px-6 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
-                    onchange="this.form.submit()">
-                    <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>A-Z</option>
-                    <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
-                </select>
+                >
+                <button 
+                    type="submit" 
+                    class="bg-indigo-800 text-white py-2 px-4 rounded-lg hover:bg-indigo-900 transition">
+                    Buscar
+                </button>
             </form>
 
-            <!-- Botón Crear Objetivo -->
-            <button data-modal-toggle="createObjetivoModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
-                Agregar Objetivo
-            </button>
-            
-            <!-- Botón Imprimir -->
-            <a href="" 
-                target="_blank" 
-                class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
-                <i class="fas fa-print"></i>
-            </a>
+            <!-- Filtros y Crear Objeto -->
+            <div class="flex items-center space-x-4">
+                <form method="GET" action="" class="flex items-center space-x-2">
+                    <select 
+                        name="order" 
+                        class="border border-gray-300 rounded-full px-6 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
+                        onchange="this.form.submit()">
+                        <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>A-Z</option>
+                        <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Z-A</option>
+                    </select>
+                </form>
+
+                <!-- Botón Crear Objetivo -->
+                <button data-modal-toggle="createObjetivoModal" class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
+                    Agregar Objetivo
+                </button>
+                
+                <!-- Botón Imprimir -->
+                <a href="" 
+                    target="_blank" 
+                    class="bg-indigo-800 text-white py-2 px-4 rounded-full hover:bg-indigo-900 transition">
+                    <i class="fas fa-print"></i>
+                </a>
+            </div>
         </div>
-    </div>
 
     <!-- Tabla de Objetivos -->
     <div class="overflow-x-auto max-h-[400px] bg-white shadow-md rounded-lg">

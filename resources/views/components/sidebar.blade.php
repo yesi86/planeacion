@@ -13,6 +13,13 @@
       
         <!-- Botones de la Sidebar -->
         <div class="flex flex-col p-3 h-full overflow-y-auto gap-y-2 mt-12">
+            <x-buttom_sidebar
+                etiqueta="{{Auth::user()->name}}"
+                path="{{ route('profile.show') }}"
+                :disable="false"
+                icon="fas fa-user"
+             />
+            
             {{-- rutas para usuario general --}}
             @if(auth()->check() && auth()->user()->hasRole('Titular De Area|Responsable De Area|Delegado|Jefe De Carrera'))
             <!-- Botón para roles generales -->
