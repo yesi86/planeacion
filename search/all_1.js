@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['migration_1',['Migration',['../classMigration.html',1,'']]]
+  ['buttom_5fsidebar_2eblade_2ephp_5',['buttom_sidebar.blade.php',['../buttom__sidebar_8blade_8php.html',1,'']]]
 ];
