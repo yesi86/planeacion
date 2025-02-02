@@ -1,3 +1,8 @@
+<!--
+@file dashboard.blade.php
+@brief Vista principal para el dashboard de usuario.
+-->
+
 @extends('layouts.app') <!-- Extiende el layout principal -->
 
 @section('content') <!-- Inicia la sección de contenido que se inyectará en el layout -->
