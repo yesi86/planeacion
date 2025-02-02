@@ -1,0 +1,1 @@
+<?php /**PATH /var/www/html/resources/views/acciones/modals/viewAccionModal.blade.php ENDPATH**/ ?>
