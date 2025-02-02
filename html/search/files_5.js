@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['forgot_2dpassword_2eblade_2ephp_97',['forgot-password.blade.php',['../forgot-password_8blade_8php.html',1,'']]]
+  ['forgot_2dpassword_2eblade_2ephp_99',['forgot-password.blade.php',['../forgot-password_8blade_8php.html',1,'']]]
 ];
